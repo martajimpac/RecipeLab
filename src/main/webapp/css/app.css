@@ -6,10 +6,6 @@ body {
                             "footer";
 }
 
-a { 
-    color: white;
-}
-
 nav {
     grid-area: topbar;
     position: fixed;
@@ -127,3 +123,72 @@ footer {
     height: 30px;
     margin-top: 20px;
 }
+/*Inicio sesion*/
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #ff9900;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+input[type=submit]:hover {
+  background-color: #595959;
+}
+
+.inicioSesion {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  width: 40%;
+  margin: auto;
+  /*meter marginTop y marginAbajo*/
+}
+
+.noRegistrado {
+    text-align: center;
+    font-size: 25px;
+    margin-top: 25px;
+}
+
+button {
+  width: 100%;
+  background-color: #ff9900;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+button:hover {
+  background-color: #595959;
+}
+
