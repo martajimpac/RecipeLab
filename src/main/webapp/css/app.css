@@ -123,6 +123,7 @@ footer {
     height: 30px;
     margin-top: 20px;
 }
+
 /*Inicio sesion*/
 
 input[type=text], select {
@@ -192,3 +193,81 @@ button:hover {
   background-color: #595959;
 }
 
+/*-------------- Perfil --------------*/
+.top-perfil {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin: 1rem 0 2.5rem 2rem;
+}
+
+.top-perfil__left {
+    flex: 1;
+}
+
+.top-perfil__left img{
+    display: block;
+    height: 2.5rem;
+}
+
+.top-perfil::after {
+    flex: 1;
+    content: ' ';
+}
+
+.info-perfil {
+    display: grid;
+    grid-template-columns: 20% fit-content(50%) 5%;
+    grid-template-rows: 100%;
+}
+.info-perfil__avatar {
+    display: block;
+    height: 15rem;
+    margin: 0 auto;
+}
+
+.valoracion { 
+    display: block;
+    width: 10rem;
+}
+
+.info-perfil__editar {
+    margin-left: 2rem;
+    background: none;
+    border: none;
+}
+
+.info-perfil__editar img{
+    display: block;
+    height: 1.5rem;
+}
+
+.info-perfil__editar:hover{
+    height: 2rem;
+}
+
+.info-perfil__actividad{
+    margin-top: 2.5rem;
+    grid-column: 2 / 3;
+    gap: 10rem;
+}
+
+.recetas-perfil{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 2rem;
+}
+
+.recetas-perfil__receta{
+    padding: .5rem;
+    border: 1px solid gray;
+}
+
+.receta__imagen {
+    display: block;
+    height: 10rem;
+    object-fit: cover;
+    width: 100%;
+    height: 50vh;
+}
+/*---------------------------------*/
