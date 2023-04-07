@@ -4,80 +4,83 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
 -->
 <html>
-    <head>
-        <title>Iniciar Sesion</title>
-        <link rel="icon" type="image/png" href="images/logoPestanna.png" />
-        
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <LINK rel="stylesheet" type="text/css" href="css/app.css" />
-    </head>
-    <body>
-        <nav>
-            <div class="topbar-logo">                
-                <a href="index.html">
-                    <img src="images/logo.png" alt="logo" class="imagen-logo"/>
-                </a>
-            </div>
+<head>
+    <title>Iniciar Sesion</title>
+    <link rel="icon" type="image/png" href="images/logoPestanna.png" />
 
-            <div class="topbar-login">
-                <a href="login.html">
-                    <img src="images/login.png" alt="inicio de sesion" class="imagen-login"/>
-                </a>
-            </div>
-        </nav>
-        
-        
-        <div class="contenido">
-            
-            <br><br><br>
-            
-            <div class="inicioSesion">
-                <form method="POST">
-                    <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
-                    <input type="password" id="contrasena" name="contrasena" placeholder="Constraseña" required>
-                    <p><a href="olvidoContrasena.html">¿Has olvidado la contraseña?</a></p>
-                    <input type="submit" value="Iniciar Sesión">
-                    
-                    <p class="noRegistrado">¿Aún no tienes cuenta?</p>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-                </form>
-                <button onclick="document.location='registro.html'">Regístrate</button>
-            </div>
-            <br><br><br>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <LINK rel="stylesheet" type="text/css" href="css/app.css" />
+</head>
+<body>
+
+
+    <nav>
+        <div class="topbar-logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="logo" class="imagen-logo"/>
+            </a>
         </div>
-        
-        
-        <footer>
-           <div class="footer-logo">
-                <img src="images/logoFooter.png" alt="Logo RecipeLab" class="imagen-logo-footer">
-            </div>
-                
-            <div class="footer-nombre">   
-                <p>RecipeLab 2023</p>
-            </div>
 
-            <div class="footer-twitter">
-                <a href="#">
-                    <img src="images/logoTwitter.png" alt="Logo Twitter" class="imagen-logo-twitter"/>
-                </a>
-            </div>
-                
-            <div class="footer-instagram">
-                <a href="#">
-                    <img src="images/logoInstagram.png" alt="Logo Instagram" class="imagen-logo-instagram"/>
-                </a>
-            </div>     
-                
-            <div class="footer-facebook">
-                <a href="#">
-                <img src="images/logoFacebook.png" alt="Logo Facebook" class="imagen-logo-facebook"/>
-                </a>
-            </div>
-        </footer>
-   
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    </body>
+        <div class="topbar-login">
+            <a href="login.html">
+                <img src="images/login.png" alt="inicio de sesion" class="imagen-nav"/>
+            </a>
+        </div>
+    </nav>
+
+
+<div class="container-sm contenido">
+
+    <br><br><br>
+
+    <div class="inicioSesion">
+        <form method="POST" action="sesionIniciada.html">
+            <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Constraseña" required>
+            <p><a href="olvidoContrasena.html">¿Has olvidado la contraseña?</a></p>
+            <input type="submit" value="Iniciar Sesión">
+
+            <p class="noRegistrado">¿Aún no tienes cuenta?</p>
+
+        </form>
+        <button onclick="document.location='registro.html'">Regístrate</button>
+    </div>
+    <br><br><br>
+</div>
+    <footer>
+        <div class="footer-logo">
+            <img src="images/logoFooter.png" alt="Logo RecipeLab" class="imagen-logo-footer">
+        </div>
+
+        <div class="footer-nombre">
+            <p>RecipeLab 2023</p>
+            <a href="sobreNosotros.html">
+                <u>Sobre nosotros</u>
+            </a>
+        </div>
+
+        <div class="footer-twitter">
+            <a href="#">
+                <img src="images/logoTwitter.png" alt="Logo Twitter" class="imagen-red-social"/>
+            </a>
+        </div>
+
+        <div class="footer-instagram">
+            <a href="#">
+                <img src="images/logoInstagram.png" alt="Logo Instagram" class="imagen-red-social"/>
+            </a>
+        </div>
+
+        <div class="footer-facebook">
+            <a href="#">
+                <img src="images/logoFacebook.png" alt="Logo Facebook" class="imagen-red-social"/>
+            </a>
+        </div>
+    </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
 </html>

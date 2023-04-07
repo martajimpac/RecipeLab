@@ -1,8 +1,7 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Página de inicio</title>
     <link rel="icon" type="image/png" href="images/logoPestanna.png" />
 
@@ -18,64 +17,73 @@
 <!-- ***************************************************************************************************************** -->
 
 <nav>
-    <div class="topbar-logo">                
-        <a href="index.html">
+    <div class="topbar-logo">
+        <a href="sesionIniciada.html">
             <img src="images/logo.png" alt="logo" class="imagen-logo"/>
         </a>
     </div>
 
     <div class="topbar-login">
-        <a href="login.html">
-            <img src="images/login.png" alt="inicio de sesion" class="imagen-nav"/>
+        
+        <a href="nuevaReceta.html">
+            <img src="images/anadir.png" alt="añadir receta" class="imagen-nav"/>
         </a>
+        <!-- TODO: AÑADIR DESPLEGABLE -->
+        <img src="images/mensaje.png" alt="ver mensajes" class="imagen-nav"/>
+        <a href="listas.html">
+            <img src="images/corazon.png" alt="ver mis listas" class="imagen-nav"/>
+        </a>
+        <!-- TODO: AÑADIR DESPLEGABLE -->
+        <img src="images/login.png" alt="inicio de sesion" class="imagen-nav"/>
+        
     </div>
 </nav>
 <!-- ***************************************************************************************************************** -->
 <!-- Cuerpo de la pagina                                                                                               -->
 <!-- ***************************************************************************************************************** -->
 <div class="container-sm contenido">
-
     <!-- ***************************************************************************************************************** -->
     <!-- Buscador                                                                                                          -->
     <!-- ***************************************************************************************************************** -->
 
-    <form class="buscador" method="POST" action=""> <!--Llamar aqui al servlet -->
+    <form class="buscador" method="POST" action="resultadosRecetas.html"> <!--Llamar aqui al servlet -->
         <input type="text" name="busqueda" placeholder="Buscar...">
         <select class="botonDesplegable" name="busqueda">
             <option value=""> Recetas </option>
             <option value="1"> Personas </option>
         </select>
-        <button id="buscar" class="btn btn-secondary"  type="submit" >Buscar</button>
-
-    <!-- Ver filtros -->
-    <p>
-        <a class="botonDesplegable" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            Ver filtros<img class="flecha" src="images/flecha_abajo.png" alt="logo"/>
+        <button onclick="document.location='resultadosRecetas.html'" id="buscarRecetas" class="btn btn-secondary"  type="submit" >Buscar recetas</button>
+        <a href="resultadosPersonas.html">
+            <h6 class="strong">Buscar personas</h6>
         </a>
-    </p>
-    <div class="collapse" id="collapseExample">
-        <div class="card card-body filtros">
+        <!-- Ver filtros -->
+        <p>
+            <a class="botonDesplegable" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                Ver filtros<img class="flecha" src="images/flecha_abajo.png" alt="logo"/>
+            </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body filtros">
 
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col">
-                        <label for="precio-slider">Precio:</label>
-                        <input type="range" class="filtro-slider" id="precio-slider" min="0" max="100" value="50" step="1">
-                        <p>Valor: <span id="precio-value"></span> €</p>
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col">
+                            <label for="precio-slider">Precio:</label>
+                            <input type="range" class="filtro-slider" id="precio-slider" min="0" max="100" value="50">
+                            <p>Valor: <span id="precio-value"></span> €</p>
+                        </div>
+                        <div class="col">
+                            <label for="duracion-slider">Duración:</label>
+                            <input type="range" class="filtro-slider" id="duracion-slider" min="0" max="100" value="50">
+                            <p>Valor: <span id="duracion-value"></span> €</p>
+                        </div>
                     </div>
-                    <div class="col">
-                        <label for="duracion-slider">Duración:</label>
-                        <input type="range" class="filtro-slider" id="duracion-slider" min="0" max="100" value="50" step="1">
-                        <p>Valor actual: <span id="duracion-value"></span>h</p>
-                        <!--TODO añadir javascript para terminar esto-->
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col">
-                        <span id="categoria-texto">Ingredientes</span>
-                        <select id="categoria-selector" class="botonDesplegable" name="busqueda"> <!--TODO: TERMINAR ESTO, COMO PONER UNA OPCION POR DEFECTO?-->
-                            <option value="0"> Ingredientes</option>
+                    <div class="row">
+                        <div class="col">
+                            <span id="categoria-texto">Ingredientes</span>
+                            <select class="botonDesplegable" name="busqueda"> <!--TODO: TERMINAR ESTO, COMO PONER UNA OPCION POR DEFECTO?-->
+                            <option value=""> Ingredientes</option>
                             <option value="1"> Aceites y grasas</option>
                             <option value="2"> Carne</option>
                             <option value="3"> Pescado</option>
@@ -89,31 +97,33 @@
                             <option value="11"> Legumbres</option>
                             <option value="12"> Verduras</option>
                             <option value="13"> Otros</option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <span id="dificultad-texto">Dificultad</span>
-                        <select id="dificultad-selector" class="botonDesplegable" name="busqueda">
-                            <option value="1" selected> Fácil </option>
-                            <option value="2"> Media </option>
-                            <option value="3"> Difícil </option>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <div class="rating">
-                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
-                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
-                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
-                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
-                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <select class="botonDesplegable" name="busqueda">
+                                <option value=""> Dificultad </option>
+                                <option value="1"> Fácil </option>
+                                <option value="1"> Media </option>
+                                <option value="1"> Difícil </option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <div class="rating">
+                                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
+                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </form>
-    
+
+
+
     <!-- ***************************************************************************************************************** -->
     <!-- Slider                                                                                                            -->
     <!-- ***************************************************************************************************************** -->
@@ -127,30 +137,30 @@
                 </a>
                 <div class="div-sobre-imagen">
                     <h5> Nombre receta </h5>
-                     <div class="info-receta">
-                         <div class="item">
-                             <img src="./images/estrella.png" alt="valoracion">
-                             <img src="./images/estrella.png" alt="valoracion">
-                             <img src="./images/estrella.png" alt="valoracion">
-                         </div>
-                         <div class="item">
-                             <img src="images/personas.png" alt="numero personas">
-                             <p> Número de comensales </p>
-                         </div>
-                         <div class="item">
-                             <img src="./images/reloj.png" alt="duracion">
-                             <p> Duración </p>
-                         </div>
-                         <div class="item">
+                    <div class="info-receta">
+                        <div class="item">
+                            <img src="./images/estrella.png" alt="valoracion">
+                            <img src="./images/estrella.png" alt="valoracion">
+                            <img src="./images/estrella.png" alt="valoracion">
+                        </div>
+                        <div class="item">
+                            <img src="images/personas.png" alt="numero personas">
+                            <p> Número de comensales </p>
+                        </div>
+                        <div class="item">
+                            <img src="./images/reloj.png" alt="duracion">
+                            <p> Duración </p>
+                        </div>
+                        <div class="item">
                             <strong> €€ </strong>
-                         </div>
-                         <div class="item">
+                        </div>
+                        <div class="item">
                             <p> Fácil </p>
-                         </div>
-                         <div class="item">
+                        </div>
+                        <div class="item">
                             <p> Los ingredientes están disponibles</p>
-                         </div>
-                     </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="carousel-item">
@@ -227,7 +237,99 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+
+    <!-- ***************************************************************************************************************** -->
+    <!-- Novedades usuarios                                                                                                -->
+    <!-- ***************************************************************************************************************** -->
+    <p class="display-6"> Novedades </p>
+
+    <div class="div-usuario">
+        <a href="perfil.html">
+            <img src="images/perfil.jpg" alt="Descripción de la imagen">
+        </a>
+        <a href="perfil.html">
+            <h4>Nombre del usuario</h4>
+        </a>
+    </div>
+
+    <div class="banner">
+        <a href="receta.html">
+            <img src="./images/slider3.jpg" alt="Imagen de ejemplo" class="d-block w-100">
+        </a>
+
+        <div class="div-sobre-imagen">
+            <h5> Nombre receta </h5>
+            <div class="info-receta">
+                <div class="item">
+                    <img src="./images/estrella.png" alt="valoracion">
+                    <img src="./images/estrella.png" alt="valoracion">
+                    <img src="./images/estrella.png" alt="valoracion">
+                </div>
+                <div class="item">
+                    <img src="images/personas.png" alt="numero personas">
+                    <p> Número de comensales </p>
+                </div>
+                <div class="item">
+                    <img src="./images/reloj.png" alt="duracion">
+                    <p> Duración </p>
+                </div>
+                <div class="item">
+                    <strong> €€ </strong>
+                </div>
+                <div class="item">
+                    <p> Fácil </p>
+                </div>
+                <div class="item">
+                    <p> Los ingredientes están disponibles</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-usuario">
+        <a href="perfil.html">
+            <img src="images/perfil.jpg" alt="Descripción de la imagen">
+        </a>
+        <a href="perfil.html">
+            <h4>Nombre del usuario</h4>
+        </a>
+    </div>
+
+    <div class="banner">
+        <a href="receta.html">
+            <img src="./images/slider3.jpg" alt="Imagen de ejemplo" class="d-block w-100">
+        </a>
+
+        <div class="div-sobre-imagen">
+            <h5> Nombre receta </h5>
+            <div class="info-receta">
+                <div class="item">
+                    <img src="./images/estrella.png" alt="valoracion">
+                    <img src="./images/estrella.png" alt="valoracion">
+                    <img src="./images/estrella.png" alt="valoracion">
+                </div>
+                <div class="item">
+                    <img src="images/personas.png" alt="numero personas">
+                    <p> Número de comensales </p>
+                </div>
+                <div class="item">
+                    <img src="./images/reloj.png" alt="duracion">
+                    <p> Duración </p>
+                </div>
+                <div class="item">
+                    <strong> €€ </strong>
+                </div>
+                <div class="item">
+                    <p> Fácil </p>
+                </div>
+                <div class="item">
+                    <p> Los ingredientes están disponibles</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 
 <!-- ***************************************************************************************************************** -->
@@ -267,5 +369,6 @@
 
 <!-- Importar bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
 </body>
 </html>

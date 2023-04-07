@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RecipeLab</title>
+  <link rel="icon" type="image/png" href="images/logoPestanna.png" />
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <LINK rel="stylesheet" type="text/css" href="css/app.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+<nav>
+  <div class="topbar-logo">
+    <a href="sesionIniciada.html">
+      <img src="images/logo.png" alt="logo" class="imagen-logo"/>
+    </a>
+  </div>
+
+  <div class="topbar-login">
+      <a href="nuevaReceta.html">
+        <img src="images/anadir.png" alt="añadir receta" class="imagen-nav"/>
+      </a>
+    <!-- TODO: AÑADIR DESPLEGABLE -->
+    <img src="images/mensaje.png" alt="ver mensajes" class="imagen-nav"/>
+    <a href="listas.html">
+      <img src="images/corazon.png" alt="ver mis listas" class="imagen-nav"/>
+    </a>
+    <!-- TODO: AÑADIR DESPLEGABLE -->
+    
+    <img src="images/login.png" alt="iniciar sesion" class="imagen-nav"/>
+  </div>
+</nav>
+
+<div class="contenido container-sm">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <label id="titulo">Titulo de mi receta</label>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <img class="img-fluid" id="imagenReceta" src="images/receta.jpg" />
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-header">
+              Ingredientes
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Ingrediente 1</li>
+              <li class="list-group-item">Ingrediente 2</li>
+              <li class="list-group-item">Ingrediente 3</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-2">
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star checked"></span>
+          <span class="fa fa-star"></span>
+          <span class="fa fa-star"></span>
+          <div class="row">
+            <div class="col-1">
+              <img class="img" id="imagenTiempo" src="images/tiempo.png" />
+            </div>
+            <div class="col">
+              <label>1 h</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-1">
+              <img class="img" id="imagenPersonas" src="images/personas.png" />
+            </div>
+            <div class="col">
+              <label>4 personas</label>
+            </div>
+          </div>
+          <div class="row">
+            <label>€€</label>
+          </div>
+          <label>Dificultad : Fácil</label>
+          <label id="disponibles">Los ingredientes estan disponibles</label>
+        </div>
+      </div>
+      <div class="row">
+        <label class="paso">Paso 1</label>
+        <label>Descripcion del paso</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <label id="comentarios">Comentarios</label>
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-1">
+              <img class="img" id="imagenPerfil" src="images/perfil.jpg" />
+            </div>
+            <div class="col">
+              <label>Esto es un comentario sobre mi receta</label>
+            </div>
+          </div>
+          <button type="button" class="btn btn-light">Responder</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-warning">Editar receta</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">
+    <img src="images/logoFooter.png" alt="Logo RecipeLab" class="imagen-logo-footer">
+  </div>
+
+  <div class="footer-nombre">
+    <p>RecipeLab 2023</p>
+    <a href="sobreNosotros.html">
+      <u>Sobre nosotros</u>
+    </a>
+  </div>
+
+  <div class="footer-twitter">
+    <a href="#">
+      <img src="images/logoTwitter.png" alt="Logo Twitter" class="imagen-red-social"/>
+    </a>
+  </div>
+
+  <div class="footer-instagram">
+    <a href="#">
+      <img src="images/logoInstagram.png" alt="Logo Instagram" class="imagen-red-social"/>
+    </a>
+  </div>
+
+  <div class="footer-facebook">
+    <a href="#">
+      <img src="images/logoFacebook.png" alt="Logo Facebook" class="imagen-red-social"/>
+    </a>
+  </div>
+</footer>
+
+</body>
+</html>

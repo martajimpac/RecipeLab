@@ -1,3 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap'); /* Libreria estrellas*/
+
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/*
+    Created on : 16 mar 2023, 17:46:54
+*/
+
 body {
     display: grid;
     grid-template-rows: auto;
@@ -6,57 +16,56 @@ body {
                             "footer";
 }
 
+a{
+    color: black;
+    text-decoration: none;
+}
+
+h5{
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
 nav {
+    z-index: 99999; /*Para que aparezca por encima del resto de elementos*/
     grid-area: topbar;
     position: fixed;
-    display: grid;
-    grid-template-columns: 80% 20%;
-    grid-template-areas: "topbar-logo topbar-login";
+    display: flex; /*para que no se coloquen debajo*/
     height: 100px;
     width: 100%;
     background-color: #ff9900;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.topbar-logo {
-    grid-area: topbar-logo;
-}
-
-.topbar-login {
-    grid-area: topbar-login; 
-}
-
-.imagen-logo {
-    display: block;
-    width:270px;
-    height:100px;
-    margin-left: 50px;
-}
-
-.imagen-login {
-    display: block;
-    margin: auto;
-    width:70px;
-    height:70px;
-    margin-left: 200px;
-    margin-top: 10px;
-}
-
-.registro {
-    display: flex;
-    gap: 30px;
-}
-
-.item-registro {
-    gap: 10px;
-}
-
-.contenido {
+.contenido { /*contenido*/
     grid-area: contenido;
     display: block;
     margin-top: 120px;
 }
 
+/*******************************************************************************************************************/
+/* Cabecera */
+/*******************************************************************************************************************/
+
+.imagen-logo {
+    height: 60px;
+    margin-left: 10px;
+}
+
+.imagen-nav{
+    height: 40px;
+    margin-right: 20px;
+}
+
+/*******************************************************************************************************************/
+/*Pie de pagina */
+/*******************************************************************************************************************/
+
 footer {
+    margin-top: 20px;
     grid-area: footer;
     display: grid;
     position: relative;
@@ -64,7 +73,7 @@ footer {
     grid-template-areas: "footer-nombre footer-logo footer-twitter footer-instagram footer-facebook";
     height: 200px;
     width: 100%;
-    background-color: #595959;    
+    background-color: #595959; /*Dark grey*/
 }
 
 .footer-nombre {
@@ -72,9 +81,12 @@ footer {
     margin-top: 70px;
     margin-left: 50px;
     color: white;
-    font: arial;
     font-size: 20px;
     font-style: italic;
+}
+
+.footer-nombre a{
+    color: white;
 }
 
 .footer-logo {
@@ -103,72 +115,248 @@ footer {
     margin-top: 50px;
 }
 
-.imagen-logo-twitter {
+.imagen-red-social {
     display: block;
     width: 30px;
     height: 30px;
     margin-top: 20px;
 }
 
-.imagen-logo-instagram {
-    display: block;
-    width: 30px;
+/*******************************************************************************************************************/
+/* Página de registro */
+/*******************************************************************************************************************/
+.registro {
+    display: flex;
+    gap: 30px;
+}
+
+.item-registro {
+    gap: 10px;
+}
+/*******************************************************************************************************************/
+/* CSS pagina de inicio */
+/*******************************************************************************************************************/
+
+/* Buscador */
+.buscador {
+    margin-bottom: 10px;
+}
+
+.botonDesplegable{
+    border: none;
+    color: black;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.flecha{
+    height: 8px;
+    width: 8px;
+    margin: 8px;
+}
+
+/* Filtros buscador */
+
+.filtros{
+    display: flex;
+    vertical-align: top;
+    justify-content: left;
+}
+
+.filtros .row{
+    margin-bottom: 10px;
+}
+
+.filtro-slider{
+    width: 300px;
+    height: 5px;
+    background: #595959; /*dark grey*/
+    border-radius: 10px;
+    outline: none;
+    margin: 10px 0;
+}
+
+/*Slider*/
+.display-6{ /*Textos*/
+    margin-top: 10px;
+}
+
+.carousel-inner{
+    border-radius: 5px;
+}
+
+.div-sobre-imagen{
+    border-radius: 5px;
+    opacity: 0.7;
+    position: absolute;
+    top: 10%;
+    left: 15%;
+    padding: 30px;
+    background-color: white;
+    color: black;
+    max-width: 600px;
+    width: 80%;
+    height: 80%;
+    overflow: hidden;
+}
+
+.div-sobre-imagen h5{
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.info-receta {
+    column-count: 2;
+    column-gap: 20px;
+    align-items: baseline;
+}
+
+.info-receta div {
+    height: 40px;
+    display: flex;
+    align-items: baseline;  /* centra los elementos abajo */
+}
+
+.info-receta img{
+    height: 15px;
+    margin-right: 5px;
+}
+
+/*******************************************************************************************************************/
+/* CSS sesion iniciada */
+/*******************************************************************************************************************/
+
+/* Novedades */
+.div-usuario{
+    height: 40px;
+    display: flex;
+    margin-bottom: 2px;
+}
+
+.div-usuario img{
     height: 30px;
-    margin-top: 20px;
+}
+.div-usuario h4{
+    color: #595959;
+    margin-left: 15px;
 }
 
-.imagen-logo-facebook {
-    display: block;
-    width: 30px;
+.banner{
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.banner img{
+    border-radius: 5px;
+}
+
+/*******************************************************************************************************************/
+/* CSS pagina recetas                                                                                              */
+/*******************************************************************************************************************/
+
+
+/*Valaración con estrellas*/
+.rating{
+    position: absolute;
+}
+
+.rating label {
+    float: right;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+.rating label:not(:first-of-type) {
+    padding-right: 2px;
+}
+.rating label:before {
+    content: "\2605";
+    font-size: 42px;
+    color: #ccc;
+    line-height: 1;
+}
+.rating input {
+    display: none;
+}
+.rating input:checked ~ label:before, .rating:not(:checked) > label:hover:before, .rating:not(:checked) > label:hover ~ label:before {
+    color: black;
+}
+
+/*******************************************************************************************************************/
+/* CSS pagina listas */
+/*******************************************************************************************************************/
+
+.card{
+    margin-bottom: 20px;
+}
+
+.info-receta-pequeño {
+    column-count: 2;
+    align-items: baseline;
+}
+
+.info-receta-pequeño div {
     height: 30px;
-    margin-top: 20px;
+    display: flex;
+    align-items: baseline;  /* centra los elementos abajo */
+    justify-content: center;
 }
 
-/*Inicio sesion*/
-
-input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+.info-receta-pequeño img{
+    height: 15px;
+    margin-right: 5px;
 }
 
-input[type=password], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
+/*******************************************************************************************************************/
+/* Inicio sesion */
+/*******************************************************************************************************************/
 
-input[type=submit] {
-  width: 100%;
-  background-color: #ff9900;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-input[type=submit]:hover {
-  background-color: #595959;
-}
+/*TODO: hay algo de esta seccion que hace que cambie mi barra de busqueda*/
 
 .inicioSesion {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-  width: 40%;
-  margin: auto;
-  /*meter marginTop y marginAbajo*/
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 40%;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.inicioSesion input[type=text]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.inicioSesion input[type=password]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.inicioSesion input[type=submit] {
+    width: 100%;
+    background-color: #ff9900;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.inicioSesion input[type=submit]:hover {
+    background-color: #595959;
 }
 
 .noRegistrado {
@@ -177,79 +365,52 @@ input[type=submit]:hover {
     margin-top: 25px;
 }
 
-button {
-  width: 100%;
-  background-color: #ff9900;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-button:hover {
-  background-color: #595959;
-}
-
-/*-------------- Perfil --------------*/
-.top-perfil {
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-    margin: 1rem 0 2.5rem 2rem;
-}
-
-.top-perfil__left {
-    flex: 1;
-}
-
-.top-perfil__left img{
-    display: block;
-    height: 2.5rem;
-}
-
-.top-perfil::after {
-    flex: 1;
-    content: ' ';
-}
-
-.info-perfil {
-    display: grid;
-    grid-template-columns: 20% fit-content(50%) 5%;
-    grid-template-rows: 100%;
-}
-.info-perfil__avatar {
-    display: block;
-    height: 15rem;
-    margin: 0 auto;
-}
-
-.valoracion { 
-    display: block;
-    width: 10rem;
-}
-
-.info-perfil__editar {
-    margin-left: 2rem;
-    background: none;
+.inicioSesion button {
+    width: 100%;
+    background-color: #ff9900;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
     border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 20px;
 }
 
-.info-perfil__editar img{
-    display: block;
-    height: 1.5rem;
+.inicioSesion button:hover {
+    background-color: #595959;
 }
 
-.info-perfil__editar:hover{
-    height: 2rem;
+/*******************************************************************************************************************/
+/* Perfil */
+/*******************************************************************************************************************/
+
+.info-perfil row{
+    align-items: center;
 }
 
-.info-perfil__actividad{
-    margin-top: 2.5rem;
-    grid-column: 2 / 3;
-    gap: 10rem;
+.info-perfil{
+    margin-left: 20px;
+    width: 100%;
+}
+
+.avatar{
+    height: 150px;
+    width: 150px;
+    border-radius: 75px;
+}
+
+.valoracion{
+    height: 50px;
+    margin-left: 10px;
+}
+
+.filaseguidores{
+    margin-bottom: 0;
+}
+
+.filaseguidores  .col{
+    font-weight: bold;
 }
 
 .recetas-perfil{
@@ -261,13 +422,166 @@ button:hover {
 .recetas-perfil__receta{
     padding: .5rem;
     border: 1px solid gray;
+    border-radius: 5px;
+    margin: 10px;
 }
 
 .receta__imagen {
     display: block;
-    height: 10rem;
+    height: 300px;
     object-fit: cover;
     width: 100%;
-    height: 50vh;
+    border-radius: 5px;
 }
-/*---------------------------------*/
+
+.receta__informacion h5{
+    margin-bottom: 10px;
+}
+
+.receta__informacion h5{
+    margin-bottom: 10px;
+}
+
+.receta__informacion .info-receta-pequeño {
+    column-count: 3;
+    align-items: baseline;
+}
+
+/*******************************************************************************************************************/
+/* Editar Perfil */
+/*******************************************************************************************************************/
+
+.cruz-sobre-div{
+    position: absolute;
+    align-items: center;
+}
+
+.cruz-sobre-div img{
+    height: 150px;
+    margin: 10px;
+}
+/*******************************************************************************************************************/
+/* Resultados busqueda */
+/*******************************************************************************************************************/
+
+.corazon-sobre-div{
+    position: absolute;
+}
+
+.corazon-sobre-div img{
+    height: 30px;
+    margin: 10px;
+}
+
+/*******************************************************************************************************************/
+/* Nueva receta */
+/*******************************************************************************************************************/
+
+
+.btn-circle{
+    margin-bottom: 1%;
+    border-radius: 60px;
+    width: 40px;
+}
+#imagenReceta {
+    width: 180px;
+    height: 250px;
+}
+
+#selectDificultad {
+    margin-top: 35%;
+    margin-left: 5%;
+}
+
+.form-inline{
+    margin-top: 1%;
+    width:1030px;
+}
+
+.btn-warning{
+    float: right;
+    margin-top: 1%;
+    width: 200px;
+}
+
+.input-group {
+    margin-top: 1%;
+}
+
+#imagenTiempo {
+    width:20px;
+}
+
+#imagenPersonas {
+    width:20px;
+}
+.container-inputs{
+    margin-left: 4%;
+}
+
+/*******************************************************************************************************************/
+/* Ver mi receta */
+/*******************************************************************************************************************/
+
+.checked {
+    color: orange;
+}
+
+#disponibles {
+    color:grey;
+}
+
+#imagenPerfil {
+    width:20px;
+}
+
+.btn-light{
+    margin-left: 8%;
+    margin-top:1%;
+    width: 200px;
+}
+
+#comentarios {
+    font-size: 15pt;
+    color: #ff9900;
+}
+
+#titulo {
+    font-size: 20pt;
+    font-weight: bold;
+}
+
+.paso {
+    margin-top: 1%;
+    font-weight: bold;
+}
+
+.card-header {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/*******************************************************************************************************************/
+/* Ver receta otros */
+/*******************************************************************************************************************/
+
+
+#perfilPublicador{
+    color: #ff9900;
+    text-decoration: underline;
+}
+
+#valorar {
+    margin-left: 1%;
+    margin-top: 1%;;
+    font-size: 15pt;
+    color: #ff9900;
+}
+
+/*******************************************************************************************************************/
+/* Sobre nosotros */
+/*******************************************************************************************************************/
+.sobre-nosotros {
+    margin-top: 200px;
+    margin-bottom: 100px;
+}

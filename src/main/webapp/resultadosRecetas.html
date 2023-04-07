@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ver lista</title>
+  <!--Vicular boostrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <!--Vincular css -->
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<!-- ***************************************************************************************************************** -->
+<!-- Cabecera                                                                                                          -->
+<!-- ***************************************************************************************************************** -->
+<nav>
+  <div class="topbar-logo">
+    <a href="sesionIniciada.html">
+      <img src="images/logo.png" alt="logo" class="imagen-logo"/>
+    </a>
+  </div>
+
+  <div class="topbar-login">
+      <a href="nuevaReceta.html">
+        <img src="images/anadir.png" alt="añadir receta" class="imagen-nav"/>
+      </a>
+    <!-- TODO: AÑADIR DESPLEGABLE -->
+    <img src="images/mensaje.png" alt="ver mensajes" class="imagen-nav"/>
+    <a href="listas.html">
+      <img src="images/corazon.png" alt="ver mis listas" class="imagen-nav"/>
+    </a>
+    <!-- TODO: AÑADIR DESPLEGABLE -->
+    
+    <img src="images/login.png" alt="iniciar sesion" class="imagen-nav"/>
+  </div>
+</nav>
+<!-- ***************************************************************************************************************** -->
+<!-- Cuerpo de la pagina                                                                                               -->
+<!-- ***************************************************************************************************************** -->
+<div class="container-sm contenido">
+
+  <div class="d-flex align-items-center">
+    <a href="sesionIniciada.html">
+      <img src="images/backArrow.png" alt="atras" class="imagen-nav"/>
+    </a>
+    <p class="display-6">Resultados</p>
+  </div>
+
+  <!-- ***************************************************************************************************************** -->
+  <!-- Mis listas                                                                                                          -->
+  <!-- ***************************************************************************************************************** -->
+
+  <form class="buscador" method="POST" action=""> <!--Llamar aqui al servlet -->
+    <div class="container text-center">
+      <div class="row">
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <div class="corazon-sobre-div">
+              <img src="./images/corazon.png" alt="corazon">
+            </div>
+            <a href="receta.html">
+              <img src="./images/lista1.jpg" class="card-img-top" alt="receta">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Titulo receta</h5>
+              <div class="info-receta-pequeño">
+                <div class="item">
+                  <img src="./images/estrella.png" alt="valoracion">
+                  <img src="./images/estrella.png" alt="valoracion">
+                  <img src="./images/estrella.png" alt="valoracion">
+                </div>
+                <div class="item">
+                  <img src="images/personas.png" alt="numero personas">
+                  <p> 4 </p>
+                </div>
+                <div class="item">
+                  <img src="./images/reloj.png" alt="duracion">
+                  <p> 1h. </p>
+                </div>
+                <div class="item">
+                  <strong> €€ </strong>
+                </div>
+                <div class="item">
+                  <p> Fácil </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <div class="corazon-sobre-div">
+              <img src="./images/corazon.png" alt="corazon">
+            </div>
+            <a href="receta.html">
+              <img src="./images/lista1.jpg" class="card-img-top" alt="receta">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Titulo receta</h5>
+              <div class="info-receta-pequeño">
+                <div class="item">
+                  <img src="./images/estrella.png" alt="valoracion">
+                  <img src="./images/estrella.png" alt="valoracion">
+                  <img src="./images/estrella.png" alt="valoracion">
+                </div>
+                <div class="item">
+                  <img src="images/personas.png" alt="numero personas">
+                  <p> 4 </p>
+                </div>
+                <div class="item">
+                  <img src="./images/reloj.png" alt="duracion">
+                  <p> 1h. </p>
+                </div>
+                <div class="item">
+                  <strong> €€ </strong>
+                </div>
+                <div class="item">
+                  <p> Fácil </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <div class="corazon-sobre-div">
+              <img src="./images/corazon.png" alt="corazon">
+            </div>
+            <a href="receta.html">
+              <img src="./images/lista1.jpg" class="card-img-top" alt="receta">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Titulo receta</h5>
+              <div class="info-receta-pequeño">
+                <div class="item">
+                  <img src="./images/estrella.png" alt="valoracion">
+                  <img src="./images/estrella.png" alt="valoracion">
+                  <img src="./images/estrella.png" alt="valoracion">
+                </div>
+                <div class="item">
+                  <img src="images/personas.png" alt="numero personas">
+                  <p> 4 </p>
+                </div>
+                <div class="item">
+                  <img src="./images/reloj.png" alt="duracion">
+                  <p> 1h. </p>
+                </div>
+                <div class="item">
+                  <strong> €€ </strong>
+                </div>
+                <div class="item">
+                  <p> Fácil </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 18rem;">
+            <div class="corazon-sobre-div">
+              <img src="./images/corazon.png" alt="corazon">
+            </div>
+            <a href="receta.html">
+              <img src="./images/lista1.jpg" class="card-img-top" alt="receta">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">Titulo receta</h5>
+              <div class="info-receta-pequeño">
+                <div class="item">
+                  <img src="./images/estrella.png" alt="valoracion">
+                  <img src="./images/estrella.png" alt="valoracion">
+                  <img src="./images/estrella.png" alt="valoracion">
+                </div>
+                <div class="item">
+                  <img src="images/personas.png" alt="numero personas">
+                  <p> 4 </p>
+                </div>
+                <div class="item">
+                  <img src="./images/reloj.png" alt="duracion">
+                  <p> 1h. </p>
+                </div>
+                <div class="item">
+                  <strong> €€ </strong>
+                </div>
+                <div class="item">
+                  <p> Fácil </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- ***************************************************************************************************************** -->
+<!-- Pie de página                                                                                                     -->
+<!-- ***************************************************************************************************************** -->
+
+<footer>
+  <div class="footer-logo">
+    <img src="images/logoFooter.png" alt="Logo RecipeLab" class="imagen-logo-footer">
+  </div>
+
+  <div class="footer-nombre">
+    <p>RecipeLab 2023</p>
+    <a href="sobreNosotros.html">
+      <u>Sobre nosotros</u>
+    </a>
+  </div>
+
+  <div class="footer-twitter">
+    <a href="#">
+      <img src="images/logoTwitter.png" alt="Logo Twitter" class="imagen-red-social"/>
+    </a>
+  </div>
+
+  <div class="footer-instagram">
+    <a href="#">
+      <img src="images/logoInstagram.png" alt="Logo Instagram" class="imagen-red-social"/>
+    </a>
+  </div>
+
+  <div class="footer-facebook">
+    <a href="#">
+      <img src="images/logoFacebook.png" alt="Logo Facebook" class="imagen-red-social"/>
+    </a>
+  </div>
+</footer>
+
+<!-- Importar bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>
