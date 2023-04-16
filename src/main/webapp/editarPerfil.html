@@ -13,25 +13,25 @@
 <body>
 
 <nav>
-  <div class="topbar-logo">
-    <a href="sesionIniciada.html">
-      <img src="images/logo.png" alt="logo" class="imagen-logo"/>
-    </a>
-  </div>
+    <div>
+        <a href="sesionIniciada.html">
+            <img src="images/logo.png" alt="logo" class="imagen-logo"/>
+        </a>
+    </div>
 
-  <div class="topbar-login">
-      <a href="nuevaReceta.html">
-        <img src="images/anadir.png" alt="añadir receta" class="imagen-nav"/>
-      </a>
-    <!-- TODO: AÑADIR DESPLEGABLE -->
-    <img src="images/mensaje.png" alt="ver mensajes" class="imagen-nav"/>
-    <a href="listas.html">
-      <img src="images/corazon.png" alt="ver mis listas" class="imagen-nav"/>
-    </a>
-    <!-- TODO: AÑADIR DESPLEGABLE -->
-    
-    <img src="images/login.png" alt="iniciar sesion" class="imagen-nav"/>
-  </div>
+    <div>
+        <a href="nuevaReceta.html"><img src="images/anadir.png" alt="añadir receta" class="imagen-nav"/></a>
+        <img src="images/mensaje.png" alt="ver mensajes" class="imagen-nav"/>
+        <a href="listas.html"><img src="images/corazon.png" alt="ver mis listas" class="imagen-nav"/></a>
+        <a href="#"><img id="login-image" src="images/login.png" alt="ver mi perfil" class="imagen-nav imagen-nav-click"/>
+            <li>
+                <ul class="submenu">
+                    <li><a href="miPerfil.html">Ver mi perfil</a></li>
+                    <li><a href="#">Cambiar contraseña</a></li>
+                    <li><a href="index.html" id="cerrar-sesion">Cerrar sesión</a></li>
+                </ul>
+            </li> </a>
+    </div>
 </nav>
 
 <div class="container-sm contenido">
@@ -192,5 +192,6 @@
         </a>
     </div>
 </footer>
+<script src="js/app.js" type="text/javascript"></script>
 </body>
 </html>

@@ -26,6 +26,21 @@ h5{
     margin-bottom: 15px;
 }
 
+.contenido { /*contenido*/
+    grid-area: contenido;
+    display: block;
+    margin-top: 120px;
+}
+
+a img:hover{
+    filter: brightness(80%);
+}
+
+/*******************************************************************************************************************/
+/* Cabecera */
+/*******************************************************************************************************************/
+
+
 nav {
     z-index: 99999; /*Para que aparezca por encima del resto de elementos*/
     grid-area: topbar;
@@ -37,18 +52,34 @@ nav {
     padding: 10px;
     align-items: center;
     justify-content: space-between;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /*añadir sombra*/
+}
+
+
+nav li{
+    list-style: none; /*para que la lista no tenga ningun estilo*/
+}
+.submenu{
+    position: absolute;
+    top: 110px;
+    right: 10px;
+    background: #ff9900;
+    border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: none; /*para que no se muestre de primeras*/
 }
 
-.contenido { /*contenido*/
-    grid-area: contenido;
+.submenu li a{
+    color: #f2f2f2;
     display: block;
-    margin-top: 120px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 0px;
 }
 
-/*******************************************************************************************************************/
-/* Cabecera */
-/*******************************************************************************************************************/
+.submenu li a:hover{
+    color: #595959;
+}
 
 .imagen-logo {
     height: 60px;
@@ -171,7 +202,7 @@ footer {
     width: 300px;
     height: 5px;
     background: #595959; /*dark grey*/
-    border-radius: 10px;
+    border-radius: 5px;
     outline: none;
     margin: 10px 0;
 }
@@ -200,6 +231,10 @@ footer {
     overflow: hidden;
 }
 
+.div-sobre-imagen:hover{
+    background-color: #cccccc;
+}
+
 .div-sobre-imagen h5{
     font-weight: bold;
     margin-bottom: 15px;
@@ -222,7 +257,7 @@ footer {
 }
 
 /*******************************************************************************************************************/
-/* CSS sesion iniciada */
+/* Pagina de inicio con sesion iniciada */
 /*******************************************************************************************************************/
 
 /* Novedades */
@@ -248,11 +283,6 @@ footer {
 .banner img{
     border-radius: 5px;
 }
-
-/*******************************************************************************************************************/
-/* CSS pagina recetas                                                                                              */
-/*******************************************************************************************************************/
-
 
 /*Valaración con estrellas*/
 .rating{
@@ -281,6 +311,7 @@ footer {
 .rating input:checked ~ label:before, .rating:not(:checked) > label:hover:before, .rating:not(:checked) > label:hover ~ label:before {
     color: black;
 }
+
 
 /*******************************************************************************************************************/
 /* CSS pagina listas */
@@ -311,7 +342,6 @@ footer {
 /* Inicio sesion */
 /*******************************************************************************************************************/
 
-/*TODO: hay algo de esta seccion que hace que cambie mi barra de busqueda*/
 
 .inicioSesion {
     border-radius: 5px;
@@ -329,7 +359,7 @@ footer {
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     box-sizing: border-box;
 }
 
@@ -339,7 +369,7 @@ footer {
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     box-sizing: border-box;
 }
 
@@ -350,7 +380,7 @@ footer {
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 20px;
 }
@@ -372,7 +402,7 @@ footer {
     padding: 14px 20px;
     margin: 8px 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 20px;
 }
@@ -454,6 +484,7 @@ footer {
 .cruz-sobre-div{
     position: absolute;
     align-items: center;
+    z-index: 99998;
 }
 
 .cruz-sobre-div img{
@@ -466,6 +497,7 @@ footer {
 
 .corazon-sobre-div{
     position: absolute;
+    z-index: 99998;
 }
 
 .corazon-sobre-div img{
@@ -512,8 +544,12 @@ footer {
     width:20px;
 }
 
-#imagenPersonas {
-    width:20px;
+#imagenPersona {
+    width:15px;
+}
+
+.fotoPerfil {
+    width:30px;
 }
 .container-inputs{
     margin-left: 4%;

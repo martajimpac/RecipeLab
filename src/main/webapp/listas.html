@@ -15,24 +15,24 @@
 <!-- ***************************************************************************************************************** -->
 
 <nav>
-  <div class="topbar-logo">
+  <div>
     <a href="sesionIniciada.html">
       <img src="images/logo.png" alt="logo" class="imagen-logo"/>
     </a>
   </div>
 
-  <div class="topbar-login">
-      <a href="nuevaReceta.html">
-        <img src="images/anadir.png" alt="añadir receta" class="imagen-nav"/>
-      </a>
-    <!-- TODO: AÑADIR DESPLEGABLE -->
+  <div>
+    <a href="nuevaReceta.html"><img src="images/anadir.png" alt="añadir receta" class="imagen-nav"/></a>
     <img src="images/mensaje.png" alt="ver mensajes" class="imagen-nav"/>
-    <a href="listas.html">
-      <img src="images/corazon.png" alt="ver mis listas" class="imagen-nav"/>
-    </a>
-    <!-- TODO: AÑADIR DESPLEGABLE -->
-    
-    <img src="images/login.png" alt="inicio sesion" class="imagen-nav"/>
+    <a href="listas.html"><img src="images/corazon.png" alt="ver mis listas" class="imagen-nav"/></a>
+    <a href="#"><img id="login-image" src="images/login.png" alt="ver mi perfil" class="imagen-nav imagen-nav-click"/>
+      <li>
+        <ul class="submenu">
+          <li><a href="miPerfil.html">Ver mi perfil</a></li>
+          <li><a href="#">Cambiar contraseña</a></li>
+          <li><a href="index.html" id="cerrar-sesion">Cerrar sesión</a></li>
+        </ul>
+      </li> </a>
   </div>
 </nav>
 <!-- ***************************************************************************************************************** -->
@@ -160,5 +160,6 @@
 
 <!-- Importar bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="js/app.js" type="text/javascript"></script>
 </body>
 </html>
