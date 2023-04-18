@@ -108,20 +108,5 @@ public class Receta {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-
-
 }
 
-enum DificultadReceta {
-    FACIL,
-    MEDIA,
-    DIFICIL
-}
-
-enum Categoria {
-    DESAYUNO,
-    COMIDA,
-    CENA,
-    SNACK,
-    POSTRE
-}

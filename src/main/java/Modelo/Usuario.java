@@ -73,8 +73,3 @@ public class Usuario {
         this.valoracion = valoracion;
     }
 }
-
-enum RolUsuario {
-    ADMINISTRADOR,
-    PUBLICADOR
-}
