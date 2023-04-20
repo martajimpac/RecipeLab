@@ -22,7 +22,7 @@ public class Conexion {
         try {
             InitialContext ic = new InitialContext();
             dataSource = (DataSource) ic.lookup("java:/comp/env/jdbc/recipelab");
-            
+          
         }catch(Exception e) {
             e.printStackTrace();
             }

@@ -20,9 +20,9 @@ CREATE TABLE usuario (
   contraseña varchar(45),
   email varchar(45),
   rolUsuario  enum('administrador', 'publicador'),
-  avatar blob,
+  avatar varchar(100),                                             ### imagen
   esPrivado boolean default 0,
-  valoracion double(1,1),
+  valoracion double,
   PRIMARY KEY (email)    
 );
 
@@ -36,7 +36,7 @@ CREATE TABLE receta (
   valoracionMedia int,
   comentariosActivados boolean default 1,
   precio double,
-  imagenReceta blob,                                              
+  imagenReceta varchar(100),                                           ### imagen                                         
   categoria enum ('desayuno', 'comida', 'cena', 'snack', 'postre'),
   PRIMARY KEY (id),
   FOREIGN KEY (emailUsuario) REFERENCES usuario(email)
@@ -45,14 +45,14 @@ CREATE TABLE receta (
 CREATE TABLE seguidorDe (
   email varchar(45),
   emailUsuario varchar(45),
-  PRIMARY KEY (email,emailUsuario),
+  PRIMARY KEY (email, emailUsuario),
   FOREIGN KEY (emailUsuario) REFERENCES usuario(email)
 );
 
 CREATE TABLE valoracion (
   puntuacion int,
   emailUsuario varchar(45),
-  PRIMARY KEY (puntuacion,emailUsuario),
+  PRIMARY KEY (puntuacion, emailUsuario),
   FOREIGN KEY (emailUsuario) REFERENCES usuario(email)
 );
 
@@ -75,7 +75,7 @@ CREATE TABLE listaRecetas (
   fechaCreacion date,
   fechaModificacion date,
   descripcion varchar(200),
-  imagenLista blob,
+  imagenLista varchar(100),                                            ### imagen
   PRIMARY KEY (nombre, emailUsuario),
   FOREIGN KEY (emailUsuario) REFERENCES usuario(email)
 );
@@ -99,7 +99,7 @@ CREATE TABLE pasosReceta (
 CREATE TABLE ingrediente (
   nombre varchar(45),
   disponibilidad boolean default 1,
-  precio double(4,2),
+  precio double,
   PRIMARY KEY (nombre)
 );
   
@@ -120,8 +120,13 @@ CREATE TABLE detallesReceta (
 
 ### usuario
 INSERT INTO usuario VALUES
-('usuario1', 'contraseña1', 'usuario1@example.com', 'publicador', LOAD_FILE('C:\Users\marta\Documents\SSW\ENTREGAS\ENTREGA 3\fotosBD\avatar1.jpg'), false, 4.5),
-('usuario2', 'contraseña2', 'usuario2@example.com', 'administrador', LOAD_FILE('C:\Users\marta\Documents\SSW\ENTREGAS\ENTREGA 3\fotosBD\avatar2.jpg'), true, 3.8);
+('usuario1', 'contraseña1', 'usuario1@example.com', 'publicador', 'images/DB/avatar1.jpg', false, 4.5),
+('usuario2', 'contraseña2', 'usuario2@example.com', 'administrador', 'images/DB/avatar2.jpg', true, 3.8);
+
+### receta
+INSERT INTO receta VALUES
+('1', 'usuario1@example.com', 'Tarta de manzana', 8, 'media', 3600, 4, true, 12.50, 'images/DB/receta1.jpg', 'postre'),
+('2', 'usuario2@example.com', 'Lasaña de verduras', 4, 'dificil', 4800, 5, false, 18.75, 'images/DB/receta2.jpg', 'comida');
 
 ### seguidorDe
 INSERT INTO seguidorDe VALUES
@@ -135,24 +140,20 @@ INSERT INTO valoracion VALUES
 
 ### comentario
 INSERT INTO comentario VALUES
-('usuario1@example.com', 'receta1', 4, '¡Muy buena receta!', false, '2023-04-16', NULL),
-('usuario2@example.com', 'receta1', 5, 'Increíble receta, ¡muchas gracias por compartirla!', false, '2023-04-15', '¡Gracias por tu comentario!');
+('usuario1@example.com', 'receta1', 4, '¡Muy buena receta!', true, '2023-04-16', 'Gracias por tu comentario!'),
+('usuario2@example.com', 'receta1', 5, 'Increíble receta, ¡muchas gracias por compartirla!', false, '2023-04-15', '');
 
 ### listaRecetas
-INSERT INTO listaRecetas VALUES
-('Mis recetas favoritas', 'usuario1@example.com', '2023-04-15', '2023-04-16', 'Lista en la que guardo mis recetas favoritas', LOAD_FILE('C:\Users\marta\Documents\SSW\ENTREGAS\ENTREGA 3\fotosBD\receta1.jpg'));
+INSERT INTO listaRecetas VALUES  
+('Mis recetas favoritas', 'usuario1@example.com', '2023-04-15', '2023-04-16', 'Lista en la que guardo mis recetas favoritas', 'images/DB/lista1.png');
 
 ### detallesLista
-INSERT INTO receta VALUES
+INSERT INTO detallesLista VALUES
 ('Mis recetas favoritas', '1'),
 ('Mis recetas favoritas', '2');
 
-### receta
-INSERT INTO receta VALUES
-('1', 'usuario1@example.com', 'Tarta de manzana', '8', 'media', '3600', '4', '1', '12.50', LOAD_FILE('C:\Users\marta\Documents\SSW\ENTREGAS\ENTREGA 3\fotosBD\receta1.jpg'), 'postre'),
-('2', 'usuario2@example.com', 'Lasaña de verduras', '4', 'dificil', '4800', '5', '1', '18.75', LOAD_FILE('C:\Users\marta\Documents\SSW\ENTREGAS\ENTREGA 3\fotosBD\receta2.jpg'), 'comida');
 
-# pasosReceta
+### pasosReceta
 INSERT INTO pasosReceta VALUES
 ('1', '1', 'Pelar y cortar las manzanas en rodajas finas.'),
 ('1', '2', 'Colocar las rodajas de manzana en una fuente para horno previamente forrada con masa quebrada.'),
@@ -165,7 +166,25 @@ INSERT INTO pasosReceta VALUES
 ('2', '5', 'Montar la lasaña intercalando capas de láminas de lasaña, verduras y bechamel.'),
 ('2', '6', 'Hornear la lasaña a 200 grados durante 30 minutos.');
 
-#detallesReceta
+
+### ingrediente
+INSERT INTO ingrediente VALUES
+('manzanas', 1, 0.75),
+('harina', 1, 0.15),
+('azúcar', 1, 0.12),
+('mantequilla', 1, 0.25),
+('masa quebrada', 1, 1.50),
+('láminas de lasaña', 1, 2.00),
+('calabacín', 1, 1.50),
+('berenjena', 1, 1.00),
+('pimiento rojo', 1, 0.75),
+('cebolla', 1, 0.25),
+('champiñones', 1, 1.00),
+('leche', 1, 0.40),
+('queso rallado', 1, 0.75);
+
+
+### detallesReceta
 INSERT INTO detallesReceta VALUES
 ('1', 'manzanas', '8', '0'),
 ('1', 'harina', '200 gr', '0'),
@@ -182,20 +201,4 @@ INSERT INTO detallesReceta VALUES
 ('2', 'harina', '50 gr', '0'),
 ('2', 'mantequilla', '50 gr', '0'),
 ('2', 'queso rallado', '100 gr', '0');
-
-#ingrediente
-INSERT INTO ingrediente VALUES
-('manzanas', 1, 0.75),
-('harina', 1, 0.15),
-('azúcar', 1, 0.12),
-('mantequilla', 1, 0.25),
-('masa quebrada', 1, 1.50),
-('láminas de lasaña', 1, 2.00),
-('calabacín', 1, 1.50),
-('berenjena', 1, 1.00),
-('pimiento rojo', 1, 0.75),
-('cebolla', 1, 0.25),
-('champiñones', 1, 1.00),
-('leche', 1, 0.40),
-('queso rallado', 1, 0.75);
 
