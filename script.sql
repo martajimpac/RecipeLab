@@ -140,8 +140,8 @@ INSERT INTO valoracion VALUES
 
 ### comentario
 INSERT INTO comentario VALUES
-('usuario1@example.com', 'receta1', 4, '¡Muy buena receta!', true, '2023-04-16', 'Gracias por tu comentario!'),
-('usuario2@example.com', 'receta1', 5, 'Increíble receta, ¡muchas gracias por compartirla!', false, '2023-04-15', '');
+('usuario1@example.com', '1', 4, '¡Muy buena receta!', true, '2023-04-16', 'Gracias por tu comentario!'),
+('usuario2@example.com', '1', 5, 'Increíble receta, ¡muchas gracias por compartirla!', false, '2023-04-15', '');
 
 ### listaRecetas
 INSERT INTO listaRecetas VALUES  
@@ -155,50 +155,50 @@ INSERT INTO detallesLista VALUES
 
 ### pasosReceta
 INSERT INTO pasosReceta VALUES
-('1', '1', 'Pelar y cortar las manzanas en rodajas finas.'),
-('1', '2', 'Colocar las rodajas de manzana en una fuente para horno previamente forrada con masa quebrada.'),
-('1', '3', 'Mezclar en un bol la harina, el azúcar, la canela y la mantequilla hasta que quede una masa homogénea.'),
-('1', '4', 'Desmenuzar la masa sobre las manzanas y hornear a 180 grados durante 45 minutos.'),
-('2', '1', 'Cocer las láminas de lasaña en agua hirviendo durante 10 minutos.'),
-('2', '2', 'Pelar y cortar en juliana fina las verduras elegidas (por ejemplo, calabacín, berenjena, pimiento rojo, cebolla y champiñones).'),
-('2', '3', 'Saltear las verduras en una sartén con aceite de oliva hasta que estén tiernas.'),
-('2', '4', 'Preparar la bechamel con leche, harina y mantequilla y añadirle queso rallado.'),
-('2', '5', 'Montar la lasaña intercalando capas de láminas de lasaña, verduras y bechamel.'),
-('2', '6', 'Hornear la lasaña a 200 grados durante 30 minutos.');
+('1', 1, 'Pelar y cortar las manzanas en rodajas finas.'),
+('1', 2, 'Colocar las rodajas de manzana en una fuente para horno previamente forrada con masa quebrada.'),
+('1', 3, 'Mezclar en un bol la harina, el azúcar, la canela y la mantequilla hasta que quede una masa homogénea.'),
+('1', 4, 'Desmenuzar la masa sobre las manzanas y hornear a 180 grados durante 45 minutos.'),
+('2', 1, 'Cocer las láminas de lasaña en agua hirviendo durante 10 minutos.'),
+('2', 2, 'Pelar y cortar en juliana fina las verduras elegidas (por ejemplo, calabacín, berenjena, pimiento rojo, cebolla y champiñones).'),
+('2', 3, 'Saltear las verduras en una sartén con aceite de oliva hasta que estén tiernas.'),
+('2', 4, 'Preparar la bechamel con leche, harina y mantequilla y añadirle queso rallado.'),
+('2', 5, 'Montar la lasaña intercalando capas de láminas de lasaña, verduras y bechamel.'),
+('2', 6, 'Hornear la lasaña a 200 grados durante 30 minutos.');
 
 
 ### ingrediente
 INSERT INTO ingrediente VALUES
-('manzanas', 1, 0.75),
-('harina', 1, 0.15),
-('azúcar', 1, 0.12),
-('mantequilla', 1, 0.25),
-('masa quebrada', 1, 1.50),
-('láminas de lasaña', 1, 2.00),
-('calabacín', 1, 1.50),
-('berenjena', 1, 1.00),
-('pimiento rojo', 1, 0.75),
-('cebolla', 1, 0.25),
-('champiñones', 1, 1.00),
-('leche', 1, 0.40),
-('queso rallado', 1, 0.75);
+('manzanas', true, 0.75),
+('harina', true, 0.15),
+('azúcar', true, 0.12),
+('mantequilla', true, 0.25),
+('masa quebrada', false, 1.50),
+('láminas de lasaña', true, 2.00),
+('calabacín', false, 1.50),
+('berenjena', true, 1.00),
+('pimiento rojo', true, 0.75),
+('cebolla', true, 0.25),
+('champiñones', true, 1.00),
+('leche', true, 0.40),
+('queso rallado', true, 0.75);
 
 
 ### detallesReceta
 INSERT INTO detallesReceta VALUES
-('1', 'manzanas', '8', '0'),
-('1', 'harina', '200 gr', '0'),
-('1', 'azúcar', '150 gr', '0'),
-('1', 'mantequilla', '100 gr', '0'),
-('1', 'masa quebrada', '1', '0'),
-('2', 'láminas de lasaña', '12', '0'),
-('2', 'calabacín', '2', '0'),
-('2', 'berenjena', '1', '0'),
-('2', 'pimiento rojo', '1', '0'),
-('2', 'cebolla', '1', '1'),
-('2', 'champiñones', '200 gr', '0'),
-('2', 'leche', '500 ml', '0'),
-('2', 'harina', '50 gr', '0'),
-('2', 'mantequilla', '50 gr', '0'),
-('2', 'queso rallado', '100 gr', '0');
+('1', 'manzanas', '8', false),
+('1', 'harina', '200 gr', false),
+('1', 'azúcar', '150 gr', false),
+('1', 'mantequilla', '100 gr', false),
+('1', 'masa quebrada', '1', false),
+('2', 'láminas de lasaña', '12', false),
+('2', 'calabacín', '2', false),
+('2', 'berenjena', '1', false),
+('2', 'pimiento rojo', '1', false),
+('2', 'cebolla', '1', true),
+('2', 'champiñones', '200 gr', false),
+('2', 'leche', '500 ml', false),
+('2', 'harina', '50 gr', false),
+('2', 'mantequilla', '50 gr', false),
+('2', 'queso rallado', '100 gr', false);
 
