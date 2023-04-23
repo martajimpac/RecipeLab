@@ -202,4 +202,3 @@ INSERT INTO detallesReceta VALUES
 ('2', 'harina', '50 gr', false),
 ('2', 'mantequilla', '50 gr', false),
 ('2', 'queso rallado', '100 gr', false);
-

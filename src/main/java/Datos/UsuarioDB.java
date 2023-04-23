@@ -42,9 +42,11 @@ public class UsuarioDB {
             */
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(query);
+            System.out.println("todo fue bein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
            
             
             while(result.next()){
+                System.out.println("Tenemos un resultado");
                 Usuario user = new Usuario();
                 user.setNombreUsuario(result.getString("NOMBREUSUARIO"));
                 user.setContraseña(result.getString("CONTRASEÑA"));

@@ -16,7 +16,7 @@
             <option value=""> Recetas </option>
             <option value="1"> Personas </option>
         </select>
-                <button onclick="document.location='resultadosRecetas.html'" id="buscarRecetas" class="btn btn-secondary"  type="submit" >Buscar</button>
+        <button id="buscarRecetas" class="btn btn-secondary"  type="submit" >Buscar</button>
 
     <!-- Ver filtros -->
     <p>
