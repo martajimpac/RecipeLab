@@ -9,6 +9,7 @@ import Modelo.RolUsuario;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -59,9 +60,47 @@ public class UsuarioDB {
             }
             
             return lista;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             return null;
         }
     }
-          
+    
+    public static Usuario obtieneUsuario(String email) {
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        Usuario usuario = null;
+        String query = "SELECT * FROM usuario WHERE email = ?";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            resultSet = preparedStatement.executeQuery();
+            
+            if(resultSet.next()) {
+                usuario = new Usuario();
+                usuario.setNombreUsuario(resultSet.getString("nombreUsuario"));
+                usuario.setContraseña(resultSet.getString("contraseña"));
+                usuario.setEmail(resultSet.getString("email"));
+                usuario.asignarRol(resultSet.getString("rolUsuario"));
+                usuario.setAvatar(resultSet.getBytes("avatar"));
+                usuario.setEsPrivado(resultSet.getBoolean("esPrivado"));
+                usuario.setValoracion(resultSet.getDouble("valoracion"));
+            }
+            
+            resultSet.close();
+            preparedStatement.close();
+            pool.freeConnection(connection);
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        return usuario;
+    }
+
+    public static boolean validaContrasena(Usuario usuario, String contrasena){
+        return usuario.getContraseña().equals(contrasena);
+    }
 }

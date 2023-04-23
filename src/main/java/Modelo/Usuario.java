@@ -72,4 +72,8 @@ public class Usuario {
     public void setValoracion(double valoracion) {
         this.valoracion = valoracion;
     }
+    
+    public void asignarRol(String rol) {
+        this.rolUsuario = rol.equals("administrador") ? RolUsuario.ADMINISTRADOR : RolUsuario.PUBLICADOR;
+    }
 }

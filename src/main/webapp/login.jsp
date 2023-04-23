@@ -32,8 +32,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     <br><br><br>
 
     <div class="inicioSesion">
-        <form method="POST" action="sesionIniciada.jsp">
-            <input type="text" id="usuario" name="usuario" placeholder="Usuario" required>
+        <form method="POST" action="Login">
+            <input type="text" id="email" name="email" placeholder="email" required>
             <input type="password" id="contrasena" name="contrasena" placeholder="Constraseña" required>
             <p><a href="olvidoContrasena.jsp">¿Has olvidado la contraseña?</a></p>
             <input type="submit" value="Iniciar Sesión">
