@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.List" %>
+<%@page import="Modelo.ListaRecetas" %>
+<%@page import="Datos.ListaDB" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +27,30 @@
 <%@ include file="/includes/headerSesionIniciada.jsp" %>
 
 <!-- ***************************************************************************************************************** -->
+<!-- Mostrar todas las listas                                                                                           -->
+<!-- ***************************************************************************************************************** -->
+
+<%
+    boolean busqueda = false;
+    List<ListaRecetas> resultado = null;
+    List<ListaRecetas> listas;
+    try{
+        busqueda = (boolean)request.getAttribute("Busqueda");
+        resultado = (List<ListaRecetas>) request.getAttribute("Listas");
+    }catch(Exception e){};
+    
+    if(resultado==null || resultado.isEmpty())
+        /*
+        * Para cuando este la identificacion implementada
+        * Se pasaria como argumento a ListasDB.getAll()
+        * String email = session.getAttribute("UserEmail");
+        */
+        listas = ListaDB.getAll();
+    else
+        listas = resultado;
+%>
+
+<!-- ***************************************************************************************************************** -->
 <!-- Cuerpo de la pagina                                                                                               -->
 <!-- ***************************************************************************************************************** -->
 <div class="container-sm contenido">
@@ -32,7 +59,7 @@
   <!-- Buscador                                                                                                          -->
   <!-- ***************************************************************************************************************** -->
 
-    <form class="buscador" method="POST" action=""> <!--Llamar aqui al servlet -->
+    <form class="buscador" method="POST" action="BuscarListasServlet"> <!--Llamar aqui al servlet -->
       <input type="text" name="busqueda" placeholder="Buscar...">
       <button id="buscar" class="btn btn-secondary"  type="submit" >Buscar</button>
       <button id="editar_lista" class="btn btn-secondary"  type="submit" >Editar lista</button>
@@ -44,69 +71,53 @@
 
   <form class="buscador" method="POST" action=""> <!--Llamar aqui al servlet -->
     <div class="container text-center">
-      <div class="row">
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <a href="detallesLista.html">
-              <img src="./images/corazon2.png" class="card-img-top" alt="lista favoritos">
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Titulo lista</h5>
-              <p class="card-text">Aqui va la descripcion de la lista</p>
+
+        <%
+            if(busqueda && resultado.isEmpty()){
+        %>
+        <!-- Hay que poner esto mas bonito -->
+        <h4 class="text-danger">No se han encontrado listas bajo esos criterios</h4>
+        <%  
+            //Cierre if
+            }
+            int i=0;
+            for (ListaRecetas l : listas){
+                if(i%3==0){
+        %>
+        <div class="row">
+        <%
+                //Cierre if
+                }
+        %>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                  <a href="detallesLista.html">
+                    <img src="./images/corazon2.png" class="card-img-top" alt="lista favoritos">
+                  </a>
+                  <div class="card-body">
+                    <h5 class="card-title"><%= l.getNombre()%></h5>
+                    <p class="card-text"><%=l.getDescripcion()%></p>
+                  </div>
+                </div>
             </div>
-          </div>
+        <%
+                i++;
+                if(i%3==0){
+        %>    
         </div>
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <a href="detallesLista.html">
-              <img src="./images/lista1.jpg" class="card-img-top" alt="lista 1">
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Titulo lista</h5>
-              <p class="card-text">Aqui va la descripcion de la lista</p>
-            </div>
-          </div>
+        <%
+                //Cierre if
+                }
+            //Cierre for
+            }
+            if(i%3!=0){
+        %>
         </div>
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <a href="detallesLista.html">
-              <img src="./images/lista2.jpg" class="card-img-top" alt="lista 2">
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Titulo lista</h5>
-              <p class="card-text">Aqui va la descripcion de la lista</p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <a href="detallesLista.html">
-              <img src="./images/lista3.jpg" class="card-img-top" alt="lista 2">
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Titulo lista</h5>
-              <p class="card-text">Aqui va la descripcion de la lista</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <a href="detallesLista.html">
-              <img src="./images/lista3.jpg" class="card-img-top" alt="lista 3">
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Titulo lista</h5>
-              <p class="card-text">Aqui va la descripcion de la lista</p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-        </div>
-        <div class="col">
-        </div>
-      </div>
+        <%
+            //Cierre if
+            }
+        %>  
+    
     </div>
   </form>
 </div>
