@@ -1,7 +1,5 @@
 package Controlador;
 
-import Datos.UsuarioDB;
-import Modelo.Usuario;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,37 +10,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- *
  * @author teresa
  */
-
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "Logout", urlPatterns = {"/Logout"})
+public class Logout extends HttpServlet {
     
     protected void processRequest(
         HttpServletRequest request, 
         HttpServletResponse response
     ) throws ServletException, IOException {
         response.setContentType("text/html");
+      
+        String url = "index.jsp";
+        HttpSession session = request.getSession(false);
         
-        String email = request.getParameter("email");
-        String contrasena = request.getParameter("contrasena");
-        
-        String url;
-        Usuario usuario = UsuarioDB.obtieneUsuario(email);
-        
-        if (usuario != null && UsuarioDB.validaContrasena(usuario,contrasena)) {
-            HttpSession nuevaSesion = request.getSession(true);
-            nuevaSesion.setAttribute("usuario", usuario);
-            url = "/sesionIniciada.jsp";
-        } else {
-            url = "/login.jsp";
+        if (session != null) {
+            session.removeAttribute("usuario");
         }
         
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        response.sendRedirect(url);
+        /*RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        dispatcher.forward(request, response);*/
     }
-            
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -82,4 +72,3 @@ public class Login extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 }
-

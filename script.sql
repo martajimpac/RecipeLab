@@ -121,8 +121,8 @@ CREATE TABLE detallesReceta (
 
 # usuario
 INSERT INTO usuario VALUES
-('usuario1', 'contraseña1', 'usuario1@example.com', 'publicador', 'images/DB/avatar1.jpg', false, 4.5),
-('usuario2', 'contraseña2', 'usuario2@example.com', 'administrador', 'images/DB/avatar2.jpg', true, 3.8);
+('usuario1', 'contrasena1', 'usuario1@example.com', 'publicador', 'images/DB/avatar1.jpg', false, 4.5),
+('usuario2', 'contrasena2', 'usuario2@example.com', 'administrador', 'images/DB/avatar2.jpg', true, 3.8);
 
 # receta
 INSERT INTO receta VALUES
