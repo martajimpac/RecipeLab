@@ -1,0 +1,123 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Datos;
+
+import Modelo.DificultadReceta;
+import Modelo.Receta;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sql.rowset.serial.SerialBlob;
+
+
+/**
+ *
+ * @author juani
+ */
+public class RecetaDB {
+    
+    public static List<Receta> buscaRecetasPorUsuario(String email){
+        
+        ArrayList<Receta> recetas = new ArrayList();
+        
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        ResultSet result;
+        
+        String query = "SELECT * FROM receta WHERE email = ?";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            result = preparedStatement.executeQuery();
+            while(result.next()){
+                int id = result.getInt("id");
+                String nombre = result.getString("nombre");
+                int numPersonas = result.getInt("numPersonas");
+                String dificultad = result.getString("dificultadReceta");
+                int duracion = result.getInt("duracionEnSec");
+                int valoracion = result.getInt("valoracionMedia");
+                boolean comentarios = result.getBoolean("comentariosActivados");
+                double precio = result.getDouble("precio");
+                byte [] imagen = result.getBytes("imagenReceta");
+                String categoria = result.getString("categoria");
+                
+                Receta receta = new Receta(id,email,nombre,numPersonas,dificultad,duracion,valoracion,comentarios,precio,imagen,categoria);
+                recetas.add(receta);
+            }
+            
+            
+        } catch (SQLException e) {
+            //TODO: tratamiento excepciones
+        }
+        
+        
+        
+        
+        return recetas;
+        
+    }
+    
+    public static void insertaReceta(Receta receta){
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        //('1', 'usuario1@example.com', 'Tarta de manzana', 8, 'media', 3600, 4, true, 12.50, LOAD_FILE('C:\Users\juani\Desktop\UNI\3ano\SSW\RecipeLab\src\main\webapp\images\ejemplo-receta-1'), 'postre')
+        String insert = "INSERT INTO receta VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        
+        try {
+            preparedStatement = connection.prepareStatement(insert);
+            preparedStatement.setInt(1,receta.getId());
+            preparedStatement.setString(2,receta.getEmailUsuario());
+            preparedStatement.setString(3,receta.getNombre());
+            preparedStatement.setInt(4,receta.getNumPersonas());
+            preparedStatement.setString(5,receta.getDificultad().toString());
+            preparedStatement.setInt(6,receta.getDuracionEnSec());
+            preparedStatement.setInt(7,receta.getValoracionMedia());
+            preparedStatement.setBoolean(8,receta.isComentariosActivados());
+            preparedStatement.setDouble(9,receta.getPrecio());
+            preparedStatement.setBlob(10,new SerialBlob(receta.getImagenReceta()));
+            preparedStatement.setString(11,receta.getCategoria().toString());
+            preparedStatement.executeQuery();
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(RecetaDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static int creaId (){
+        
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        ResultSet result;
+        int id = 1;
+        
+        String query = "SELECT MAX(id) FROM receta";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            result = preparedStatement.executeQuery();
+            if(result.next()){
+                id = result.getInt("id") + 1;
+            }
+            
+            
+        } catch (SQLException e) {
+            //TODO: tratamiento excepciones
+        }
+        
+        return id;
+    }
+    
+}
