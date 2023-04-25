@@ -42,7 +42,7 @@ public class UsuarioDB {
             */
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(query);
-            System.out.println("todo fue bein!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("todo fue bien!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
            
             
             while(result.next()){

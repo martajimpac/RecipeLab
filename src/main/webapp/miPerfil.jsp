@@ -40,7 +40,7 @@
                     <span class="fa fa-star"></span>
                 </div>
                 <div class="col">
-                    <button onclick="document.location='editarPerfil.html'" id="editarPerfil" class="btn btn-secondary"  type="submit" >Editar perfil</button>
+                    <button onclick="document.location='editarPerfil.jsp'" id="editarPerfil" class="btn btn-secondary"  type="submit" >Editar perfil</button>
                 </div>
             </div>
             <div class="row">
