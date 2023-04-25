@@ -8,6 +8,7 @@
 <%@page import="java.util.List" %>
 <%@page import="Modelo.ListaRecetas" %>
 <%@page import="Datos.ListaDB" %>
+<%@page import="Modelo.Usuario" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +32,11 @@
 <!-- ***************************************************************************************************************** -->
 
 <%
+    //Obtencion session usuario identificado
+    Usuario user = (Usuario) session.getAttribute("usuario");
+    //Comprobar si se ha realizado busqueda
     boolean busqueda = false;
+    //Resultado busqueda
     List<ListaRecetas> resultado = null;
     List<ListaRecetas> listas;
     try{
@@ -39,13 +44,14 @@
         resultado = (List<ListaRecetas>) request.getAttribute("Listas");
     }catch(Exception e){};
     
+    //Si no se ha realiza busqueda o no se ha encontrado nada se devuelven todas las listas
     if(resultado==null || resultado.isEmpty())
         /*
         * Para cuando este la identificacion implementada
         * Se pasaria como argumento a ListasDB.getAll()
         * String email = session.getAttribute("UserEmail");
         */
-        listas = ListaDB.getAll();
+        listas = ListaDB.getAll(user.getEmail());
     else
         listas = resultado;
 %>

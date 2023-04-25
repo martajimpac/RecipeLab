@@ -37,7 +37,7 @@ CREATE TABLE receta (
   valoracionMedia int,
   comentariosActivados boolean default 1,
   precio double,
-  imagenReceta varchar(100),                                           -- imagen                                         
+  imagenReceta LONGBLOB,                                           -- imagen                                         
   categoria enum ('desayuno', 'comida', 'cena', 'snack', 'postre'),
   PRIMARY KEY (id),
   FOREIGN KEY (emailUsuario) REFERENCES usuario(email)
@@ -76,7 +76,7 @@ CREATE TABLE listaRecetas (
   fechaCreacion date,
   fechaModificacion date,
   descripcion varchar(200),
-  imagenLista varchar(100),                                            ---imagen
+  imagenLista BLOB,                                            
   PRIMARY KEY (nombre, emailUsuario),
   FOREIGN KEY (emailUsuario) REFERENCES usuario(email)
 );
@@ -126,8 +126,8 @@ INSERT INTO usuario VALUES
 
 # receta
 INSERT INTO receta VALUES
-(1, 'usuario1@example.com', 'Tarta de manzana', 8, 'media', 3600, 4, true, 12.50, 'images/DB/receta1.jpg', 'postre'),
-(2, 'usuario2@example.com', 'Lasaña de verduras', 4, 'dificil', 4800, 5, false, 18.75, 'images/DB/receta2.jpg', 'comida');
+(1, 'usuario1@example.com', 'Tarta de manzana', 8, 'media', 3600, 4, true, 12.50, LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\receta1.jpg'), 'postre'),
+(2, 'usuario2@example.com', 'Lasaña de verduras', 4, 'dificil', 4800, 5, false, 18.75, LOAD_FILE('C:\\Users\\juani\\Desktop\\UNI\\3ano\\SSW\\prueba\\RecipeLab\\src\\main\\webapp\\images\\ejemplo-receta-2.jpg'), 'comida');
 
 # seguidorDe
 INSERT INTO seguidorDe VALUES
@@ -146,7 +146,7 @@ INSERT INTO comentario VALUES
 
 # listaRecetas
 INSERT INTO listaRecetas VALUES  
-('Mis recetas favoritas', 'usuario1@example.com', '2023-04-15', '2023-04-16', 'Lista en la que guardo mis recetas favoritas', 'images/DB/lista1.png');
+('Mis recetas favoritas', 'usuario1@example.com', '2023-04-15', '2023-04-16', 'Lista en la que guardo mis recetas favoritas', LOAD_FILE('C:\Users\juani\Desktop\UNI\3ano\SSW\prueba\RecipeLab\src\main\webapp\images\DB\lista1.png'));
 
 # detallesLista
 INSERT INTO detallesLista VALUES

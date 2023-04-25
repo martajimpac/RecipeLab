@@ -4,26 +4,31 @@
  */
 package Controlador;
 
-import Datos.ListaDB;
-import Modelo.ListaRecetas;
+import Datos.RecetaDB;
+import Modelo.Categoria;
+import Modelo.Receta;
 import Modelo.Usuario;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
- * @author Víctor
+ * @author juani
  */
-@WebServlet(name = "BuscarListasServlet", urlPatterns = {"/BuscarListasServlet"})
-public class BuscarListasServlet extends HttpServlet {
+@WebServlet(name = "ServletPublicarReceta", value = {"/publicacion"})
+@MultipartConfig
+public class ServletPublicarReceta extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,32 +42,17 @@ public class BuscarListasServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-         // variables que vamos a utilizar
-        String nextStep = "/listas.jsp";
-        List<ListaRecetas> lista = new ArrayList<>();
-        
-        //recuperar los datos
-        try{
-            
-            //Obtener sesion de usuario identificado
-            HttpSession session = request.getSession();
-            Usuario user = (Usuario) session.getAttribute("usuario");
- 
-            lista = ListaDB.getListasPorBusqueda(request.getParameter("busqueda"),user.getEmail());
-        }catch(Exception e){
-            System.out.println(e);
-        }
-        
-        // una vez se pulse el boton, se captura su evento y se recraga la misma pagina
-        try {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
-            request.setAttribute("Listas", lista);  
-            request.setAttribute("Busqueda", true);
-                
-            dispatcher.forward(request, response);
-        } catch (IOException | ServletException e) {
-            System.out.println(e);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ServletPublicarReceta</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ServletPublicarReceta at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -92,7 +82,31 @@ public class BuscarListasServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        Part imagen = request.getPart("imagen");
+        
+        String ingredientes = request.getParameter("ingredientes");
+        String nombre = request.getParameter("nombre");
+        String duracion = request.getParameter("duracion");
+        String numPersonas = request.getParameter("numPersonas");
+        String dificultad = request.getParameter("dificultad");
+        
+        HttpSession sesion = request.getSession(true);
+        Usuario user = (Usuario) sesion.getAttribute("usuario");
+        String email = user.getEmail();
+        //TODO  jsp obtener si comentarios,precio,categoria
+        Receta receta = new Receta(RecetaDB.creaId(),email, nombre,Integer.valueOf(numPersonas),dificultad,Integer.valueOf(duracion),0, true, 0, imagen.getInputStream().readAllBytes(), Categoria.POSTRE.toString());
+        RecetaDB.insertaReceta(receta);
+       
+        List<Receta> recetas = RecetaDB.buscaRecetasPorUsuario(email);
+        
+        
+        // forward request and response objects to JSP page
+        String url = "/perfil.jsp";
+        RequestDispatcher dispatcher =
+        getServletContext().getRequestDispatcher(url);
+        request.setAttribute("recetas", recetas);
+        dispatcher.forward(request, response); 
     }
 
     /**

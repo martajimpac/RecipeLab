@@ -21,6 +21,20 @@ public class Receta {
     private byte[] imagenReceta;
     private Categoria categoria;
 
+    public Receta(int id, String emailUsuario, String nombre, int numPersonas, String dificultad, int duracionEnSec, int valoracionMedia, boolean comentariosActivados, double precio, byte[] imagenReceta, String categoria) {
+        this.id = id;
+        this.emailUsuario = emailUsuario;
+        this.nombre = nombre;
+        this.numPersonas = numPersonas;
+        this.dificultad = DificultadReceta.valueOf(dificultad);
+        this.duracionEnSec = duracionEnSec;
+        this.valoracionMedia = valoracionMedia;
+        this.comentariosActivados = comentariosActivados;
+        this.precio = precio;
+        this.imagenReceta = imagenReceta;
+        this.categoria = Categoria.valueOf(categoria);
+    }
+
     public int getId() {
         return id;
     }
