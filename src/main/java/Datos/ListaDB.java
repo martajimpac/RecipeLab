@@ -18,14 +18,13 @@ import Modelo.ListaRecetas;
  * @author Víctor
  */
 public class ListaDB {
-    public static List<ListaRecetas> getAll(/*Email user*/){
+    public static List<ListaRecetas> getAll(String email){
         
         //Obtener conexion a la base de datos
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
         
-        //String query = "SELECT * FROM listarecetas WHERE emailUsuario = ?";
-        String query = "SELECT * FROM listarecetas";
+        String query = "SELECT * FROM listarecetas WHERE emailUsuario = ?";
         
         try {
             List<ListaRecetas> lista = new ArrayList<>();
@@ -35,8 +34,9 @@ public class ListaDB {
             //añadir las variables a la query
             //ejecutar la query
             */
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(query);
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, email);
+            ResultSet result = statement.executeQuery();
             
             while(result.next()){
                 ListaRecetas l = new ListaRecetas();
@@ -55,14 +55,13 @@ public class ListaDB {
         }
     }
     
-    public static List<ListaRecetas> getListasPorBusqueda(String nombre /*email user*/){
+    public static List<ListaRecetas> getListasPorBusqueda(String nombre, String email){
         
         //Obtener conexion a la base de datos
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
         
-        //String query = "SELECT * FROM listarecetas WHERE emailUsuario = ? AND nombre = ?";
-        String query = "SELECT * FROM listarecetas WHERE nombre = ?";
+        String query = "SELECT * FROM listarecetas WHERE nombre LIKE ? AND emailUsuario = ?";
         
         try {
             List<ListaRecetas> lista = new ArrayList<>();
@@ -73,13 +72,11 @@ public class ListaDB {
             //ejecutar la query
             */
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, nombre);
+            statement.setString(1, "%"+nombre+"%");
+            statement.setString(2, email);
             ResultSet result = statement.executeQuery();
-            System.out.println("Aqui2");
             
             while(result.next()){
-                System.out.println("Aqui3");
-                System.out.println(result.getString("NOMBRE"));
                 ListaRecetas l = new ListaRecetas();
                 l.setNombre(result.getString("NOMBRE"));
                 l.setDescripcion(result.getString("DESCRIPCION"));
