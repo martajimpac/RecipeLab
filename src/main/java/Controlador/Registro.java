@@ -15,35 +15,46 @@ import javax.servlet.http.HttpSession;
  *
  * @author teresa
  */
-
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "Registro", urlPatterns = {"/Registro"})
+public class Registro extends HttpServlet {
     
     protected void processRequest(
-        HttpServletRequest request, 
-        HttpServletResponse response
-    ) throws ServletException, IOException {
+            HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException {
+        
         response.setContentType("text/html");
+        String url = "/registro.jsp";
         
         String email = request.getParameter("email");
-        String contrasena = request.getParameter("contrasena");
+        String nombre = request.getParameter("nombre");
+        String contrasena1 = request.getParameter("contrasena");
+        String contrasena2 = request.getParameter("repetirContrasena");
         
-        String url;
-        Usuario usuario = UsuarioDB.obtieneUsuario(email);
+        RequestDispatcher dispatcher;
         
-        if (usuario != null && UsuarioDB.validaContrasena(usuario,contrasena)) {
+        if (!contrasena1.equals(contrasena2)) {
+            response.addHeader("error", "Las contraseñas no coinciden");
+            dispatcher = getServletContext().getRequestDispatcher(url); 
+            dispatcher.forward(request,response);  
+        } else if (UsuarioDB.obtieneUsuario(email) != null) {
+            response.addHeader("error", "Ya existe un usuario con el email " + email);
+            dispatcher = getServletContext().getRequestDispatcher(url); 
+            dispatcher.forward(request,response);  
+        } else {
+            Usuario usuario = new Usuario();
+            usuario.setEmail(email);
+            usuario.setNombreUsuario(nombre);
+            usuario.setContraseña(contrasena1);
             HttpSession nuevaSesion = request.getSession(true);
-            nuevaSesion.setAttribute("usuario", usuario);
+            nuevaSesion.setAttribute ("usuario", usuario);
+
+            UsuarioDB.insertaUsuario(usuario);
             url = "sesionIniciada.jsp";
             response.sendRedirect(url);
-        } else {
-            response.setHeader("error", "Las credenciales no son correctas");
-            url = "/login.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-            dispatcher.forward(request, response);
-        }
+        }      
     }
-            
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -83,4 +94,3 @@ public class Login extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 }
-

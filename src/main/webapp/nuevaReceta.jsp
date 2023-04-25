@@ -67,7 +67,7 @@
 
   </div>
 
-  <button onclick="document.location='miPerfil.html'" class="btn btn-secondary"  type="submit" >Guardar y publicar</button>
+  <button onclick="document.location='miPerfil.jsp'" class="btn btn-secondary"  type="submit" >Guardar y publicar</button>
 
 
 </div>

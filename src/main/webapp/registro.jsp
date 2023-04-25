@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<% String error = response.getHeader("error"); %>
+
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -29,17 +32,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
 
     <div class="inicioSesion">
-        <form action="sesionIniciada.jsp" method="POST">
+        <form action="Registro" method="POST">
             <input type="text" id="nombre" name="nombre" placeholder="Nombre de usuario" required>
             <input type="text" id="email" name="email" placeholder="Correo electrónico" required>
             <input type="password" id="contrasena" name="contrasena" placeholder="Constraseña" required>
             <input type="password" id="repetirContrasena" name="repetirContrasena" placeholder="Repite la contraseña" required>
             <input type="checkbox" id="terminosCondiciones" name="terminosCondiciones" required> Acepto los términos y condiciones
             <input type="submit" value="Registrarte">
-
         </form>
+        
+        <p>
+            <%if (error != null) {%>
+                <i><%=error%></i>
+            <%}%>
+        </p>
+        
     </div>
-
 </div>
 
 <!-- ***************************************************************************************************************** -->
