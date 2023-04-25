@@ -88,7 +88,7 @@
             }
             int i=0;
             for (ListaRecetas l : listas){
-                if(i%3==0){
+                if(i%3 == 0){
         %>
         <div class="row">
         <%

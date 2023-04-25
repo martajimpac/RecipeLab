@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% String error = response.getHeader("error"); %>
+
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -41,7 +43,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <p class="noRegistrado">¿Aún no tienes cuenta?</p>
 
         </form>
-        <button onclick="document.location='registro.html'">Regístrate</button>
+        <button onclick="document.location='registro.jsp'">Regístrate</button>
+        
+        <p>
+            <%if (error != null) {%>
+                <i><%=error%></i>
+            <%}%>
+        </p>
+        
+        
     </div>
     <br><br><br>
 </div>

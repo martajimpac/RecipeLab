@@ -74,8 +74,7 @@
     </div>
 
   </div>
-    
-    
+  
   <button class="btn btn-secondary"  type="submit" >Guardar y publicar</button>
   </form>
 

@@ -105,4 +105,27 @@ public class UsuarioDB {
     public static boolean validaContrasena(Usuario usuario, String contrasena){
         return usuario.getContraseña().equals(contrasena);
     }
+
+    public static void insertaUsuario(Usuario usuario) {
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        
+        String query = "INSERT INTO usuario(nombreUsuario, contraseña, email) VALUES (?, ?, ?)";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, usuario.getNombreUsuario());
+            preparedStatement.setString(2, usuario.getContraseña());
+            preparedStatement.setString(3, usuario.getEmail());
+            
+            preparedStatement.executeUpdate();
+            
+            preparedStatement.close();
+            pool.freeConnection(connection);
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+                
+    }
 }
