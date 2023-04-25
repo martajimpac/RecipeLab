@@ -14,5 +14,5 @@ document.addEventListener("click", function(event) {
 });
 
 cerrarSesion.addEventListener("click", function() {
-    alert("La sesion se ha cerrado correctamente")
+    alert("La sesion se ha cerrado correctamente");
 });

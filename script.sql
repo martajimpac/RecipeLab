@@ -1,33 +1,34 @@
-### BASE DE DATOS RECIPELAB
-CREATE DATABASE  IF NOT EXISTS recipelab;
+# BASE DE DATOS RECIPELAB
+CREATE DATABASE IF NOT EXISTS recipelab;
 USE recipelab;
 
-### Eliminar las tablas si ya existian
-DROP TABLE IF EXISTS usuario;
+# Eliminar las tablas si ya existian
 DROP TABLE IF EXISTS seguidorDe;
 DROP TABLE IF EXISTS valoracion;
 DROP TABLE IF EXISTS comentario;
-DROP TABLE IF EXISTS listaRecetas;
 DROP TABLE IF EXISTS detallesLista;
-DROP TABLE IF EXISTS receta;
+DROP TABLE IF EXISTS listaRecetas;
 DROP TABLE IF EXISTS pasosReceta;
 DROP TABLE IF EXISTS detallesReceta;
 DROP TABLE IF EXISTS ingrediente;
+DROP TABLE IF EXISTS receta;
+DROP TABLE IF EXISTS usuario;
 
-### Creacion de las tablas  
+# Creacion de las tablas  
 CREATE TABLE usuario (
   nombreUsuario varchar(45),
   contraseña varchar(45),
-  email varchar(45),
-  rolUsuario  enum('administrador', 'publicador'),
-  avatar varchar(100),                                             ### imagen
+  email varchar(45) unique,
+  rolUsuario enum('administrador', 'publicador'),
+  avatar varchar(100),                                             -- imagen
   esPrivado boolean default 0,
   valoracion double,
   PRIMARY KEY (email)    
 );
 
 CREATE TABLE receta (
-  id varchar(45),
+  id integer not null AUTO_INCREMENT,
+  # id varchar(45),
   emailUsuario varchar(45),
   nombre varchar(45),
   numPersonas int,
@@ -36,7 +37,7 @@ CREATE TABLE receta (
   valoracionMedia int,
   comentariosActivados boolean default 1,
   precio double,
-  imagenReceta varchar(100),                                           ### imagen                                         
+  imagenReceta varchar(100),                                           -- imagen                                         
   categoria enum ('desayuno', 'comida', 'cena', 'snack', 'postre'),
   PRIMARY KEY (id),
   FOREIGN KEY (emailUsuario) REFERENCES usuario(email)
@@ -58,7 +59,7 @@ CREATE TABLE valoracion (
 
 CREATE TABLE comentario (
   emailUsuario varchar(45),
-  idReceta varchar(45),
+  idReceta int,
   valoracion int,
   texto varchar(300),
   leido boolean default 0,
@@ -75,21 +76,21 @@ CREATE TABLE listaRecetas (
   fechaCreacion date,
   fechaModificacion date,
   descripcion varchar(200),
-  imagenLista varchar(100),                                            ### imagen
+  imagenLista varchar(100),                                            ---imagen
   PRIMARY KEY (nombre, emailUsuario),
   FOREIGN KEY (emailUsuario) REFERENCES usuario(email)
 );
 
 CREATE TABLE detallesLista (
   nombreLista varchar(45),
-  idReceta varchar(45),
+  idReceta int,
   PRIMARY KEY (nombreLista, idReceta),
   FOREIGN KEY (nombreLista) REFERENCES listaRecetas(nombre),
   FOREIGN KEY (idReceta) REFERENCES receta(id)
 );
 
 CREATE TABLE pasosReceta (
-  idReceta varchar(45),
+  idReceta int,
   numeroPaso int,
   descripcion varchar(500),
   PRIMARY KEY (numeroPaso, idReceta),
@@ -105,7 +106,7 @@ CREATE TABLE ingrediente (
   
 
 CREATE TABLE detallesReceta (
-  idReceta varchar(45),
+  idReceta int,
   nombreIngrediente varchar(45),
   cantidad  varchar(15),
   opcionalidad boolean default 1,
@@ -116,44 +117,44 @@ CREATE TABLE detallesReceta (
 
   
 
-### Insertar tuplas
+# Insertar tuplas
 
-### usuario
+# usuario
 INSERT INTO usuario VALUES
-('usuario1', 'contraseña1', 'usuario1@example.com', 'publicador', 'images/DB/avatar1.jpg', false, 4.5),
-('usuario2', 'contraseña2', 'usuario2@example.com', 'administrador', 'images/DB/avatar2.jpg', true, 3.8);
+('usuario1', 'contrasena1', 'usuario1@example.com', 'publicador', 'images/DB/avatar1.jpg', false, 4.5),
+('usuario2', 'contrasena2', 'usuario2@example.com', 'administrador', 'images/DB/avatar2.jpg', true, 3.8);
 
-### receta
+# receta
 INSERT INTO receta VALUES
-('1', 'usuario1@example.com', 'Tarta de manzana', 8, 'media', 3600, 4, true, 12.50, 'images/DB/receta1.jpg', 'postre'),
-('2', 'usuario2@example.com', 'Lasaña de verduras', 4, 'dificil', 4800, 5, false, 18.75, 'images/DB/receta2.jpg', 'comida');
+(1, 'usuario1@example.com', 'Tarta de manzana', 8, 'media', 3600, 4, true, 12.50, 'images/DB/receta1.jpg', 'postre'),
+(2, 'usuario2@example.com', 'Lasaña de verduras', 4, 'dificil', 4800, 5, false, 18.75, 'images/DB/receta2.jpg', 'comida');
 
-### seguidorDe
+# seguidorDe
 INSERT INTO seguidorDe VALUES
 ('usuario1@example.com', 'usuario2@example.com'),
 ('usuario2@example.com', 'usuario1@example.com');
 
-### valoracion
+# valoracion
 INSERT INTO valoracion VALUES
 (4, 'usuario1@example.com'),
 (5, 'usuario2@example.com');
 
-### comentario
+# comentario
 INSERT INTO comentario VALUES
 ('usuario1@example.com', '1', 4, '¡Muy buena receta!', true, '2023-04-16', 'Gracias por tu comentario!'),
 ('usuario2@example.com', '1', 5, 'Increíble receta, ¡muchas gracias por compartirla!', false, '2023-04-15', '');
 
-### listaRecetas
+# listaRecetas
 INSERT INTO listaRecetas VALUES  
 ('Mis recetas favoritas', 'usuario1@example.com', '2023-04-15', '2023-04-16', 'Lista en la que guardo mis recetas favoritas', 'images/DB/lista1.png');
 
-### detallesLista
+# detallesLista
 INSERT INTO detallesLista VALUES
 ('Mis recetas favoritas', '1'),
 ('Mis recetas favoritas', '2');
 
 
-### pasosReceta
+# pasosReceta
 INSERT INTO pasosReceta VALUES
 ('1', 1, 'Pelar y cortar las manzanas en rodajas finas.'),
 ('1', 2, 'Colocar las rodajas de manzana en una fuente para horno previamente forrada con masa quebrada.'),
@@ -167,7 +168,7 @@ INSERT INTO pasosReceta VALUES
 ('2', 6, 'Hornear la lasaña a 200 grados durante 30 minutos.');
 
 
-### ingrediente
+# ingrediente
 INSERT INTO ingrediente VALUES
 ('manzanas', true, 0.75),
 ('harina', true, 0.15),
@@ -184,7 +185,7 @@ INSERT INTO ingrediente VALUES
 ('queso rallado', true, 0.75);
 
 
-### detallesReceta
+# detallesReceta
 INSERT INTO detallesReceta VALUES
 ('1', 'manzanas', '8', false),
 ('1', 'harina', '200 gr', false),
@@ -201,4 +202,3 @@ INSERT INTO detallesReceta VALUES
 ('2', 'harina', '50 gr', false),
 ('2', 'mantequilla', '50 gr', false),
 ('2', 'queso rallado', '100 gr', false);
-

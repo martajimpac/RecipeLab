@@ -22,7 +22,7 @@
                 <ul class="submenu">
                     <li><a href="miPerfil.jsp">Ver mi perfil</a></li>
                     <li><a href="#">Cambiar contraseña</a></li>
-                    <li><a href="index.jsp" id="cerrar-sesion">Cerrar sesión</a></li>
+                    <li><a href="Logout" id="cerrar-sesion">Cerrar Sesión</a></li>
                 </ul>
             </li> </a>
     </div>
