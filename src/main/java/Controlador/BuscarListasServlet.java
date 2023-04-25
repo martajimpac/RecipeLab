@@ -6,6 +6,7 @@ package Controlador;
 
 import Datos.ListaDB;
 import Modelo.ListaRecetas;
+import Modelo.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +44,12 @@ public class BuscarListasServlet extends HttpServlet {
         
         //recuperar los datos
         try{
-            /*
-            * Para cuando este la indentificacion implementada
-            * Se obtiene el email del user y se pasa como argumento en la busqueda
-            * HttpSession session = request.getSession("UserEmail");
-            */
-            lista = ListaDB.getListasPorBusqueda(request.getParameter("busqueda"));
+            
+            //Obtener sesion de usuario identificado
+            HttpSession session = request.getSession();
+            Usuario user = (Usuario) session.getAttribute("usuario");
+ 
+            lista = ListaDB.getListasPorBusqueda(request.getParameter("busqueda"),user.getEmail());
         }catch(Exception e){
             System.out.println(e);
         }
