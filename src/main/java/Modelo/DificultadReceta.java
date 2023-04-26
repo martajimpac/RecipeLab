@@ -9,7 +9,7 @@ package Modelo;
  * @author marta
  */
 public enum DificultadReceta {
-    FACIL,
-    MEDIA,
-    DIFICIL
+    facil,
+    media,
+    dificil
 }

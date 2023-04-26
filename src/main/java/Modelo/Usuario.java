@@ -13,7 +13,7 @@ public class Usuario {
     private String contraseña;
     private String email;
     private RolUsuario rolUsuario;
-    private byte[] avatar;
+    private String avatar;
     private boolean esPrivado;
     private double valoracion;
 
@@ -49,11 +49,11 @@ public class Usuario {
         this.rolUsuario = rolUsuario;
     }
 
-    public byte[] getAvatar() {
+    public String getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
 
@@ -71,9 +71,5 @@ public class Usuario {
 
     public void setValoracion(double valoracion) {
         this.valoracion = valoracion;
-    }
-    
-    public void asignarRol(String rol) {
-        this.rolUsuario = rol.equals("administrador") ? RolUsuario.ADMINISTRADOR : RolUsuario.PUBLICADOR;
     }
 }

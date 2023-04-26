@@ -123,4 +123,3 @@ public class Receta {
         this.categoria = categoria;
     }
 }
-

@@ -22,7 +22,8 @@
 </head>
 
 <body>
-<%@ include file="/includes/headerSesionIniciada.jsp" %>
+    <%@ include file="/includes/headerSesionIniciada.jsp" %>
+
 
 <div class="contenido container-sm">
   <div class="card">

@@ -207,6 +207,11 @@ footer {
     margin: 10px 0;
 }
 
+#divfiltrosPersonas{
+    display: none;
+    height: 40px;
+}
+
 /*Slider*/
 .display-6{ /*Textos*/
     margin-top: 10px;

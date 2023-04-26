@@ -24,7 +24,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     <body>
 
     <%@ include file="/includes/header.html" %>
-        
+
         
         <div class="container-sm contenido">
             

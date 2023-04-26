@@ -24,7 +24,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     </head>
     <body>
 
-        <%@ include file="/includes/headerSesionIniciada.jsp" %>
+        <%String email = (String) session.getAttribute("ussuario");
+ if(email!=null){%>
+    <%@ include file="/includes/headerSesionIniciada.jsp" %>
+ <%}else{%>
+    <%@ include file="/includes/header.html" %>
+ <%}%>
 
         <div class="container-sm contenido sobre-nosotros">
             <p>

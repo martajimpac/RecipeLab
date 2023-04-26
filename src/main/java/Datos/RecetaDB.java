@@ -24,6 +24,49 @@ import javax.sql.rowset.serial.SerialBlob;
  */
 public class RecetaDB {
     
+    public static ArrayList<Receta> buscaRecetasPorNombre(String nombreReceta) {
+        
+        //Obtener conexion a la base de datos
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        
+        //vamos a buscar los usuarios cuyo nombre contenga la cadena introducida
+        String query = "SELECT * FROM receta r WHERE r.nombre LIKE ?";
+        
+        try {
+            ArrayList<Receta> lista = new ArrayList<>();
+            //crear la consulta dinamica
+            PreparedStatement statement = connection.prepareStatement(query);
+         
+            //añadir las variables a la query
+            statement.setString(1,"%"+nombreReceta+"%");
+            
+            System.out.println(statement);
+            //ejecutar la query
+            ResultSet result = statement.executeQuery();
+            
+         
+            while(result.next()){
+                int id = result.getInt("id");
+                String emailUsuario = result.getString("emailUsuario");
+                int numPersonas = result.getInt("numPersonas");
+                String dificultad = result.getString("dificultadReceta");
+                int duracion = result.getInt("duracionEnSec");
+                int valoracion = result.getInt("valoracionMedia");
+                boolean comentarios = result.getBoolean("comentariosActivados");
+                double precio = result.getDouble("precio");
+                byte [] imagen = result.getBytes("imagenReceta");
+                String categoria = result.getString("categoria");
+                
+                Receta receta = new Receta(id,emailUsuario,nombreReceta,numPersonas,dificultad,duracion,valoracion,comentarios,precio,imagen,categoria);
+                lista.add(receta);     
+            }
+            return lista;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
     public static List<Receta> buscaRecetasPorUsuario(String email){
         
         ArrayList<Receta> recetas = new ArrayList();

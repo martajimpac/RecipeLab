@@ -10,7 +10,7 @@ package Modelo;
  */
 public class DetallesLista {
     private String nombreLista;
-    private int idReceta;
+    private String idReceta;
 
     public void setNombreLista(String nombreLista) {
         this.nombreLista = nombreLista;
@@ -20,11 +20,11 @@ public class DetallesLista {
         return nombreLista;
     }
 
-    public void setIdReceta(int idReceta) {
+    public void setIdReceta(String idReceta) {
         this.idReceta = idReceta;
     }
 
-    public int getIdReceta() {
+    public String getIdReceta() {
         return idReceta;
     }
 }

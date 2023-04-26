@@ -9,15 +9,15 @@ package Modelo;
  * @author marta
  */
 public class PasosReceta {
-    private int idReceta;
+    private String idReceta;
     private int numeroPaso;
     private String descripcion;
 
-    public void setIdReceta(int idReceta) {
+    public void setIdReceta(String idReceta) {
         this.idReceta = idReceta;
     }
 
-    public int getIdReceta() {
+    public String getIdReceta() {
         return idReceta;
     }
 

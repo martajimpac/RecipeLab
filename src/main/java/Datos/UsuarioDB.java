@@ -18,54 +18,46 @@ import java.util.ArrayList;
  */
 public class UsuarioDB {
 
-    public static ArrayList<Usuario> buscaUsuarios() {
+    public static ArrayList<Usuario> buscaUsuarios(String nombreUsuario) {
         
         //Obtener conexion a la base de datos
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
+
         
-        //String query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
-        String query = "SELECT * FROM USUARIO";
+        //vamos a buscar los usuarios cuyo nombre contenga la cadena introducida
+        String query = "SELECT * FROM usuario u WHERE u.nombreUsuario LIKE ?";
         
         try {
             ArrayList<Usuario> lista = new ArrayList<>();
-            
-            /*
+     
             //crear la consulta dinamica
             PreparedStatement statement = connection.prepareStatement(query);
          
             //añadir las variables a la query
-            statement.setString(1, "usuario1");
+            statement.setString(1,"%"+nombreUsuario+"%");
             
             //ejecutar la query
-            ResultSet result = statement.executeQuery(query);
-            */
-            Statement statement = connection.createStatement();
-            ResultSet result = statement.executeQuery(query);
-            System.out.println("todo fue bien!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-           
-            
+            ResultSet result = statement.executeQuery();
             while(result.next()){
-                System.out.println("Tenemos un resultado");
                 Usuario user = new Usuario();
+                 System.out.println("hola2");
                 user.setNombreUsuario(result.getString("NOMBREUSUARIO"));
                 user.setContraseña(result.getString("CONTRASEÑA"));
                 user.setEmail(result.getString("EMAIL"));
                 RolUsuario rol = RolUsuario.valueOf(result.getString("ROLUSUARIO"));
                 user.setRolUsuario(rol);
-                //user.setNombreUsuario(result.getString("NOMBREUSUARIO")); todo imagen
-                user.setEsPrivado(result.getBoolean("ESPRIVADO"));
-                user.setValoracion(result.getDouble("VALORACION"));
-    
-                
-                lista.add(0,user);
+                boolean esPrivado = result.getBoolean("ESPRIVADO");
+                user.setEsPrivado(esPrivado);
+                //user.setAvatar(result.getString("AVATAR"));
+                user.setValoracion(result.getDouble("VALORACION")); 
+                lista.add(0,user);       
             }
-            
             return lista;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return null;
         }
-    }
+    }    
     
     public static Usuario obtieneUsuario(String email) {
         Conexion pool = Conexion.getInstance();
@@ -86,8 +78,8 @@ public class UsuarioDB {
                 usuario.setNombreUsuario(resultSet.getString("nombreUsuario"));
                 usuario.setContraseña(resultSet.getString("contraseña"));
                 usuario.setEmail(resultSet.getString("email"));
-                usuario.asignarRol(resultSet.getString("rolUsuario"));
-                usuario.setAvatar(resultSet.getBytes("avatar"));
+                RolUsuario rol = RolUsuario.valueOf(resultSet.getString("ROLUSUARIO"));
+                usuario.setRolUsuario(rol);
                 usuario.setEsPrivado(resultSet.getBoolean("esPrivado"));
                 usuario.setValoracion(resultSet.getDouble("valoracion"));
             }

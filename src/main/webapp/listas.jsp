@@ -88,7 +88,7 @@
             }
             int i=0;
             for (ListaRecetas l : listas){
-                if(i%3 == 0){
+                if(i%3==0){
         %>
         <div class="row">
         <%
@@ -97,7 +97,7 @@
         %>
             <div class="col">
                 <div class="card" style="width: 18rem;">
-                  <a href="detallesLista.html">
+                  <a href="detallesLista.jsp">
                     <img src="./images/corazon2.png" class="card-img-top" alt="lista favoritos">
                   </a>
                   <div class="card-body">

@@ -19,7 +19,8 @@
 </head>
 <body>
 
-<%@ include file="/includes/headerSesionIniciada.jsp" %>
+    <%@ include file="/includes/headerSesionIniciada.jsp" %>
+
 <div class="container-sm contenido">
 
     <div class="d-flex">

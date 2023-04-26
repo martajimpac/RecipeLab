@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Datos;
 
 /**
@@ -8,7 +13,6 @@ package Datos;
 import java.sql.*;
 import javax.sql.DataSource;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 public class Conexion {
     private static Conexion pool = null;
@@ -17,33 +21,31 @@ public class Conexion {
     private Conexion() {
         try {
             InitialContext ic = new InitialContext();
-            dataSource = (DataSource) ic.lookup("java:/comp/env/jdbc/recipelab");  
-        } catch(NamingException e) {
-            System.err.println(e.toString());
-        }
+            dataSource = (DataSource) ic.lookup("java:/comp/env/jdbc/recipelab");
+          
+        }catch(Exception e) {
+            e.printStackTrace();
+            }
     }
-    
     public static Conexion getInstance() {
         if (pool == null) {
             pool = new Conexion();
         }
             return pool;
     }
-    
     public Connection getConnection() {
         try {
             return dataSource.getConnection();
         }catch (SQLException sqle) {
-           System.err.println(sqle.toString());
+            sqle.printStackTrace();
             return null;
         }
     }
-    
     public void freeConnection(Connection c) {
         try {
             c.close();
         }catch (SQLException sqle) {
-            System.err.println(sqle.toString());
+            sqle.printStackTrace();
         }
     }
 }

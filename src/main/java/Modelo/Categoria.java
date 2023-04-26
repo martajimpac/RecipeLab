@@ -9,9 +9,9 @@ package Modelo;
  * @author marta
  */
 public enum Categoria {
-    DESAYUNO,
-    COMIDA,
-    CENA,
-    SNACK,
-    POSTRE
+    desayuno,
+    comida,
+    cena,
+    snack,
+    postre
 }

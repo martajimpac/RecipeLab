@@ -4,6 +4,10 @@
     Author     : marta
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.lang.Math"%>
+<%@page import="Modelo.Receta"%>
+<%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -21,7 +25,13 @@
 <!-- Cabecera                                                                                                          -->
 <!-- ***************************************************************************************************************** -->
 
-<%@ include file="/includes/headerSesionIniciada.jsp" %>
+<!-- ***************************************************************************************************************** -->
+<%Usuario usuario = (Usuario) session.getAttribute("usuario");
+ if(usuario!=null){%>
+    <%@ include file="/includes/headerSesionIniciada.jsp" %>
+ <%}else{%>
+    <%@ include file="/includes/header.html" %>
+ <%}%>
 
 <!-- ***************************************************************************************************************** -->
 <!-- Cuerpo de la pagina                                                                                               -->
@@ -30,9 +40,15 @@
 <div class="container-sm contenido">
 
   <div class="d-flex align-items-center">
+     <%if(usuario==null){%>
+    <a href="index.jsp">
+      <img src="images/backArrow.png" alt="atras" class="imagen-nav"/>
+    </a>
+    <%}else{%>
     <a href="sesionIniciada.jsp">
       <img src="images/backArrow.png" alt="atras" class="imagen-nav"/>
     </a>
+    <%}%>
     <p class="display-6">Resultados</p>
   </div>
 
@@ -42,145 +58,74 @@
 
   <form class="buscador" method="POST" action=""> <!--Llamar aqui al servlet -->
     <div class="container text-center">
-      <div class="row">
+        
+ <% ArrayList<Receta> lista = (ArrayList<Receta>)request.getAttribute("ListaRecetas");
+if(lista!=null){
+    int numeroElemento = 0;
+    //calcular cuantas filas de usuarios van a hacer falta
+    int numeroFilas = (int)Math.ceil((double)lista.size()/4);
+
+    for(int i=0; i<=numeroFilas;i++) {%>
+    <div class="row">
+     <% for(int j=0; j<4; j++){
+            try{
+            Receta receta = lista.get(numeroElemento); 
+            numeroElemento ++;
+     %>
+          
         <div class="col">
           <div class="card" style="width: 18rem;">
-            <div class="corazon-sobre-div">
-              <img src="./images/corazon.png" alt="corazon">
-            </div>
+               <% if(usuario!=null){%>
+              <div class="corazon-sobre-div">
+                 <img src="./images/corazon.png" alt="corazon">
+              </div>
+               <%}%>
             <a href="receta.jsp">
               <img src="./images/lista1.jpg" class="card-img-top" alt="receta">
             </a>
             <div class="card-body">
-              <h5 class="card-title">Titulo receta</h5>
+              <h5 class="card-title"><%=receta.getNombre() %></h5>
               <div class="info-receta-pequeño">
                 <div class="item">
-                  <img src="./images/estrella.png" alt="valoracion">
-                  <img src="./images/estrella.png" alt="valoracion">
-                  <img src="./images/estrella.png" alt="valoracion">
+                    <% for(int estrellas=0; estrellas<receta.getValoracionMedia(); estrellas++){ %>
+                        <img src="./images/estrella.png" alt="valoracion"> 
+                    <%} %>
                 </div>
                 <div class="item">
                   <img src="images/personas.png" alt="numero personas">
-                  <p> 4 </p>
+                  <p> <%=receta.getNumPersonas() %> </p>
                 </div>
                 <div class="item">
                   <img src="./images/reloj.png" alt="duracion">
-                  <p> 1h. </p>
+                  <% int segundos = receta.getDuracionEnSec();
+                     int hor=segundos/3600;
+                     int min=(segundos-(3600*hor))/60;
+                     String tiempo = hor+"h "+min+"m ";
+                  %>
+                  <p> <%=tiempo %> </p>
                 </div>
                 <div class="item">
-                  <strong> €€ </strong>
+                  <strong> <%=receta.getPrecio() %>€ </strong>
                 </div>
                 <div class="item">
-                  <p> Fácil </p>
+                  <p> <%=receta.getDificultad() %> </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <div class="corazon-sobre-div">
-              <img src="./images/corazon.png" alt="corazon">
-            </div>
-            <a href="receta.jsp">
-              <img src="./images/lista1.jpg" class="card-img-top" alt="receta">
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Titulo receta</h5>
-              <div class="info-receta-pequeño">
-                <div class="item">
-                  <img src="./images/estrella.png" alt="valoracion">
-                  <img src="./images/estrella.png" alt="valoracion">
-                  <img src="./images/estrella.png" alt="valoracion">
-                </div>
-                <div class="item">
-                  <img src="images/personas.png" alt="numero personas">
-                  <p> 4 </p>
-                </div>
-                <div class="item">
-                  <img src="./images/reloj.png" alt="duracion">
-                  <p> 1h. </p>
-                </div>
-                <div class="item">
-                  <strong> €€ </strong>
-                </div>
-                <div class="item">
-                  <p> Fácil </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <div class="corazon-sobre-div">
-              <img src="./images/corazon.png" alt="corazon">
-            </div>
-            <a href="receta.jsp">
-              <img src="./images/lista1.jpg" class="card-img-top" alt="receta">
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Titulo receta</h5>
-              <div class="info-receta-pequeño">
-                <div class="item">
-                  <img src="./images/estrella.png" alt="valoracion">
-                  <img src="./images/estrella.png" alt="valoracion">
-                  <img src="./images/estrella.png" alt="valoracion">
-                </div>
-                <div class="item">
-                  <img src="images/personas.png" alt="numero personas">
-                  <p> 4 </p>
-                </div>
-                <div class="item">
-                  <img src="./images/reloj.png" alt="duracion">
-                  <p> 1h. </p>
-                </div>
-                <div class="item">
-                  <strong> €€ </strong>
-                </div>
-                <div class="item">
-                  <p> Fácil </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <div class="corazon-sobre-div">
-              <img src="./images/corazon.png" alt="corazon">
-            </div>
-            <a href="receta.jsp">
-              <img src="./images/lista1.jpg" class="card-img-top" alt="receta">
-            </a>
-            <div class="card-body">
-              <h5 class="card-title">Titulo receta</h5>
-              <div class="info-receta-pequeño">
-                <div class="item">
-                  <img src="./images/estrella.png" alt="valoracion">
-                  <img src="./images/estrella.png" alt="valoracion">
-                  <img src="./images/estrella.png" alt="valoracion">
-                </div>
-                <div class="item">
-                  <img src="images/personas.png" alt="numero personas">
-                  <p> 4 </p>
-                </div>
-                <div class="item">
-                  <img src="./images/reloj.png" alt="duracion">
-                  <p> 1h. </p>
-                </div>
-                <div class="item">
-                  <strong> €€ </strong>
-                </div>
-                <div class="item">
-                  <p> Fácil </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        
+        
+       <%  
+        } catch(Exception e){%>
+        <div class="col"> </div>
+        <%}
+        } //del segundo for%>
+    </div> <!-- cerrar fila -->
+    <%} //del primer for
+}//del if%>
+
+     </div>
   </form>
 </div>
 

@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Usuario"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,12 @@
 </head>
 
 <body>
-<%@ include file="/includes/headerSesionIniciada.jsp" %>
+<%Usuario usuario = (Usuario) session.getAttribute("usuario");
+ if(usuario!=null){%>
+    <%@ include file="/includes/headerSesionIniciada.jsp" %>
+ <%}else{%>
+    <%@ include file="/includes/header.html" %>
+ <%}%>
 
 <div class="contenido container-sm">
     <div class="card">
@@ -91,6 +97,8 @@
             </div>
         </div>
     </div>
+    
+    <% if(usuario!=null){%>
     <div class="row">
         <div class="col">
             <label id="comentarios">Comentarios</label>
@@ -123,6 +131,8 @@
             </div>
         </div>
     </div>
+    <%}%>
+    
 
 </div>
 <!-- ***************************************************************************************************************** -->

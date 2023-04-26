@@ -10,11 +10,11 @@
     <!-- Buscador                                                                                                          -->
     <!-- ***************************************************************************************************************** -->
 
-    <form class="buscador" method="POST" action="BuscarUsuariosServlet"> <!--Llamar aqui al servlet -->
-        <input type="text" name="busqueda" placeholder="Buscar...">
-        <select class="botonDesplegable" name="busqueda">
-            <option value=""> Recetas </option>
-            <option value="1"> Personas </option>
+    <form class="buscador" method="POST" action="BuscadorServlet"> <!--Llamar aqui al servlet -->
+        <input type="text" name="form-texto" placeholder="Buscar...">
+        <select class="botonDesplegable" name="tipo-busqueda">
+            <option value="recetas"> Recetas </option>
+            <option value="personas"> Personas </option>
         </select>
         <button id="buscarRecetas" class="btn btn-secondary"  type="submit" >Buscar</button>
 
@@ -27,47 +27,64 @@
     <div class="collapse" id="collapseExample">
         <div class="card card-body filtros">
 
-            <div class="container text-center">
+            <div class="container text-center" id="divfiltros">
                 <div class="row">
-                    <div class="col">
-                        <label for="precio-slider">Precio:</label>
-                        <input type="range" class="filtro-slider" id="precio-slider" min="0" max="100" value="50" step="1">
-                        <p>Valor: <span id="precio-value"></span> €</p>
+                        <div class="col">
+                            <label for="precio">Precio máximo:  </label>
+                            <input id="precio" type="range" class="filtro-slider" name="form-precio" min="0" max="50" step="1">
+                            <p>Valor: <span id="valor-precio"></span></p>
+                        </div>
+                        <div class="col">
+                            <label for="duracion">Duración máxima:  </label>
+                            <input id="duracion" type="range" class="filtro-slider" name="form-duracion" min="0" max="10000" step="1">
+                            <p>Valor: <span id="valor-duracion"></span></p>
+                        </div>
                     </div>
-                    <div class="col">
-                        <label for="duracion-slider">Duración:</label>
-                        <input type="range" class="filtro-slider" id="duracion-slider" min="0" max="100" value="50" step="1">
-                        <p>Valor actual: <span id="duracion-value"></span>h</p>
-                        <!--TODO añadir javascript para terminar esto-->
-                    </div>
-                </div>
 
                 <div class="row">
                     <div class="col">
-                        <span id="categoria-texto">Ingredientes</span>
-                        <select id="categoria-selector" class="botonDesplegable" name="busqueda"> <!--TODO: TERMINAR ESTO, COMO PONER UNA OPCION POR DEFECTO?-->
-                            <option value="0"> Desayuno</option>
-                            <option value="1"> Comida</option>
-                            <option value="2"> Cena</option>
-                            <option value="3"> Snack</option>
-                            <option value="4"> Postre</option>
+                        <span>Categoría</span>
+                        <select name="form-categoria" class="botonDesplegable" name="busqueda">
+                            <option value="-1" selected> Elegir</option>
+                            <option value="desayuno"> Desayuno</option>
+                            <option value="comida"> Comida</option>
+                            <option value="cena"> Cena</option>
+                            <option value="snack"> Snack</option>
+                            <option value="postre"> Postre</option>
                         </select>
                     </div>
                     <div class="col">
-                        <span id="dificultad-texto">Dificultad</span>
-                        <select id="dificultad-selector" class="botonDesplegable" name="busqueda">
-                            <option value="1" selected> Fácil </option>
-                            <option value="2"> Media </option>
-                            <option value="3"> Difícil </option>
+                        <span>Nº comensales</span>
+                        <select name="form-comensales" class="botonDesplegable" name="busqueda">
+                            <option value="-1" selected> Elegir</option>
+                            <option value="1"> 1    </option>
+                            <option value="2"> 2    </option>
+                            <option value="3"> 3    </option>
+                            <option value="4"> 4    </option>
+                            <option value="5"> 5    </option>
+                            <option value="6"> 6    </option>
+                            <option value="7"> 7    </option>
+                            <option value="8"> 8    </option>
+                            <option value="9"> 9    </option>
+                            <option value="10"> 10    </option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <span>Dificultad</span>
+                        <select name="form-dificultad" class="botonDesplegable" name="busqueda">
+                            <option value="-1" selected> Elegir</option>
+                            <option value="facil"> Fácil </option>
+                            <option value="media"> Media </option>
+                            <option value="dificil"> Difícil </option>
                         </select>
                     </div>
                     <div class="col">
                         <div class="rating">
-                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
-                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                            <input type="radio" id="star1" name="rating" value="5" /><label for="star1"></label>
+                            <input type="radio" id="star2" name="rating" value="4" /><label for="star2"></label>
                             <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
-                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
-                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
+                            <input type="radio" id="star4" name="rating" value="2" /><label for="star4"></label>
+                            <input type="radio" id="star5" name="rating" value="1" /><label for="star5"></label>
                         </div>
                     </div>
                 </div>
@@ -75,7 +92,7 @@
         </div>
     </div>
     </form>
-    
+
     <!-- ***************************************************************************************************************** -->
     <!-- Slider                                                                                                            -->
     <!-- ***************************************************************************************************************** -->
@@ -189,3 +206,5 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+    
+    <script src="js/app.js" type="text/javascript"></script>

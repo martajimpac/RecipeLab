@@ -95,7 +95,7 @@ public class ServletPublicarReceta extends HttpServlet {
         Usuario user = (Usuario) sesion.getAttribute("usuario");
         String email = user.getEmail();
         //TODO  jsp obtener si comentarios,precio,categoria
-        Receta receta = new Receta(RecetaDB.creaId(),email, nombre,Integer.valueOf(numPersonas),dificultad,Integer.valueOf(duracion),0, true, 0, imagen.getInputStream().readAllBytes(), Categoria.POSTRE.toString());
+        Receta receta = new Receta(RecetaDB.creaId(),email, nombre,Integer.valueOf(numPersonas),dificultad,Integer.valueOf(duracion),0, true, 0, imagen.getInputStream().readAllBytes(), Categoria.postre.toString());
         RecetaDB.insertaReceta(receta);
        
         List<Receta> recetas = RecetaDB.buscaRecetasPorUsuario(email);

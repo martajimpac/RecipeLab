@@ -9,6 +9,6 @@ package Modelo;
  */
 
 public enum RolUsuario {
-    ADMINISTRADOR,
-    PUBLICADOR 
+    administrador,
+    publicador
 }

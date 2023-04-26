@@ -4,6 +4,7 @@
     Author     : marta
 --%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.lang.Math"%>
 <%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,16 +21,31 @@
 <!-- ***************************************************************************************************************** -->
 <!-- Cabecera                                                                                                          -->
 <!-- ***************************************************************************************************************** -->
-<%@ include file="/includes/headerSesionIniciada.jsp" %>
+<%Usuario usuario = (Usuario) session.getAttribute("usuario");
+ if(usuario!=null){%>
+    <%@ include file="/includes/headerSesionIniciada.jsp" %>
+ <%}else{%>
+    <%@ include file="/includes/header.html" %>
+ <%}%>
+
+
 <!-- ***************************************************************************************************************** -->
 <!-- Cuerpo de la pagina                                                                                               -->
 <!-- ***************************************************************************************************************** -->
 <div class="container-sm contenido">
 
   <div class="d-flex align-items-center">
-    <a href="sesionIniciada.jsp">
-      <img src="images/backArrow.png" alt="atras" class="imagen-nav"/>
-    </a>
+      
+    <%if(usuario==null){%>
+       <a href="index.jsp">
+         <img src="images/backArrow.png" alt="atras" class="imagen-nav"/>
+       </a>
+    <%}else{%>
+       <a href="sesionIniciada.jsp">
+         <img src="images/backArrow.png" alt="atras" class="imagen-nav"/>
+       </a>
+    <%}%>
+
     <p class="display-6">Resultados</p>
   </div>
 
@@ -37,16 +53,23 @@
   <!-- Mis listas                                                                                                          -->
   <!-- ***************************************************************************************************************** -->
           
-   <form class="buscador" method="POST" action=""> <!--Llamar aqui al servlet -->
+   <form class="resultados" method="POST" action="verRecetaServlet"> <!--Llamar aqui al servlet -->
     <div class="container text-center">
-      <div class="row">
           
- <% ArrayList<Usuario> lista = (ArrayList<Usuario>)request.getAttribute("ListaUsuarios");
-if(lista!=null){%>
-<p>la lista no es nula</p>
-<p><%= lista %></p>
- <% for(int i=0; i<lista.size(); i++){
-      Usuario user = lista.get(i); %>
+ <% 
+    ArrayList<Usuario> lista = (ArrayList<Usuario>)request.getAttribute("ListaUsuarios");
+if(lista!=null){
+    int numeroElemento = 0;
+    //calcular cuantas filas de usuarios van a hacer falta
+    int numeroFilas = (int)Math.ceil((double)lista.size()/4);
+
+    for(int i=0; i<=numeroFilas;i++) {%>
+    <div class="row">
+     <% for(int j=0; j<4; j++){
+            try{
+            Usuario user = lista.get(numeroElemento); 
+            numeroElemento ++;
+     %>
           
         <div class="col">
           <div class="card" style="width: 18rem;">
@@ -58,11 +81,16 @@ if(lista!=null){%>
             </div>
           </div>
         </div>
- 
-   <% }
- }%>
         
-      </div>
+       <%  
+        } catch(Exception e){%>
+        <div class="col"> </div>
+        <%}
+        } //del segundo for%>
+    </div> <!-- cerrar fila -->
+    <%} //del primer for
+}//del if%>
+        
     </div>
   </form>
     

@@ -59,9 +59,9 @@
         <div class="col-2">
           <select class="form-select" aria-label="Default select example" id="selectDificultad" name="dificultad">
             <option selected hidden>Selecciona la dificultad</option>
-            <option value="FACIL">Facil</option>
-            <option value="MEDIA">Media</option>
-            <option value="DIFICIL">Dificil</option>
+            <option value="facil">Facil</option>
+            <option value="media">Media</option>
+            <option value="dificil">Dificil</option>
           </select>
         </div>
       </div>
@@ -74,7 +74,8 @@
     </div>
 
   </div>
-  
+    
+    
   <button class="btn btn-secondary"  type="submit" >Guardar y publicar</button>
   </form>
 

@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class Comentario {
     private String emailUsuario;
-    private int idReceta;
+    private String idReceta;
     private int valoracion;
     private String texto;
     private boolean leido;
@@ -22,7 +22,7 @@ public class Comentario {
         this.emailUsuario = emailUsuario;
     }
 
-    public void setIdReceta(int idReceta) {
+    public void setIdReceta(String idReceta) {
         this.idReceta = idReceta;
     }
 
@@ -51,7 +51,7 @@ public class Comentario {
         return emailUsuario;
     }
 
-    public int getIdReceta() {
+    public String getIdReceta() {
         return idReceta;
     }
 

@@ -9,16 +9,16 @@ package Modelo;
  * @author marta
  */
 public class DetallesReceta {
-    private int idReceta;
+    private String idReceta;
     private String nombreIngrediente;
     private String cantidad;
     private boolean opcionalidad;
 
-    public void setIdReceta(int idReceta) {
+    public void setIdReceta(String idReceta) {
         this.idReceta = idReceta;
     }
 
-    public int getIdReceta() {
+    public String getIdReceta() {
         return idReceta;
     }
 
