@@ -15,7 +15,7 @@ public class Receta {
     private int numPersonas;
     private DificultadReceta dificultad;
     private int duracionEnSec;
-    private int valoracionMedia;
+    private double valoracionMedia;
     private boolean comentariosActivados;
     private double precio;
     private byte[] imagenReceta;
@@ -83,11 +83,11 @@ public class Receta {
         this.duracionEnSec = duracionEnSec;
     }
 
-    public int getValoracionMedia() {
+    public double getValoracionMedia() {
         return valoracionMedia;
     }
 
-    public void setValoracionMedia(int valoracionMedia) {
+    public void setValoracionMedia(double valoracionMedia) {
         this.valoracionMedia = valoracionMedia;
     }
 

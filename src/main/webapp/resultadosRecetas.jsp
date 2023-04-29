@@ -56,7 +56,6 @@
   <!-- Mis listas                                                                                                          -->
   <!-- ***************************************************************************************************************** -->
 
-  <form class="buscador" method="POST" action=""> <!--Llamar aqui al servlet -->
     <div class="container text-center">
         
  <% ArrayList<Receta> lista = (ArrayList<Receta>)request.getAttribute("ListaRecetas");
@@ -71,6 +70,7 @@ if(lista!=null){
             try{
             Receta receta = lista.get(numeroElemento); 
             numeroElemento ++;
+            int id = receta.getId();
      %>
           
         <div class="col">
@@ -80,7 +80,8 @@ if(lista!=null){
                  <img src="./images/corazon.png" alt="corazon">
               </div>
                <%}%>
-            <a href="receta.jsp">
+
+            <a href="VerRecetaServlet?par1=<%= id %>">
               <img src="./images/lista1.jpg" class="card-img-top" alt="receta">
             </a>
             <div class="card-body">
@@ -126,7 +127,6 @@ if(lista!=null){
 }//del if%>
 
      </div>
-  </form>
 </div>
 
 <!-- ***************************************************************************************************************** -->

@@ -53,7 +53,7 @@
   <!-- Mis listas                                                                                                          -->
   <!-- ***************************************************************************************************************** -->
           
-   <form class="resultados" method="POST" action="verRecetaServlet"> <!--Llamar aqui al servlet -->
+  
     <div class="container text-center">
           
  <% 
@@ -69,11 +69,12 @@ if(lista!=null){
             try{
             Usuario user = lista.get(numeroElemento); 
             numeroElemento ++;
+            String email = user.getEmail();
      %>
           
         <div class="col">
           <div class="card" style="width: 18rem;">
-            <a href="perfil.html">
+            <a href="VerUsuarioServlet?par1=<%= email %>">
               <img src="./images/fotoPerfil.jpg" class="card-img-top" alt="foto de perfil">
             </a>
             <div class="card-body">
@@ -92,7 +93,6 @@ if(lista!=null){
 }//del if%>
         
     </div>
-  </form>
     
 </div>
 

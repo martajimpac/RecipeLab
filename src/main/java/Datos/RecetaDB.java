@@ -4,13 +4,11 @@
  */
 package Datos;
 
-import Modelo.DificultadReceta;
 import Modelo.Receta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -97,18 +95,49 @@ public class RecetaDB {
                 Receta receta = new Receta(id,email,nombre,numPersonas,dificultad,duracion,valoracion,comentarios,precio,imagen,categoria);
                 recetas.add(receta);
             }
-            
-            
         } catch (SQLException e) {
             //TODO: tratamiento excepciones
         }
-        
-        
-        
-        
-        return recetas;
-        
+        return recetas; 
     }
+    
+    public static Receta buscaRecetaPorId(int id){
+        
+        Receta receta = null;
+        
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        ResultSet result;
+        
+        String query = "SELECT * FROM receta WHERE id = ?";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            result = preparedStatement.executeQuery();
+            while(result.next()){
+  
+                String nombre = result.getString("nombre");
+                String email = result.getString("emailUsuario");
+                int numPersonas = result.getInt("numPersonas");
+                String dificultad = result.getString("dificultadReceta");
+                int duracion = result.getInt("duracionEnSec");
+                int valoracion = result.getInt("valoracionMedia");
+                boolean comentarios = result.getBoolean("comentariosActivados");
+                double precio = result.getDouble("precio");
+                byte [] imagen = result.getBytes("imagenReceta");
+                String categoria = result.getString("categoria");
+                
+                receta = new Receta(id,email,nombre,numPersonas,dificultad,duracion,valoracion,comentarios,precio,imagen,categoria);
+            }
+        } catch (SQLException e) {
+            //TODO: tratamiento excepciones
+        }
+        return receta; 
+    }
+    
+    
     
     public static void insertaReceta(Receta receta){
         Conexion pool = Conexion.getInstance();
@@ -125,7 +154,7 @@ public class RecetaDB {
             preparedStatement.setInt(4,receta.getNumPersonas());
             preparedStatement.setString(5,receta.getDificultad().toString());
             preparedStatement.setInt(6,receta.getDuracionEnSec());
-            preparedStatement.setInt(7,receta.getValoracionMedia());
+            preparedStatement.setDouble(7,receta.getValoracionMedia());
             preparedStatement.setBoolean(8,receta.isComentariosActivados());
             preparedStatement.setDouble(9,receta.getPrecio());
             preparedStatement.setBlob(10,new SerialBlob(receta.getImagenReceta()));
