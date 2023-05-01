@@ -14,7 +14,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ver lista</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resultados</title>
+  <link rel="icon" type="image/png" href="images/logoPestanna.png" />
+  
   <!--Vicular boostrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <!--Vincular css -->
@@ -81,8 +84,9 @@ if(lista!=null){
               </div>
                <%}%>
 
-            <a href="VerRecetaServlet?par1=<%= id %>">
-              <img src="./images/lista1.jpg" class="card-img-top" alt="receta">
+            <a href="VerRecetaServlet?id=<%= id %>">
+              <img src="./images/ejemplo-receta-1.jpg" class="card-img-top" alt="receta">
+              <!-- <img src="Imagen?email= USUARIO.GETEMAIL " class="card-img-top" alt="receta"> -->
             </a>
             <div class="card-body">
               <h5 class="card-title"><%=receta.getNombre() %></h5>

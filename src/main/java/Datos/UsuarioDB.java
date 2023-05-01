@@ -10,8 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.Blob;
 
 /**
  * @author marta
@@ -41,7 +43,6 @@ public class UsuarioDB {
             ResultSet result = statement.executeQuery();
             while(result.next()){
                 Usuario user = new Usuario();
-                 System.out.println("hola2");
                 user.setNombreUsuario(result.getString("NOMBREUSUARIO"));
                 user.setContraseña(result.getString("CONTRASEÑA"));
                 user.setEmail(result.getString("EMAIL"));
@@ -117,7 +118,34 @@ public class UsuarioDB {
             pool.freeConnection(connection);
         } catch (SQLException ex) {
             System.err.println(ex.toString());
-        }
-                
+        }                
     }
+    
+    public static void getImagen(String email, OutputStream respuesta) { 
+        try {
+            Conexion pool = Conexion.getInstance();
+            Connection connection = pool.getConnection();
+            PreparedStatement statement = null; 
+            statement = connection.prepareStatement( 
+                    "SELECT imagen FROM usuarioimg WHERE emailAddress=? ");
+            statement.setString(1, email); 
+            ResultSet result = statement.executeQuery(); 
+            if (result.next()) { 
+                Blob blob = result.getBlob("imagen"); 
+                if (!result.wasNull() && blob.length() > 1) { 
+                    InputStream imagen = blob.getBinaryStream(); 
+                    byte[] buffer = new byte[1000]; 
+                    int len = imagen.read(buffer); 
+                    while (len != -1) {
+                        respuesta.write(buffer, 0, len); 
+                        len = imagen.read(buffer);
+                    } 
+                    imagen.close(); 
+                } 
+            } 
+            pool.freeConnection(connection);
+        } catch (Exception e) { 
+            e.printStackTrace();
+        } 
+    } 
 }

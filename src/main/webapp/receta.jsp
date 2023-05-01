@@ -4,16 +4,20 @@
     Author     : marta
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Modelo.Receta"%>
+<%@page import="Modelo.DetallesReceta"%>
 <%@page import="Modelo.Usuario"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.lang.Math"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RecipeLab</title>
-    <link rel="icon" type="image/png" href="images/logoPestanna.png" />
-
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RecipeLab</title>
+    <link rel="icon" type="image/png" href="images/logoPestanna.png" />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -33,17 +37,24 @@
 <div class="contenido container-sm">
     <div class="card">
         <div class="card-body">
+           
+            <% Receta receta = (Receta)request.getAttribute("receta"); 
+               Usuario usuarioReceta = (Usuario)request.getAttribute("usuarioReceta");
+               ArrayList<DetallesReceta> ingredientes = (ArrayList<DetallesReceta>)request.getAttribute("ingredientes");
+            if (receta != null){ %>
             <div class="row">
                 <div class="col">
-                    <label id="titulo">Titulo</label>
+                    <label id="titulo"><%= receta.getNombre() %></label>
                 </div>
                 <div class="col">
+                    <% if(usuarioReceta != null) { %>
                     <a href="perfil.jsp">
                         <img class="img fotoPerfil" src="images/perfil.jpg" />
                     </a>
                     <a href="perfil.jsp">
-                        <label id="perfilPublicador">Nombre_usuario</label>
+                        <label id="perfilPublicador"> <%= usuarioReceta.getNombreUsuario() %></label>
                     </a>
+                    <% } %>
                 </div>
             </div>
             <div class="row">
@@ -55,25 +66,50 @@
                         <div class="card-header">
                             Ingredientes
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Ingrediente 1</li>
-                            <li class="list-group-item">Ingrediente 2</li>
-                            <li class="list-group-item">Ingrediente 3</li>
-                        </ul>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Ingrediente</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(int i = 0; i<ingredientes.size(); i++){    
+                                    DetallesReceta ingrediente = ingredientes.get(i); %>
+                                    <tr>
+                                        <td><%= ingrediente.getNombreIngrediente() %></td>
+                                        <td><%= ingrediente.getCantidad() %>
+                                        <%if (ingrediente.isOpcionalidad()){%>
+                                             (opcional)
+                                            <%}%></td>
+                                    </tr>
+                                <% } %>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="col-2">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
+                    
+                    <% int valoracion = (int)Math.round(receta.getValoracionMedia());
+                    for(int estrellas=0; estrellas<5; estrellas++){ %>
+                        <% if (estrellas < valoracion){%>
+                            <span class="fa fa-star checked"></span>
+                        <% } else {%>
+                            <span class="fa fa-star"></span>
+                        <% } 
+                      }  %>
+                   
                     <div class="row">
                         <div class="col-1">
                             <img class="img" id="imagenTiempo" src="images/tiempo.png" />
                         </div>
                         <div class="col">
-                            <label>1 h</label>
+                        <% int segundos = receta.getDuracionEnSec();
+                           int hor=segundos/3600;
+                           int min=(segundos-(3600*hor))/60;
+                           String tiempo = hor+"h "+min+"m ";
+                        %>
+                            <label> <%=tiempo %></label>
                         </div>
                     </div>
                     <div class="row">
@@ -81,13 +117,13 @@
                             <img class="img" id="imagenPersona" src="images/personas.png" />
                         </div>
                         <div class="col">
-                            <label>4 personas</label>
+                            <label><%= receta.getNumPersonas() %> personas</label>
                         </div>
                     </div>
                     <div class="row">
-                        <label>€€</label>
+                        <label><%= receta.getPrecio() %>€</label>
                     </div>
-                    <label>Dificultad : Fácil</label>
+                    <label>Dificultad : <%= receta.getDificultad() %></label>
                     <label id="disponibles">Los ingredientes estan disponibles</label>
                 </div>
             </div>
@@ -95,6 +131,7 @@
                 <label class="paso">Paso 1</label>
                 <label>Descripcion del paso</label>
             </div>
+            <% } %> <!-- del if -->
         </div>
     </div>
     

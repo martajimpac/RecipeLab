@@ -76,49 +76,7 @@
                 </div>
             </div>
         </a>
-    </div>
-
-    <div class="div-usuario">
-        <a href="perfil.jsp">
-            <img src="images/perfil.jpg" alt="Descripción de la imagen">
-        </a>
-        <a href="perfil.jsp">
-            <h4>Nombre del usuario</h4>
-        </a>
-    </div>
-
-    <div class="banner">
-        <a href="receta.jsp">
-            <img src="./images/slider3.jpg" alt="Imagen de ejemplo" class="d-block w-100">
-            <div class="div-sobre-imagen">
-                <h5> Nombre receta </h5>
-                <div class="info-receta">
-                    <div class="item">
-                        <img src="./images/estrella.png" alt="valoracion">
-                        <img src="./images/estrella.png" alt="valoracion">
-                        <img src="./images/estrella.png" alt="valoracion">
-                    </div>
-                    <div class="item">
-                        <img src="images/personas.png" alt="numero personas">
-                        <p> Número de comensales </p>
-                    </div>
-                    <div class="item">
-                        <img src="./images/reloj.png" alt="duracion">
-                        <p> Duración </p>
-                    </div>
-                    <div class="item">
-                        <strong> €€ </strong>
-                    </div>
-                    <div class="item">
-                        <p> Fácil </p>
-                    </div>
-                    <div class="item">
-                        <p> Los ingredientes están disponibles</p>
-                    </div>
-                </div>
-            </div>
-        </a>
-    </div>
+    </div>  
 </div>
 
 

@@ -122,7 +122,8 @@ CREATE TABLE detallesReceta (
 # usuario 
 INSERT INTO usuario VALUES
 ('usuario1', 'contrasena1', 'usuario1@example.com', 'publicador',LOAD_FILE('C:\\Users\\marta\\Documents\\SSW\\ENTREGAS\\ENTREGA3\\fotosBD\\avatar1.jpg'), false, 4.5),
-('usuario2', 'contrasena2', 'usuario2@example.com', 'administrador', LOAD_FILE('C:\\Users\\marta\\Documents\\SSW\\ENTREGAS\\ENTREGA3\\fotosBD\\avatar2.jpg'), true, 3.8);
+('usuario2', 'contrasena2', 'usuario2@example.com', 'administrador', LOAD_FILE('C:\\Users\\marta\\Documents\\SSW\\ENTREGAS\\ENTREGA3\\fotosBD\\avatar2.jpg'), true, 3.8),
+('usuario3', 'contrasena3', 'usuario3@example.com', 'publicador', LOAD_FILE('C:\\Users\\marta\\Documents\\SSW\\ENTREGAS\\ENTREGA3\\fotosBD\\avatar2.jpg'), true, 3.3);
 
 # receta
 INSERT INTO receta VALUES
@@ -132,6 +133,7 @@ INSERT INTO receta VALUES
 # seguidorDe
 INSERT INTO seguidorDe VALUES
 ('usuario1@example.com', 'usuario2@example.com'),
+('usuario1@example.com', 'usuario3@example.com'),
 ('usuario2@example.com', 'usuario1@example.com');
 
 # valoracion
