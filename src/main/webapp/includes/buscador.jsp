@@ -101,7 +101,7 @@
     <div id="carousel" class="carousel slide">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <a href="receta.jsp">
+                <a href="VerRecetaServlet?id=1">
                     <img src="./images/slider1.jpg" class="d-block w-100" alt="slider1">
                     <div class="div-sobre-imagen">
                         <h5> Nombre receta </h5>
@@ -133,7 +133,7 @@
                 </a>
             </div>
             <div class="carousel-item">
-                <a href="receta.jsp">
+                <a href="VerRecetaServlet?id=2">
                     <img src="./images/slider2.jpg" class="d-block w-100" alt="slider2">
                     <div class="div-sobre-imagen">
                         <h5> Nombre receta </h5>

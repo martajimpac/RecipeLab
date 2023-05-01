@@ -9,9 +9,8 @@ import Modelo.Categoria;
 import Modelo.Receta;
 import Modelo.Usuario;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.List;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -98,7 +97,7 @@ public class ServletPublicarReceta extends HttpServlet {
         Receta receta = new Receta(RecetaDB.creaId(),email, nombre,Integer.valueOf(numPersonas),dificultad,Integer.valueOf(duracion),0, true, 0, imagen.getInputStream().readAllBytes(), Categoria.postre.toString());
         RecetaDB.insertaReceta(receta);
        
-        List<Receta> recetas = RecetaDB.buscaRecetasPorUsuario(email);
+        ArrayList<Receta> recetas = RecetaDB.buscaRecetasPorUsuario(email);
         
         
         // forward request and response objects to JSP page

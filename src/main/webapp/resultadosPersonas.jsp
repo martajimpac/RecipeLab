@@ -11,7 +11,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ver lista</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resultados</title>
+  <link rel="icon" type="image/png" href="images/logoPestanna.png" />
+  
   <!--Vicular boostrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   <!--Vincular css -->
@@ -21,8 +24,8 @@
 <!-- ***************************************************************************************************************** -->
 <!-- Cabecera                                                                                                          -->
 <!-- ***************************************************************************************************************** -->
-<%Usuario usuario = (Usuario) session.getAttribute("usuario");
- if(usuario!=null){%>
+<%Usuario usuarioSesion = (Usuario) session.getAttribute("usuario");
+ if(usuarioSesion!=null){%>
     <%@ include file="/includes/headerSesionIniciada.jsp" %>
  <%}else{%>
     <%@ include file="/includes/header.html" %>
@@ -36,7 +39,7 @@
 
   <div class="d-flex align-items-center">
       
-    <%if(usuario==null){%>
+    <%if(usuarioSesion==null){%>
        <a href="index.jsp">
          <img src="images/backArrow.png" alt="atras" class="imagen-nav"/>
        </a>
@@ -53,53 +56,37 @@
   <!-- Mis listas                                                                                                          -->
   <!-- ***************************************************************************************************************** -->
           
-  
+
     <div class="container text-center">
-          
- <% 
-    ArrayList<Usuario> lista = (ArrayList<Usuario>)request.getAttribute("ListaUsuarios");
-if(lista!=null){
-    int numeroElemento = 0;
-    //calcular cuantas filas de usuarios van a hacer falta
-    int numeroFilas = (int)Math.ceil((double)lista.size()/4);
+        <div class="resultados-busqueda">
+            
+<%      ArrayList<Usuario> lista = (ArrayList<Usuario>)request.getAttribute("ListaUsuarios");
+            if(lista!=null){
+                for(int i=0; i<lista.size();i++){
+                    Usuario user = lista.get(i); 
+                    
+                    //si uno de los resultados somos nosotros (el usuario identificado) no mostrar
+                    if( (usuarioSesion==null) || (usuarioSesion!=null && (!user.getEmail().equals(usuarioSesion.getEmail())) )){
+                 %> 
+                      <div class="card" style="width: 18rem;">
+                        <a href="VerUsuarioServlet?email=<%= user.getEmail() %>">
+                          <img src="./images/fotoPerfil.jpg" class="card-img-top" alt="foto de perfil">
+                        </a>
+                        <div class="card-body">
+                          <h5 class="card-title"><%= user.getNombreUsuario() %> </h5>
+                        </div>
+                      </div>     
+            <%      }//del if
+                } //del for
+            }//del if%> 
 
-    for(int i=0; i<=numeroFilas;i++) {%>
-    <div class="row">
-     <% for(int j=0; j<4; j++){
-            try{
-            Usuario user = lista.get(numeroElemento); 
-            numeroElemento ++;
-            String email = user.getEmail();
-     %>
-          
-        <div class="col">
-          <div class="card" style="width: 18rem;">
-            <a href="VerUsuarioServlet?par1=<%= email %>">
-              <img src="./images/fotoPerfil.jpg" class="card-img-top" alt="foto de perfil">
-            </a>
-            <div class="card-body">
-              <h5 class="card-title"><%= user.getNombreUsuario() %> </h5>
-            </div>
-          </div>
+
         </div>
-        
-       <%  
-        } catch(Exception e){%>
-        <div class="col"> </div>
-        <%}
-        } //del segundo for%>
-    </div> <!-- cerrar fila -->
-    <%} //del primer for
-}//del if%>
-        
     </div>
-    
-</div>
-
+</div> <!--del contenido-->
 <!-- ***************************************************************************************************************** -->
 <!-- Pie de página                                                                                                     -->
 <!-- ***************************************************************************************************************** -->
-
      <%@ include file="/includes/footer.html" %>
 
 <!-- Importar bootstrap y javascript-->

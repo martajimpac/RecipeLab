@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>RecipeLab</title>
+  <title>Mi receta</title>
   <link rel="icon" type="image/png" href="images/logoPestanna.png" />
 
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -38,13 +38,26 @@
         <div class="col-4">
           <div class="card">
             <div class="card-header">
-              Ingredientes
-            </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">Ingrediente 1</li>
-              <li class="list-group-item">Ingrediente 2</li>
-              <li class="list-group-item">Ingrediente 3</li>
-            </ul>
+                            Ingredientes
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Ingrediente</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr>
+                                        <td>Ingrediente 1</td>
+                                        <td>500 gr </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ingrediente 1</td>
+                                        <td>500 gr </td>
+                                    </tr>
+                            </tbody>
+                        </table>
           </div>
         </div>
         <div class="col-2">

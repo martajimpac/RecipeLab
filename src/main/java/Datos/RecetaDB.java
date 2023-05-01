@@ -65,7 +65,7 @@ public class RecetaDB {
         }
     }
     
-    public static List<Receta> buscaRecetasPorUsuario(String email){
+    public static ArrayList<Receta> buscaRecetasPorUsuario(String email){
         
         ArrayList<Receta> recetas = new ArrayList();
         
@@ -74,7 +74,7 @@ public class RecetaDB {
         PreparedStatement preparedStatement;
         ResultSet result;
         
-        String query = "SELECT * FROM receta WHERE email = ?";
+        String query = "SELECT * FROM receta WHERE emailusuario = ?";
         
         try {
             preparedStatement = connection.prepareStatement(query);
