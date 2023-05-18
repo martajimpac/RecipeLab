@@ -1,8 +1,3 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
- */
-
 
 //filtros tipo slider
 const sliderPrecio = document.getElementById("precio");
@@ -40,6 +35,10 @@ function secondsToString(seconds) {
     second = (second < 10)? '0' + second : second;
     return hour + ':' + minute + ':' + second;
 }
+
+
+//añadir menu desplegable en el header
+
 
 //ocultar los filtros cuando seleccionamos personas
 const select = document.getElementById("tipo-busqueda");

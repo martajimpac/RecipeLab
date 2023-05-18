@@ -5,8 +5,9 @@
 package Controlador;
 
 import Modelo.Usuario;
-//import com.google.gson.Gson;
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -37,7 +38,7 @@ public class InsertaComentarioServlet extends HttpServlet {
         
         
         
-        //Gson gson = new Gson( );
+        Gson gson = new Gson( );
         List<String> data = new ArrayList<String>( );
         String comentario = request.getParameter("comentario");
         HttpSession sesion = request.getSession(true);
@@ -49,7 +50,7 @@ public class InsertaComentarioServlet extends HttpServlet {
 
 
         response.setContentType( "application/json");
-        //response.getWriter( ).println( gson.toJson( data));
+        response.getWriter( ).println( gson.toJson( data));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

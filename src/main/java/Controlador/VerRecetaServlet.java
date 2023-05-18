@@ -4,19 +4,14 @@
  */
 package Controlador;
 
-import Datos.ComentarioDB;
 import Datos.RecetaDB;
 import Datos.DetallesRecetaDB;
-import Datos.PasoRecetaDB;
 import Datos.UsuarioDB;
-import Modelo.Comentario;
 import Modelo.Receta;
 import Modelo.DetallesReceta;
-import Modelo.PasosReceta;
 import Modelo.Usuario;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,39 +48,22 @@ public class VerRecetaServlet extends HttpServlet {
         HttpSession sesion = request.getSession(true);
         Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
         Usuario usuarioReceta;
-        
-        //si no se ha iniciado sesion: 
-        if(usuarioSesion==null){
-            usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
-            nextStep = "/receta.jsp";   
-            
-        }else{ //si hemos iniciado sesion
-            if( usuarioSesion.getEmail().equals(receta.getEmailUsuario()) ) {
+        if( usuarioSesion.getEmail().equals(receta.getEmailUsuario()) ) {
             usuarioReceta = usuarioSesion;
             nextStep = "/miReceta.jsp";
-            }
-            else {
-                usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
-                nextStep = "/receta.jsp";
-            }
         }
-
+        else {
+            usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
+            nextStep = "/receta.jsp";
+        }
         
         ArrayList<DetallesReceta> ingredientes = DetallesRecetaDB.obtieneIngredientes(id);
-        ArrayList<PasosReceta> pasos = PasoRecetaDB.getPasosReceta(id);
-        List<Comentario> comentarios = ComentarioDB.getComentariosByIdReceta(id);
-        List<Usuario> usuariosComentarios = new ArrayList<>();
-        for(Comentario i: comentarios){
-            Usuario usuarioCom = UsuarioDB.obtieneUsuario(i.getEmailUsuario());
-            usuariosComentarios.add(usuarioCom);
-        }
        
         try {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
                 request.setAttribute("receta", receta);
                 request.setAttribute("usuarioReceta", usuarioReceta);
                 request.setAttribute("ingredientes", ingredientes);
-                request.setAttribute("pasos", pasos);
 
                 dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {

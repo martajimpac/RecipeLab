@@ -143,6 +143,22 @@ public class Receta {
     
     public String getUrlImagen(){
         
-        return Encoder.fromByteArrayToUrl(imagenReceta);
+        String encoded = Base64.getEncoder().encodeToString(imagenReceta);
+        
+        String[] strings = encoded.split(",");
+        String extension;
+        switch (strings[0]) {//check image's extension
+            case "data:image/jpeg;base64":
+                extension = "jpeg";
+                break;
+            case "data:image/png;base64":
+                extension = "png";
+                break;
+            default://should write cases for more images types
+                extension = "jpg";
+                break;
+        }
+        
+        return "data:image/" + extension + ";base64," + encoded;
     }
 }

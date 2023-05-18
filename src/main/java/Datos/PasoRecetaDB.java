@@ -4,14 +4,10 @@
  */
 package Datos;
 
-import Modelo.DetallesReceta;
 import Modelo.PasosReceta;
-import Modelo.Receta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,38 +43,6 @@ public class PasoRecetaDB {
         } catch (SQLException ex) {
             Logger.getLogger(PasoRecetaDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    
-    public static ArrayList<PasosReceta> getPasosReceta(int id) {
-
-        //Obtener conexion a la base de datos
-        Conexion pool = Conexion.getInstance();
-        Connection connection = pool.getConnection();
-        
-        //vamos a buscar los usuarios cuyo nombre contenga la cadena introducida
-        String query = "SELECT * FROM pasosreceta p WHERE p.idReceta = ?";
-        ArrayList<PasosReceta> pasosReceta = new ArrayList<>();
-        
-        
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1,id);
-            ResultSet result  = statement.executeQuery();
-        
-
-            while(result.next()){
-                int numeroPaso = result.getInt("numeropaso");
-                String descripcion = result.getString("descripcion");
-                PasosReceta paso = new PasosReceta(id,numeroPaso,descripcion);
-                pasosReceta.add(paso);
-            } 
-  
-        } catch (SQLException e) {
-            //TODO: tratamiento excepciones
-        }
-
-        return pasosReceta;
     }
     
 }
