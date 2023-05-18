@@ -525,16 +525,34 @@ footer {
     border-radius: 60px;
     width: 40px;
 }
+
 #imagenReceta {
     width: 180px;
     height: 250px;
+    transition: .5s ease;
 }
 
+
+#imagenReceta:hover {
+    opacity: 0.3;
+}
+
+
 #selectDificultad {
-    margin-top: 35%;
+    margin-top: 12%;
     margin-left: 5%;
 }
 
+#duracionForm {
+    width: 6em;
+}
+#nombreIngredienteForm{
+    margin-left: 4%;
+}
+.lista-ingredientes {
+    margin-top: 1%;
+    margin-left: 8%;
+}
 .form-inline{
     margin-top: 1%;
     width:1030px;
@@ -573,6 +591,12 @@ footer {
     color: orange;
 }
 
+#imagenRecetaPerfil {
+    width: 180px;
+    height: 250px;
+
+}
+
 #disponibles {
     color:grey;
 }
@@ -581,11 +605,7 @@ footer {
     width:20px;
 }
 
-.btn-light{
-    margin-left: 8%;
-    margin-top:1%;
-    width: 200px;
-}
+
 
 #comentarios {
     font-size: 15pt;
@@ -605,6 +625,12 @@ footer {
 .card-header {
     font-weight: bold;
     text-decoration: underline;
+}
+.boton-responder{
+    margin-left: 8%;
+    margin-top:1%;
+    width: 200px;
+    display: none;
 }
 
 /*******************************************************************************************************************/
@@ -630,4 +656,8 @@ footer {
 .sobre-nosotros {
     margin-top: 200px;
     margin-bottom: 100px;
+}
+
+.card-img-top{
+    height: 23vw;
 }

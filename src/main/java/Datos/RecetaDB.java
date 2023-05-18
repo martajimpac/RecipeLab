@@ -159,12 +159,14 @@ public class RecetaDB {
             preparedStatement.setDouble(9,receta.getPrecio());
             preparedStatement.setBlob(10,new SerialBlob(receta.getImagenReceta()));
             preparedStatement.setString(11,receta.getCategoria().toString());
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             
 
         } catch (SQLException ex) {
             Logger.getLogger(RecetaDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        PasoRecetaDB.insertaPasos(receta.getPasos());
     }
     
     public static int creaId (){
@@ -180,9 +182,8 @@ public class RecetaDB {
         try {
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
-            if(result.next()){
-                id = result.getInt("id") + 1;
-            }
+            if(result.next()) id = result.getInt("MAX(id)") + 1;
+
             
             
         } catch (SQLException e) {

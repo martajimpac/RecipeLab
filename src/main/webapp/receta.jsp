@@ -59,7 +59,7 @@
             </div>
             <div class="row">
                 <div class="col-2">
-                    <img class="img-fluid" id="imagenReceta" src="images/ejemplo-receta-1.jpg" />
+                    <img class="img-fluid" id="imagenReceta" src="<%=receta.getUrlImagen()%>" />
                 </div>
                 <div class="col-4">
                     <div class="card">

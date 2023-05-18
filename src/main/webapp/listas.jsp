@@ -97,7 +97,7 @@
         %>
             <div class="col">
                 <div class="card" style="width: 18rem;">
-                  <a href="detallesLista.jsp">
+                    <a href="verDetallesListaServlet?nombre=<%= l.getNombre()%>">
                     <img src="./images/corazon2.png" class="card-img-top" alt="lista favoritos">
                   </a>
                   <div class="card-body">
@@ -124,7 +124,7 @@
             }
         %>  
     
-    </div>
+    
   </form>
 </div>
 

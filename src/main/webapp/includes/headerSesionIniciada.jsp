@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <nav>
+    <script src="js/jquery-3.6.4.js" type="text/javascript"></script>
+    <script src="js/header.js" type="text/javascript"></script>
     <div>
         <a href="sesionIniciada.jsp">
             <img src="images/logo.png" alt="logo" class="imagen-logo"/>

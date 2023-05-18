@@ -4,15 +4,12 @@
  */
 package Controlador;
 
-import Datos.RecetaDB;
-import Datos.DetallesRecetaDB;
-import Datos.UsuarioDB;
-import Modelo.Receta;
-import Modelo.DetallesReceta;
 import Modelo.Usuario;
-import java.util.ArrayList;
+import com.google.gson.Gson;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,10 +19,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author marta
+ * @author juani
  */
-@WebServlet(name = "VerRecetaServlet", urlPatterns = {"/VerRecetaServlet"})
-public class VerRecetaServlet extends HttpServlet {
+@WebServlet(name = "InsertaComentarioServlet", urlPatterns = {"/InsertaComentarioServlet"})
+public class InsertaComentarioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,37 +35,22 @@ public class VerRecetaServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-        String nextStep;
         
-        int id = Integer.parseInt(request.getParameter("id")); 
         
-        Receta receta = RecetaDB.buscaRecetaPorId(id);
+        
+        Gson gson = new Gson( );
+        List<String> data = new ArrayList<String>( );
+        String comentario = request.getParameter("comentario");
         HttpSession sesion = request.getSession(true);
-        Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
-        Usuario usuarioReceta;
-        if( usuarioSesion.getEmail().equals(receta.getEmailUsuario()) ) {
-            usuarioReceta = usuarioSesion;
-            nextStep = "/miReceta.jsp";
-        }
-        else {
-            usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
-            nextStep = "/receta.jsp";
-        }
-        
-        ArrayList<DetallesReceta> ingredientes = DetallesRecetaDB.obtieneIngredientes(id);
-       
-        try {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
-                request.setAttribute("receta", receta);
-                request.setAttribute("usuarioReceta", usuarioReceta);
-                request.setAttribute("ingredientes", ingredientes);
+        Usuario user = (Usuario) sesion.getAttribute("usuario");
+        data.add(user.getNombreUsuario());
+        //añadir imagen user
+        data.add(comentario);
+        //insertar comentario en id, falta id receta y id hilo?
 
-                dispatcher.forward(request, response);
-        } catch (IOException | ServletException e) {
-            System.out.println(e);
-        }
+
+        response.setContentType( "application/json");
+        response.getWriter( ).println( gson.toJson( data));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
