@@ -9,20 +9,31 @@ import java.util.Date;
  * @author marta
  */
 public class Comentario {
+
     private String emailUsuario;
-    private String idReceta;
+    private int idReceta;
     private int valoracion;
     private String texto;
     private boolean leido;
     private Date fechaComentario;
     private String respuesta;
+    
+    public Comentario(String emailUsuario, int idReceta, int valoracion, String texto, boolean leido, Date fechaComentario, String respuesta) {
+        this.emailUsuario = emailUsuario;
+        this.idReceta = idReceta;
+        this.valoracion = valoracion;
+        this.texto = texto;
+        this.leido = leido;
+        this.fechaComentario = fechaComentario;
+        this.respuesta = respuesta;
+    }
 
     // setters
     public void setEmailUsuario(String emailUsuario) {
         this.emailUsuario = emailUsuario;
     }
 
-    public void setIdReceta(String idReceta) {
+    public void setIdReceta(int idReceta) {
         this.idReceta = idReceta;
     }
 
@@ -51,7 +62,7 @@ public class Comentario {
         return emailUsuario;
     }
 
-    public String getIdReceta() {
+    public int getIdReceta() {
         return idReceta;
     }
 

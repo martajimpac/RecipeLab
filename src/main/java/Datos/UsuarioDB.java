@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
+import javax.sql.rowset.serial.SerialBlob;
 
 /**
  * @author marta
@@ -50,7 +51,7 @@ public class UsuarioDB {
                 user.setRolUsuario(rol);
                 boolean esPrivado = result.getBoolean("ESPRIVADO");
                 user.setEsPrivado(esPrivado);
-                //user.setAvatar(result.getString("AVATAR"));
+                user.setAvatar(result.getBytes("AVATAR"));
                 user.setValoracion(result.getDouble("VALORACION")); 
                 lista.add(0,user);       
             }
@@ -83,6 +84,7 @@ public class UsuarioDB {
                 usuario.setRolUsuario(rol);
                 usuario.setEsPrivado(resultSet.getBoolean("esPrivado"));
                 usuario.setValoracion(resultSet.getDouble("valoracion"));
+                usuario.setAvatar(resultSet.getBytes("AVATAR"));
             }
             
             resultSet.close();
@@ -111,7 +113,7 @@ public class UsuarioDB {
             preparedStatement.setString(1, usuario.getNombreUsuario());
             preparedStatement.setString(2, usuario.getContraseña());
             preparedStatement.setString(3, usuario.getEmail());
-            
+            //preparedStatement.setBlob(10,new SerialBlob(usuario.getAvatar()));
             preparedStatement.executeUpdate();
             
             preparedStatement.close();
