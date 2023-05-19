@@ -13,7 +13,7 @@ public class Usuario {
     private String contraseña;
     private String email;
     private RolUsuario rolUsuario;
-    private String avatar;
+    private byte[] avatar;
     private boolean esPrivado;
     private double valoracion;
 
@@ -49,11 +49,11 @@ public class Usuario {
         this.rolUsuario = rolUsuario;
     }
 
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 
@@ -71,5 +71,10 @@ public class Usuario {
 
     public void setValoracion(double valoracion) {
         this.valoracion = valoracion;
+    }
+    
+    public String getAvatarUrl(){
+        
+        return Encoder.fromByteArrayToUrl(avatar);
     }
 }

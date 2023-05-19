@@ -4,16 +4,19 @@
  */
 package Controlador;
 
+import Datos.ComentarioDB;
 import Datos.RecetaDB;
 import Datos.DetallesRecetaDB;
-import Datos.UsuarioDB;
 import Datos.PasoRecetaDB;
+import Datos.UsuarioDB;
+import Modelo.Comentario;
 import Modelo.Receta;
 import Modelo.DetallesReceta;
 import Modelo.PasosReceta;
 import Modelo.Usuario;
-import java.util.ArrayList;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -70,6 +73,12 @@ public class VerRecetaServlet extends HttpServlet {
         
         ArrayList<DetallesReceta> ingredientes = DetallesRecetaDB.obtieneIngredientes(id);
         ArrayList<PasosReceta> pasos = PasoRecetaDB.getPasosReceta(id);
+        List<Comentario> comentarios = ComentarioDB.getComentariosByIdReceta(id);
+        List<Usuario> usuariosComentarios = new ArrayList<>();
+        for(Comentario i: comentarios){
+            Usuario usuarioCom = UsuarioDB.obtieneUsuario(i.getEmailUsuario());
+            usuariosComentarios.add(usuarioCom);
+        }
        
         try {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
