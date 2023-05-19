@@ -116,7 +116,6 @@ if(usuario!=null){ %>
                     </div>
                 </div>   
             </div>
-            </div>
         </div>
         <% } %> <!-- del for -->
     </div>

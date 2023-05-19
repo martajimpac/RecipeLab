@@ -4,26 +4,24 @@
  */
 package Controlador;
 
-import Datos.ListaDB;
-import Modelo.ListaRecetas;
 import Modelo.Usuario;
+//import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Víctor
+ * @author juani
  */
-@WebServlet(name = "BuscarListasServlet", urlPatterns = {"/BuscarListasServlet"})
-public class BuscarListasServlet extends HttpServlet {
+@WebServlet(name = "InsertaComentarioServlet", urlPatterns = {"/InsertaComentarioServlet"})
+public class InsertaComentarioServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,34 +34,22 @@ public class BuscarListasServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         
-         // variables que vamos a utilizar
-        String nextStep = "/listas.jsp";
-        List<ListaRecetas> lista = new ArrayList<>();
         
-        //recuperar los datos
-        try{
-            
-            //Obtener sesion de usuario identificado
-            HttpSession session = request.getSession();
-            Usuario user = (Usuario) session.getAttribute("usuario");
- 
-            lista = ListaDB.getListasPorBusqueda(request.getParameter("busqueda"),user.getEmail());
-        }catch(Exception e){
-            System.out.println(e);
-        }
         
-        // una vez se pulse el boton, se captura su evento y se recraga la misma pagina
-        try {
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
-            request.setAttribute("listasBusqueda", lista);  
-            request.setAttribute("Busqueda", true);
-                
-            dispatcher.forward(request, response);
-        } catch (IOException | ServletException e) {
-            System.out.println(e);
-        }
+        //Gson gson = new Gson( );
+        List<String> data = new ArrayList<String>( );
+        String comentario = request.getParameter("comentario");
+        HttpSession sesion = request.getSession(true);
+        Usuario user = (Usuario) sesion.getAttribute("usuario");
+        data.add(user.getNombreUsuario());
+        //añadir imagen user
+        data.add(comentario);
+        //insertar comentario en id, falta id receta y id hilo?
+
+
+        response.setContentType( "application/json");
+        //response.getWriter( ).println( gson.toJson( data));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

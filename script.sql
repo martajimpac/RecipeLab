@@ -121,14 +121,14 @@ CREATE TABLE detallesReceta (
 
 # usuario 
 INSERT INTO usuario VALUES
-('usuario1', 'contrasena1', 'usuario1@example.com', 'publicador',LOAD_FILE('C:\\Users\\marta\\Documents\\SSW\\ENTREGAS\\ENTREGA3\\fotosBD\\avatar1.jpg'), false, 4.5),
-('usuario2', 'contrasena2', 'usuario2@example.com', 'administrador', LOAD_FILE('C:\\Users\\marta\\Documents\\SSW\\ENTREGAS\\ENTREGA3\\fotosBD\\avatar2.jpg'), true, 3.8),
-('usuario3', 'contrasena3', 'usuario3@example.com', 'publicador', LOAD_FILE('C:\\Users\\marta\\Documents\\SSW\\ENTREGAS\\ENTREGA3\\fotosBD\\avatar2.jpg'), true, 3.3);
+('usuario1', 'contrasena1', 'usuario1@example.com', 'publicador',LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar1.jpg'), false, 4.5),
+('usuario2', 'contrasena2', 'usuario2@example.com', 'administrador', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar2.jpg'), true, 3.8),
+('usuario3', 'contrasena3', 'usuario3@example.com', 'publicador', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar2.jpg'), true, 3.3);
 
 # receta
 INSERT INTO receta VALUES
 (1, 'usuario1@example.com', 'Tarta de manzana', 8, 'media', 3600, 4.2, true, 12.50, LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\receta1.jpg'), 'postre'),
-(2, 'usuario2@example.com', 'Lasaña de verduras', 4, 'dificil', 4800, 5, false, 18.75, LOAD_FILE('C:\\Users\\juani\\Desktop\\UNI\\3ano\\SSW\\prueba\\RecipeLab\\src\\main\\webapp\\images\\ejemplo-receta-2.jpg'), 'comida');
+(2, 'usuario2@example.com', 'Lasaña de verduras', 4, 'dificil', 4800, 5, false, 18.75, LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\receta2.jpg'), 'comida');
 
 # seguidorDe
 INSERT INTO seguidorDe VALUES

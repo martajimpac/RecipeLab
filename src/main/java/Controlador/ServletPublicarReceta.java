@@ -25,7 +25,7 @@ import javax.servlet.http.Part;
  *
  * @author juani
  */
-@WebServlet(name = "ServletPublicarReceta", value = {"/publicacion"})
+@WebServlet(name = "ServletPublicarReceta", urlPatterns = {"/publicacion"})
 @MultipartConfig
 public class ServletPublicarReceta extends HttpServlet {
 
@@ -83,27 +83,71 @@ public class ServletPublicarReceta extends HttpServlet {
             throws ServletException, IOException {
         
         Part imagen = request.getPart("imagen");
-        
-        String ingredientes = request.getParameter("ingredientes");
         String nombre = request.getParameter("nombre");
+        
+        
+        ArrayList<String> nombresIngr = new ArrayList<>();
+        ArrayList<String> cantidadesIngr = new ArrayList<>();
+        
+        for(int i = 1; ; i++){
+            String nombreIngr = request.getParameter("nombre"+i);
+            String cantidadIngr = request.getParameter("cantidad"+i);
+            if(nombreIngr != null){
+                nombresIngr.add(nombreIngr);
+                cantidadesIngr.add(cantidadIngr);
+            } else break;
+        }
+        
         String duracion = request.getParameter("duracion");
+        String unidadTiempo = request.getParameter("tiempo");
+        
+        int duracionEnSec,multiplicador = 1;
+        
+        switch(unidadTiempo){
+            case "Segundos":
+                multiplicador = 1;
+                break;
+            case "Minutos":
+                multiplicador = 60;
+                break;
+            case "Horas":
+                multiplicador = 3600;
+                break;
+        }
+        
+        duracionEnSec = Integer.valueOf(duracion) * multiplicador;
+        
         String numPersonas = request.getParameter("numPersonas");
         String dificultad = request.getParameter("dificultad");
+        
+        ArrayList<String> pasos = new ArrayList<>();
+        for(int i = 1; ; i++){
+            String paso = request.getParameter(""+i);
+            if(paso != null){
+                pasos.add(paso);
+            } else break;
+        }
         
         HttpSession sesion = request.getSession(true);
         Usuario user = (Usuario) sesion.getAttribute("usuario");
         String email = user.getEmail();
+        
         //TODO  jsp obtener si comentarios,precio,categoria
-        Receta receta = new Receta(RecetaDB.creaId(),email, nombre,Integer.valueOf(numPersonas),dificultad,Integer.valueOf(duracion),0, true, 0, imagen.getInputStream().readAllBytes(), Categoria.postre.toString());
+        Receta receta = new Receta(RecetaDB.creaId(),email, nombre,Integer.valueOf(numPersonas),dificultad,duracionEnSec,0, true, 0, imagen.getInputStream().readAllBytes(), Categoria.postre.toString());
+        receta.setPasos(pasos);
+        //receta.setIngredientes(nombresIngr,cantidadesIngr);
         RecetaDB.insertaReceta(receta);
        
         ArrayList<Receta> recetas = RecetaDB.buscaRecetasPorUsuario(email);
         
         
         // forward request and response objects to JSP page
-        String url = "/perfil.jsp";
+        String url = "/miPerfil.jsp";
         RequestDispatcher dispatcher =
         getServletContext().getRequestDispatcher(url);
+        request.setAttribute("usuario",user);
+        request.setAttribute("usuario",user);
+        request.setAttribute("usuario",user);
         request.setAttribute("recetas", recetas);
         dispatcher.forward(request, response); 
     }

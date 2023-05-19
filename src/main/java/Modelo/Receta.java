@@ -4,11 +4,17 @@
  */
 package Modelo;
 
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+
 /**
  *
  * @author marta
  */
 public class Receta {
+
+    
     private int id;
     private String emailUsuario;
     private String nombre;
@@ -20,6 +26,7 @@ public class Receta {
     private double precio;
     private byte[] imagenReceta;
     private Categoria categoria;
+    private List<PasosReceta> pasos;
 
     public Receta(int id, String emailUsuario, String nombre, int numPersonas, String dificultad, int duracionEnSec, int valoracionMedia, boolean comentariosActivados, double precio, byte[] imagenReceta, String categoria) {
         this.id = id;
@@ -121,5 +128,37 @@ public class Receta {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
+    }
+
+    public void setPasos(ArrayList<String> pasos) {
+        
+        this.pasos = new ArrayList<>(); 
+        for(int i = 0; i < pasos.size(); i++) this.pasos.add(new PasosReceta(this.id,i+1,pasos.get(i)));
+        
+    }
+    
+    public List<PasosReceta> getPasos() {
+        return pasos;
+    }
+    
+    public String getUrlImagen(){
+        
+        String encoded = Base64.getEncoder().encodeToString(imagenReceta);
+        
+        String[] strings = encoded.split(",");
+        String extension;
+        switch (strings[0]) {//check image's extension
+            case "data:image/jpeg;base64":
+                extension = "jpeg";
+                break;
+            case "data:image/png;base64":
+                extension = "png";
+                break;
+            default://should write cases for more images types
+                extension = "jpg";
+                break;
+        }
+       
+        return "data:image/" + extension + ";base64," + encoded;
     }
 }

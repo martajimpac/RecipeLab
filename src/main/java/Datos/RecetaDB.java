@@ -39,7 +39,6 @@ public class RecetaDB {
             //añadir las variables a la query
             statement.setString(1,"%"+nombreReceta+"%");
             
-            System.out.println(statement);
             //ejecutar la query
             ResultSet result = statement.executeQuery();
             
@@ -47,6 +46,7 @@ public class RecetaDB {
             while(result.next()){
                 int id = result.getInt("id");
                 String emailUsuario = result.getString("emailUsuario");
+                String nombre = result.getString("nombre");
                 int numPersonas = result.getInt("numPersonas");
                 String dificultad = result.getString("dificultadReceta");
                 int duracion = result.getInt("duracionEnSec");
@@ -56,7 +56,7 @@ public class RecetaDB {
                 byte [] imagen = result.getBytes("imagenReceta");
                 String categoria = result.getString("categoria");
                 
-                Receta receta = new Receta(id,emailUsuario,nombreReceta,numPersonas,dificultad,duracion,valoracion,comentarios,precio,imagen,categoria);
+                Receta receta = new Receta(id,emailUsuario,nombre,numPersonas,dificultad,duracion,valoracion,comentarios,precio,imagen,categoria);
                 lista.add(receta);     
             }
             return lista;
@@ -159,12 +159,14 @@ public class RecetaDB {
             preparedStatement.setDouble(9,receta.getPrecio());
             preparedStatement.setBlob(10,new SerialBlob(receta.getImagenReceta()));
             preparedStatement.setString(11,receta.getCategoria().toString());
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             
 
         } catch (SQLException ex) {
             Logger.getLogger(RecetaDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        PasoRecetaDB.insertaPasos(receta.getPasos());
     }
     
     public static int creaId (){
@@ -180,9 +182,8 @@ public class RecetaDB {
         try {
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
-            if(result.next()){
-                id = result.getInt("id") + 1;
-            }
+            if(result.next()) id = result.getInt("MAX(id)") + 1;
+
             
             
         } catch (SQLException e) {

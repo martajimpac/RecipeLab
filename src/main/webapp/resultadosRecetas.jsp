@@ -60,28 +60,28 @@
   <!-- ***************************************************************************************************************** -->
 
     <div class="container text-center">
+        <div class="resultados-busqueda">
         
  <% ArrayList<Receta> lista = (ArrayList<Receta>)request.getAttribute("ListaRecetas");
 if(lista!=null){
-    int numeroElemento = 0;
-    //calcular cuantas filas de usuarios van a hacer falta
-    int numeroFilas = (int)Math.ceil((double)lista.size()/4);
 
-    for(int i=0; i<=numeroFilas;i++) {%>
-    <div class="row">
-     <% for(int j=0; j<4; j++){
-            try{
-            Receta receta = lista.get(numeroElemento); 
-            numeroElemento ++;
+        for(int i=0; i<lista.size();i++){
+            Receta receta = lista.get(i); 
             int id = receta.getId();
      %>
           
-        <div class="col">
           <div class="card" style="width: 18rem;">
+
                <% if(usuario!=null){%>
-              <div class="corazon-sobre-div">
-                 <img src="./images/corazon.png" alt="corazon">
-              </div>
+            <div class="corazon-sobre-div">
+                <a href="#"> <img src="./images/corazon.png" alt="corazon" id="corazon">
+                <li>
+                    <ul class="submenuCorazon">
+                        <li><a href="#" id="anadir-lista">Favoritos</a></li>
+                        <li><a href="#" id="crear-lista">Crear nueva lista</a></li>
+                    </ul>
+                </li> </a>
+            </div>
                <%}%>
 
             <a href="VerRecetaServlet?id=<%= id %>">
@@ -118,20 +118,13 @@ if(lista!=null){
               </div>
             </div>
           </div>
-        </div>
-        
-        
-       <%  
-        } catch(Exception e){%>
-        <div class="col"> </div>
-        <%}
-        } //del segundo for%>
-    </div> <!-- cerrar fila -->
-    <%} //del primer for
+            
+    <%} //del for
 }//del if%>
 
      </div>
 </div>
+</div> <!--del contenido-->
 
 <!-- ***************************************************************************************************************** -->
 <!-- Pie de página                                                                                                     -->
@@ -140,7 +133,9 @@ if(lista!=null){
 <%@ include file="/includes/footer.html" %>
 
 <!-- Importar bootstrap -->
-<script src="js/app.js" type="text/javascript"></script>
+<script src="js/header.js" type="text/javascript"></script>
+<script src="js/guardarReceta.js" type="text/javascript"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>
