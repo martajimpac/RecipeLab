@@ -18,9 +18,29 @@ $(document).ready(function() {
         $('#listaPasos').append("<li>"+paso+"</li>");
         var input = $("<input/>",{
         type: "hidden",
-        name: ""+$("#listaPasos").length,
+        name: ""+$("#listaPasos").children().length,
         value: paso });
         $('#listaPasos').after(input);
+    });
+    
+    $("#botonIngrediente").click(function(){
+        var nombre =$('#nombreIngredienteForm').val();
+        $('#nombreIngredienteForm').val("");
+        var cantidad =$('#cantidadForm').val();
+        $('#cantidadForm').val("");
+        $('#listaIngredientes').append("<li>"+ nombre + " - " + cantidad + "</li>");
+        var longitud = $("#listaIngredientes").children().length;
+        var inputNombre = $("<input/>",{
+        type: "hidden",
+        name: "nombre"+longitud,
+        value: nombre });
+        var inputCantidad = $("<input/>",{
+        type: "hidden",
+        name: "cantidad"+longitud,
+        value: cantidad });
+        $('#listaIngredientes').after(inputNombre);
+        $('#listaIngredientes').after(inputCantidad);
+
     });
     // all custom jQuery will go here
 });

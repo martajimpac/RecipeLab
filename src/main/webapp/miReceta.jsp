@@ -4,6 +4,11 @@
     Author     : marta
 --%>
 
+<%@page import="Modelo.DetallesReceta"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Modelo.Usuario"%>
+<%@page import="Modelo.PasosReceta"%>
+<%@page import="Modelo.Receta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,12 +33,17 @@
 <div class="contenido container-sm">
   <div class="card">
     <div class="card-body">
+        <% Receta receta = (Receta)request.getAttribute("receta"); 
+               Usuario usuarioReceta = (Usuario)request.getAttribute("usuarioReceta");
+               ArrayList<DetallesReceta> ingredientes = (ArrayList<DetallesReceta>)request.getAttribute("ingredientes");
+               ArrayList<PasosReceta> pasos = (ArrayList<PasosReceta>)request.getAttribute("pasos");
+            if (receta != null){ %>
       <div class="row">
-        <label id="titulo">Titulo de mi receta</label>
+        <label id="titulo"><%= receta.getNombre() %></label>
       </div>
       <div class="row">
         <div class="col-2">
-          <img class="img-fluid" id="imagenReceta" src="images/ejemplo-receta-1.jpg" />
+          <img class="img-fluid" id="imagenRecetaPerfil" src="<%=receta.getUrlImagen()%>" />
         </div>
         <div class="col-4">
           <div class="card">
@@ -48,30 +58,40 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <% for(int i = 0; i<ingredientes.size(); i++){    
+                                    DetallesReceta ingrediente = ingredientes.get(i); %>
                                     <tr>
-                                        <td>Ingrediente 1</td>
-                                        <td>500 gr </td>
+                                        <td><%= ingrediente.getNombreIngrediente() %></td>
+                                        <td><%= ingrediente.getCantidad() %>
+                                        <%if (ingrediente.isOpcionalidad()){%>
+                                             (opcional)
+                                            <%}%></td>
                                     </tr>
-                                    <tr>
-                                        <td>Ingrediente 1</td>
-                                        <td>500 gr </td>
-                                    </tr>
+                                <% } %>
                             </tbody>
                         </table>
           </div>
         </div>
         <div class="col-2">
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star checked"></span>
-          <span class="fa fa-star"></span>
-          <span class="fa fa-star"></span>
+            <% int valoracion = (int)Math.round(receta.getValoracionMedia());
+                    for(int estrellas=0; estrellas<5; estrellas++){ %>
+                        <% if (estrellas < valoracion){%>
+                            <span class="fa fa-star checked"></span>
+                        <% } else {%>
+                            <span class="fa fa-star"></span>
+                        <% } 
+                      }  %>
           <div class="row">
             <div class="col-1">
               <img class="img" id="imagenTiempo" src="images/tiempo.png" />
             </div>
             <div class="col">
-              <label>1 h</label>
+                        <% int segundos = receta.getDuracionEnSec();
+                           int hor=segundos/3600;
+                           int min=(segundos-(3600*hor))/60;
+                           String tiempo = hor+"h "+min+"m ";
+                        %>
+                            <label> <%=tiempo %></label>
             </div>
           </div>
           <div class="row">
@@ -79,36 +99,40 @@
               <img class="img" id="imagenPersona" src="images/personas.png" />
             </div>
             <div class="col">
-              <label>4 personas</label>
+              <label><%= receta.getNumPersonas() %> personas</label>
             </div>
           </div>
           <div class="row">
-            <label>€€</label>
+            <label><%= receta.getPrecio() %>€</label>
           </div>
-          <label>Dificultad : Fácil</label>
+          <label>Dificultad : <%= receta.getDificultad() %></label>
           <label id="disponibles">Los ingredientes estan disponibles</label>
         </div>
       </div>
-      <div class="row">
-        <label class="paso">Paso 1</label>
-        <label>Descripcion del paso</label>
-      </div>
+            <% for(int j = 0; j<pasos.size(); j++){    
+               PasosReceta paso = pasos.get(j); %>
+                <div class="row">
+                    <label class="paso">Paso <%= paso.getNumeroPaso()%></label>
+                    <label><%= paso.getDescripcion()%></label>
+                </div>
+            <% } %>
+          <% } %> 
     </div>
   </div>
   <div class="row">
     <div class="col">
       <label id="comentarios">Comentarios</label>
       <div class="card">
-        <div class="card-body">
+        <div class="card-body cuerpo-comentario">
           <div class="row">
             <div class="col-1">
               <img class="img fotoPerfil" src="images/perfil.jpg" />
             </div>
-            <div class="col">
+            <div class="col comentario">
               <label>Esto es un comentario sobre mi receta</label>
             </div>
           </div>
-          <button type="button" class="btn btn-light">Responder</button>
+          <button type="button" class="btn btn-light boton-responder" >Responder</button>
         </div>
       </div>
     </div>
@@ -124,6 +148,8 @@
 
      <%@ include file="/includes/footer.html" %>
      
-<script src="js/app.js" type="text/javascript"></script>
+<script src="js/jquery-3.6.4.js" type="text/javascript"></script>
+<script src="js/comentariosReceta.js" type="text/javascript"></script>
+<script src="js/header.js" type="text/javascript"></script>
 </body>
 </html>

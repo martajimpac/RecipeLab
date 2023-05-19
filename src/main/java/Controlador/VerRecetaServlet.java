@@ -7,8 +7,10 @@ package Controlador;
 import Datos.RecetaDB;
 import Datos.DetallesRecetaDB;
 import Datos.UsuarioDB;
+import Datos.PasoRecetaDB;
 import Modelo.Receta;
 import Modelo.DetallesReceta;
+import Modelo.PasosReceta;
 import Modelo.Usuario;
 import java.util.ArrayList;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,19 +42,41 @@ public class VerRecetaServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String nextStep = "/receta.jsp";
+        String nextStep;
         
         int id = Integer.parseInt(request.getParameter("id")); 
         
         Receta receta = RecetaDB.buscaRecetaPorId(id);
-        Usuario usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
+        HttpSession sesion = request.getSession(true);
+        Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
+        Usuario usuarioReceta;
+        
+        //si no se ha iniciado sesion: 
+        if(usuarioSesion==null){
+            usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
+            nextStep = "/receta.jsp";   
+            
+        }else{ //si hemos iniciado sesion
+            if( usuarioSesion.getEmail().equals(receta.getEmailUsuario()) ) {
+            usuarioReceta = usuarioSesion;
+            nextStep = "/miReceta.jsp";
+            }
+            else {
+                usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
+                nextStep = "/receta.jsp";
+            }
+        }
+
+        
         ArrayList<DetallesReceta> ingredientes = DetallesRecetaDB.obtieneIngredientes(id);
+        ArrayList<PasosReceta> pasos = PasoRecetaDB.getPasosReceta(id);
        
         try {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
                 request.setAttribute("receta", receta);
                 request.setAttribute("usuarioReceta", usuarioReceta);
                 request.setAttribute("ingredientes", ingredientes);
+                request.setAttribute("pasos", pasos);
 
                 dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {

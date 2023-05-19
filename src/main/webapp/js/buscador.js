@@ -1,3 +1,8 @@
+/* 
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
+ */
+
 
 //filtros tipo slider
 const sliderPrecio = document.getElementById("precio");
@@ -36,55 +41,15 @@ function secondsToString(seconds) {
     return hour + ':' + minute + ':' + second;
 }
 
-
-//añadir menu desplegable en el header
-
-var loginImage = document.getElementById("login-image");
-var submenu = document.querySelector(".submenu");
-var cerrarSesion = document.getElementById("cerrar-sesion");
-
-loginImage.addEventListener("click", function() {
-    submenu.style.display = "block";
-});
-
-document.addEventListener("click", function(event) {
-    if (!submenu.contains(event.target) && event.target !== loginImage) {
-        submenu.style.display = "none";
-    }
-});
-
-cerrarSesion.addEventListener("click", function() {
-    alert("La sesion se ha cerrado correctamente");
-});
-
 //ocultar los filtros cuando seleccionamos personas
 const select = document.getElementById("tipo-busqueda");
 const filtros = document.getElementById("divfiltros");
 
 select.addEventListener("change", function() {
-    if (this.value == "personas") {
+    if (this.value === "personas") {
         filtros.style.display = "none";
     }else{
         filtros.style.display = "block";
     }
 });
 
-//login y logout
-var loginImage = document.getElementById("login-image");
-var submenu = document.querySelector(".submenu");
-var cerrarSesion = document.getElementById("cerrar-sesion");
-
-loginImage.addEventListener("click", function() {
-    console.log(submenu)
-    submenu.style.display = "block";
-});
-
-document.addEventListener("click", function(event) {
-    if (!submenu.contains(event.target) && event.target !== loginImage) {
-        submenu.style.display = "none";
-    }
-});
-
-cerrarSesion.addEventListener("click", function() {
-    alert("La sesion se ha cerrado correctamente");
-});
