@@ -5,7 +5,6 @@
 
 $(document).ready(function() {
     $(".cuerpo-comentario").hover(function(){
-        console.log("hola");
         var boton = $(this).find("button");
         boton.css('display','inline-block');
     },function(){
@@ -28,25 +27,34 @@ $(document).ready(function() {
             $(this).before(div);
             $(this).text("Enviar");
         } else {
+            var idReceta = $('.receta-id').text();
+            var texto = $(this).parent().find("label").text();
+            var emailCom = $('.comentario-email').text();
+            var fechaCom = $('.comentario-fecha').text();
             var textArea = $(this).parent().find("textarea");
             var respuesta = textArea.val();
             var div = textArea.parent();
             if(respuesta !== ""){
-            $.getJson("insertaComentarioServlet?comentario="+respuesta, function(data){
+                $.getJSON("InsertaComentarioServlet",{
+                    id: idReceta,
+                    email: emailCom,
+                    fecha: fechaCom,
+                    com: texto,
+                    resp: respuesta
+                }, function(data){
                 div.append('<div class="card">\n\
                             <div class="card-body cuerpo-comentario">\n\
                             <div class="row">\n\
                             <div class="col-1">\n\
-                            <img class="img fotoPerfil" src="images/perfil.jpg" />\n\
+                            <img class="img fotoPerfil" src="' + data[1] + '"/>\n\
                             </div>\n\
-                            <div class="col comentario">\n\
-                            <label>' + respuesta + '</label>\n\
+                            <div class="col respuesta">\n\
+                            <label>' + data[2] + '</label>\n\
                             </div>\n\
                             </div>\n\
                             </div>\n\
                             </div>');
-            })
-            ;   
+                });   
             } else div.remove();
             
             textArea.remove();

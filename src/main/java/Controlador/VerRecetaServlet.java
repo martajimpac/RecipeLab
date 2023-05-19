@@ -4,14 +4,19 @@
  */
 package Controlador;
 
+import Datos.ComentarioDB;
 import Datos.RecetaDB;
 import Datos.DetallesRecetaDB;
+import Datos.PasoRecetaDB;
 import Datos.UsuarioDB;
+import Modelo.Comentario;
 import Modelo.Receta;
 import Modelo.DetallesReceta;
+import Modelo.PasosReceta;
 import Modelo.Usuario;
-import java.util.ArrayList;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -57,13 +62,24 @@ public class VerRecetaServlet extends HttpServlet {
             nextStep = "/receta.jsp";
         }
         
-        ArrayList<DetallesReceta> ingredientes = DetallesRecetaDB.obtieneIngredientes(id);
+        List<DetallesReceta> ingredientes = DetallesRecetaDB.obtieneIngredientes(id);
+        List<Comentario> comentarios = ComentarioDB.getComentariosByIdReceta(id);
+        List<PasosReceta> pasos = PasoRecetaDB.getPasosByIdReceta(id);
+        List<Usuario> usuariosComentarios = new ArrayList<>();
+        for(Comentario i: comentarios){
+            Usuario usuarioCom = UsuarioDB.obtieneUsuario(i.getEmailUsuario());
+            usuariosComentarios.add(usuarioCom);
+        }
+
        
         try {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
                 request.setAttribute("receta", receta);
                 request.setAttribute("usuarioReceta", usuarioReceta);
                 request.setAttribute("ingredientes", ingredientes);
+                request.setAttribute("comentarios",comentarios);
+                request.setAttribute("pasos",pasos);
+                request.setAttribute("usuariosComentarios",usuariosComentarios);
 
                 dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {
