@@ -4,6 +4,8 @@
  */
 package Controlador;
 
+import Datos.ComentarioDB;
+import Modelo.Comentario;
 import Modelo.Usuario;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -39,15 +41,21 @@ public class InsertaComentarioServlet extends HttpServlet {
         
         
         Gson gson = new Gson( );
-        List<String> data = new ArrayList<String>( );
-        String comentario = request.getParameter("comentario");
+        List<String> data = new ArrayList<>( );
+        String idReceta = request.getParameter("id");
+        String texto = request.getParameter("com");
+        String comentario = request.getParameter("resp");
+        String fecha = request.getParameter("fecha");
+        String email = request.getParameter("email");
         HttpSession sesion = request.getSession(true);
         Usuario user = (Usuario) sesion.getAttribute("usuario");
         data.add(user.getNombreUsuario());
-        //añadir imagen user
+        data.add(user.getAvatarUrl());
         data.add(comentario);
         //insertar comentario en id, falta id receta y id hilo?
-
+        
+        //Comentario coment = new Comentario(email,Integer.valueOf(idReceta),0,texto,true,new java.util.Date(fecha),comentario);
+        //ComentarioDB.insertaComentario(coment);
 
         response.setContentType( "application/json");
         response.getWriter( ).println( gson.toJson( data));

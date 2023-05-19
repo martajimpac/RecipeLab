@@ -4,8 +4,10 @@
     Author     : marta
 --%>
 
+<%@page import="Modelo.PasosReceta"%>
+<%@page import="Modelo.Comentario"%>
+<%@page import="java.util.List"%>
 <%@page import="Modelo.DetallesReceta"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="Modelo.Usuario"%>
 <%@page import="Modelo.Receta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -32,11 +34,16 @@
 <div class="contenido container-sm">
   <div class="card">
     <div class="card-body">
-        <% Receta receta = (Receta)request.getAttribute("receta"); 
+        <%     Receta receta = (Receta)request.getAttribute("receta"); 
                Usuario usuarioReceta = (Usuario)request.getAttribute("usuarioReceta");
-               ArrayList<DetallesReceta> ingredientes = (ArrayList<DetallesReceta>)request.getAttribute("ingredientes");
+               List<DetallesReceta> ingredientes = (List<DetallesReceta>)request.getAttribute("ingredientes");
+               List<Comentario> comentarios = (List<Comentario>)request.getAttribute("comentarios");
+               List<PasosReceta> pasos = (List<PasosReceta>)request.getAttribute("pasos");
+               List<Usuario> usuariosComentarios = (List<Usuario>)request.getAttribute("usuariosComentarios");
+               
             if (receta != null){ %>
       <div class="row">
+        <label class="receta-id" hidden><%=receta.getId()%></label>
         <label id="titulo"><%= receta.getNombre() %></label>
       </div>
       <div class="row">
@@ -107,32 +114,43 @@
           <label id="disponibles">Los ingredientes estan disponibles</label>
         </div>
       </div>
+      <% for(PasosReceta i: pasos){%>
       <div class="row">
-        <label class="paso">Paso 1</label>
-        <label>Descripcion del paso</label>
+        <label class="paso">Paso <%=i.getNumeroPaso()%></label>
+        <label><%=i.getDescripcion()%></label>
       </div>
+          <% } %>
           <% } %> 
     </div>
   </div>
   <div class="row">
     <div class="col">
+      <button type="button" class="btn btn-warning">Editar receta</button>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      <%if(comentarios != null){%>
       <label id="comentarios">Comentarios</label>
+      <% for(int i = 0; i < comentarios.size(); i++){ %>
       <div class="card">
         <div class="card-body cuerpo-comentario">
+          <label class="comentario-email" hidden><%=comentarios.get(i).getEmailUsuario()%></label>
+          <label class="comentario-fecha" hidden><%=comentarios.get(i).getFechaComentario()%></label>
           <div class="row">
             <div class="col-1">
-              <img class="img fotoPerfil" src="images/perfil.jpg" />
+              <img class="img fotoPerfil" src="<%=usuariosComentarios.get(i).getAvatarUrl()%>" />
             </div>
             <div class="col comentario">
-              <label>Esto es un comentario sobre mi receta</label>
+              <label><%=comentarios.get(i).getTexto()%></label>
             </div>
           </div>
           <button type="button" class="btn btn-light boton-responder" >Responder</button>
         </div>
       </div>
-    </div>
-    <div class="col">
-      <button type="button" class="btn btn-warning">Editar receta</button>
+      <%}%>
+      <%}%>
     </div>
   </div>
 </div>

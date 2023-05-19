@@ -143,8 +143,8 @@ INSERT INTO valoracion VALUES
 
 # comentario
 INSERT INTO comentario VALUES
-('usuario1@example.com', '1', 4, '¡Muy buena receta!', true, '2023-04-16', 'Gracias por tu comentario!'),
-('usuario2@example.com', '1', 5, 'Increíble receta, ¡muchas gracias por compartirla!', false, '2023-04-15', '');
+('usuario1@example.com', 1, 4, '¡Muy buena receta!', true, '2023-04-16', 'Gracias por tu comentario!'),
+('usuario2@example.com', 1, 5, 'Increíble receta, ¡muchas gracias por compartirla!', false, '2023-04-15', '');
 
 # listaRecetas
 INSERT INTO listaRecetas VALUES  

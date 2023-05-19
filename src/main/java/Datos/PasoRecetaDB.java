@@ -7,7 +7,9 @@ package Datos;
 import Modelo.PasosReceta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class PasoRecetaDB {
 
-    static void insertaPasos(List<PasosReceta> pasos) {
+    public static void insertaPasos(List<PasosReceta> pasos) {
        
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
@@ -43,6 +45,35 @@ public class PasoRecetaDB {
         } catch (SQLException ex) {
             Logger.getLogger(PasoRecetaDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static List<PasosReceta> getPasosByIdReceta(int idReceta){
+        
+        List<PasosReceta> pasos = new ArrayList<>();
+        
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        ResultSet result;
+        
+        String query = "SELECT * FROM pasosreceta WHERE idReceta = ?";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, idReceta);
+            result = preparedStatement.executeQuery();
+            while(result.next()){
+  
+                String descripcion = result.getString("descripcion");
+                int numeroPaso = result.getInt("numeroPaso");
+                
+                PasosReceta paso = new PasosReceta(idReceta,numeroPaso,descripcion);
+                pasos.add(paso);
+            }
+        } catch (SQLException e) {
+            //TODO: tratamiento excepciones
+        }
+        return pasos;
     }
     
 }
