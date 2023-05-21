@@ -37,7 +37,7 @@ public class CargaRecomendacionesServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // variables que vamos a utilizar
-        String nextStep = "buscador.jsp";
+        String nextStep = "/buscador.jsp";
 
         //Queremos que nos muestre dos recetas aleatorias de más de 4 estrellas
         

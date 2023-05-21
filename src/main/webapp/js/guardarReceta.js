@@ -4,7 +4,7 @@
  */
 
 var corazon =  document.getElementById("corazon");
-var submenu = document.getElementsByClassName("submenuCorazon");
+var submenu = document.getElementsById("submenuCorazon");
 var crearLista = document.getElementById("crear-lista");
 var anadirLista = document.getElementById("anadir-lista");
 
