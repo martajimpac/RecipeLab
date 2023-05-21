@@ -27,6 +27,8 @@ public class Receta {
     private byte[] imagenReceta;
     private Categoria categoria;
     private List<PasosReceta> pasos;
+    
+    public Receta(){}
 
     public Receta(int id, String emailUsuario, String nombre, int numPersonas, String dificultad, int duracionEnSec, int valoracionMedia, boolean comentariosActivados, double precio, byte[] imagenReceta, String categoria) {
         this.id = id;
