@@ -275,15 +275,12 @@
 <!-- Pie de página                                                                                                     -->
 <!-- ***************************************************************************************************************** -->
 
-<<<<<<< HEAD
+
 <%@ include file="/includes/footer.html" %>
 
-=======
-     <%@ include file="/includes/footer.html" %>
-     
->>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
+
 <script src="js/jquery-3.6.4.js" type="text/javascript"></script>
 <script src="js/comentariosReceta.js" type="text/javascript"></script>
-<script src="js/app.js" type="text/javascript"></script>
+<script src="js/header.js" type="text/javascript"></script>
 </body>
 </html>

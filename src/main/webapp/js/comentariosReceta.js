@@ -15,26 +15,15 @@ $(document).ready(function() {
         }
         boton.css('display','none');
     });
-<<<<<<< HEAD
-
-=======
     
->>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
     $(".boton-responder").click(function(){
         if($(this).text() === "Responder"){
             var div = $('<div />', {
                 className: "col-respuesta",
-<<<<<<< HEAD
-                style: "margin-left: 9%"
-            });
-            var textArea = $('<textarea style=" width: 80%" />');
-            div.append(textArea);
-=======
                 style: "margin-left: 9%" 
             });
             var textArea = $('<textarea style=" width: 80%" />');
             div.append(textArea); 
->>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
             $(this).before(div);
             $(this).text("Enviar");
         } else {
@@ -53,11 +42,7 @@ $(document).ready(function() {
                     com: texto,
                     resp: respuesta
                 }, function(data){
-<<<<<<< HEAD
-                    div.append('<div class="card">\n\
-=======
                 div.append('<div class="card">\n\
->>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
                             <div class="card-body cuerpo-comentario">\n\
                             <div class="row">\n\
                             <div class="col-1">\n\
@@ -69,26 +54,13 @@ $(document).ready(function() {
                             </div>\n\
                             </div>\n\
                             </div>');
-<<<<<<< HEAD
-                });
-            } else div.remove();
-
-            textArea.remove();
-
-=======
                 });   
             } else div.remove();
             
             textArea.remove();
             
->>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
             $(this).text("Responder");
         }
 
     });
-<<<<<<< HEAD
 });
-=======
-});
-
->>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392

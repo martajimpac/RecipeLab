@@ -24,7 +24,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     </head>
     <body>
 
-        <%String email = (String) session.getAttribute("ussuario");
+<%String email = (String) session.getAttribute("usuario");
  if(email!=null){%>
     <%@ include file="/includes/headerSesionIniciada.jsp" %>
  <%}else{%>
@@ -59,7 +59,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 <!-- ***************************************************************************************************************** -->
 
      <%@ include file="/includes/footer.html" %>
-     <script src="js/app.js" type="text/javascript"></script>
+     
+   
+    <!-- Importar javascript -->
+    <script src="js/jquery-3.6.4.js" type="text/javascript"></script>
+    <script src="js/header.js" type="text/javascript"></script>
+
     </body>
 </html>
 

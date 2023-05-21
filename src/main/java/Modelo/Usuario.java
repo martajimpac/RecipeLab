@@ -74,7 +74,6 @@ public class Usuario {
     }
     
     public String getAvatarUrl(){
-        
         return Encoder.fromByteArrayToUrl(avatar);
     }
 }
