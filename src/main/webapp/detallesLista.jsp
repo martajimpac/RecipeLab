@@ -53,13 +53,21 @@
 
   <form class="buscador" method="POST" action=""> <!--Llamar aqui al servlet -->
     <div class="container text-center">
+<<<<<<< HEAD
         <div class="resultados-busqueda">
+=======
+      <div class="row">
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
           <%
               List<Receta> recetas = (List<Receta>) request.getAttribute("recetas");
               if(recetas != null && recetas.size() > 0){
                 for(Receta i: recetas){
               
               %>
+<<<<<<< HEAD
+=======
+        <div class="col">
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
           <div class="card" >
               <div class="text-center ">
                   <% 
@@ -100,6 +108,10 @@
               </div>
             </div>
           </div>
+<<<<<<< HEAD
+=======
+        </div>
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
         <%  }
            }
         %>
@@ -116,7 +128,12 @@
 
 <!-- Importar bootstrap -->
 <script src="js/jquery-3.6.4.js" type="text/javascript"></script>
+<<<<<<< HEAD
 <script src="js/header.js" type="text/javascript"></script>
+=======
+<script src="js/mostrarImagen.js" type="text/javascript"></script>
+<script src="js/app.js" type="text/javascript"></script>
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>

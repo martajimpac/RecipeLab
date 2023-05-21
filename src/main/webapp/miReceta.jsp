@@ -32,6 +32,7 @@
 
 
 <div class="contenido container-sm">
+<<<<<<< HEAD
     <div class="card">
         <div class="card-body">
             <%     Receta receta = (Receta)request.getAttribute("receta");
@@ -53,6 +54,29 @@
                 <div class="col-4">
                     <div class="card">
                         <div class="card-header">
+=======
+  <div class="card">
+    <div class="card-body">
+        <%     Receta receta = (Receta)request.getAttribute("receta"); 
+               Usuario usuarioReceta = (Usuario)request.getAttribute("usuarioReceta");
+               List<DetallesReceta> ingredientes = (List<DetallesReceta>)request.getAttribute("ingredientes");
+               List<Comentario> comentarios = (List<Comentario>)request.getAttribute("comentarios");
+               List<PasosReceta> pasos = (List<PasosReceta>)request.getAttribute("pasos");
+               List<Usuario> usuariosComentarios = (List<Usuario>)request.getAttribute("usuariosComentarios");
+               
+            if (receta != null){ %>
+      <div class="row">
+        <label class="receta-id" hidden><%=receta.getId()%></label>
+        <label id="titulo"><%= receta.getNombre() %></label>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <img class="img-fluid" id="imagenRecetaPerfil" src="<%=receta.getUrlImagen()%>" />
+        </div>
+        <div class="col-4">
+          <div class="card">
+            <div class="card-header">
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
                             Ingredientes
                         </div>
                         <table class="table">
@@ -63,6 +87,7 @@
                             </tr>
                             </thead>
                             <tbody>
+<<<<<<< HEAD
                             <% for(int i = 0; i<ingredientes.size(); i++){
                                 DetallesReceta ingrediente = ingredientes.get(i); %>
                             <tr>
@@ -73,6 +98,18 @@
                                     <%}%></td>
                             </tr>
                             <% } %>
+=======
+                                <% for(int i = 0; i<ingredientes.size(); i++){    
+                                    DetallesReceta ingrediente = ingredientes.get(i); %>
+                                    <tr>
+                                        <td><%= ingrediente.getNombreIngrediente() %></td>
+                                        <td><%= ingrediente.getCantidad() %>
+                                        <%if (ingrediente.isOpcionalidad()){%>
+                                             (opcional)
+                                            <%}%></td>
+                                    </tr>
+                                <% } %>
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
                             </tbody>
                         </table>
                     </div>
@@ -122,6 +159,7 @@
             <% } %>
             <% } %>
         </div>
+<<<<<<< HEAD
     </div>
     <div class="row">
         <div class="col">
@@ -153,14 +191,97 @@
             <%}%>
         </div>
     </div>
+=======
+        <div class="col-2">
+            <% int valoracion = (int)Math.round(receta.getValoracionMedia());
+                    for(int estrellas=0; estrellas<5; estrellas++){ %>
+                        <% if (estrellas < valoracion){%>
+                            <span class="fa fa-star checked"></span>
+                        <% } else {%>
+                            <span class="fa fa-star"></span>
+                        <% } 
+                      }  %>
+          <div class="row">
+            <div class="col-1">
+              <img class="img" id="imagenTiempo" src="images/tiempo.png" />
+            </div>
+            <div class="col">
+                        <% int segundos = receta.getDuracionEnSec();
+                           int hor=segundos/3600;
+                           int min=(segundos-(3600*hor))/60;
+                           String tiempo = hor+"h "+min+"m ";
+                        %>
+                            <label> <%=tiempo %></label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-1">
+              <img class="img" id="imagenPersona" src="images/personas.png" />
+            </div>
+            <div class="col">
+              <label><%= receta.getNumPersonas() %> personas</label>
+            </div>
+          </div>
+          <div class="row">
+            <label><%= receta.getPrecio() %>€</label>
+          </div>
+          <label>Dificultad : <%= receta.getDificultad() %></label>
+          <label id="disponibles">Los ingredientes estan disponibles</label>
+        </div>
+      </div>
+      <% for(PasosReceta i: pasos){%>
+      <div class="row">
+        <label class="paso">Paso <%=i.getNumeroPaso()%></label>
+        <label><%=i.getDescripcion()%></label>
+      </div>
+          <% } %>
+          <% } %> 
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-warning">Editar receta</button>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col">
+      <%if(comentarios != null){%>
+      <label id="comentarios">Comentarios</label>
+      <% for(int i = 0; i < comentarios.size(); i++){ %>
+      <div class="card">
+        <div class="card-body cuerpo-comentario">
+          <label class="comentario-email" hidden><%=comentarios.get(i).getEmailUsuario()%></label>
+          <label class="comentario-fecha" hidden><%=comentarios.get(i).getFechaComentario()%></label>
+          <div class="row">
+            <div class="col-1">
+              <img class="img fotoPerfil" src="<%=usuariosComentarios.get(i).getAvatarUrl()%>" />
+            </div>
+            <div class="col comentario">
+              <label><%=comentarios.get(i).getTexto()%></label>
+            </div>
+          </div>
+          <button type="button" class="btn btn-light boton-responder" >Responder</button>
+        </div>
+      </div>
+      <%}%>
+      <%}%>
+    </div>
+  </div>
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
 </div>
 
 <!-- ***************************************************************************************************************** -->
 <!-- Pie de página                                                                                                     -->
 <!-- ***************************************************************************************************************** -->
 
+<<<<<<< HEAD
 <%@ include file="/includes/footer.html" %>
 
+=======
+     <%@ include file="/includes/footer.html" %>
+     
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
 <script src="js/jquery-3.6.4.js" type="text/javascript"></script>
 <script src="js/comentariosReceta.js" type="text/javascript"></script>
 <script src="js/app.js" type="text/javascript"></script>
