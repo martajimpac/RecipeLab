@@ -4,7 +4,10 @@
  */
 package Datos;
 
+
+import Modelo.DetallesReceta;
 import Modelo.PasosReceta;
+import Modelo.Receta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,8 +23,10 @@ import java.util.logging.Logger;
  */
 public class PasoRecetaDB {
 
+
     public static void insertaPasos(List<PasosReceta> pasos) {
-       
+
+    
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement preparedStatement;
@@ -47,6 +52,7 @@ public class PasoRecetaDB {
         }
     }
     
+
     public static List<PasosReceta> getPasosByIdReceta(int idReceta){
         
         List<PasosReceta> pasos = new ArrayList<>();

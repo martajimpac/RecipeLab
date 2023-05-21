@@ -16,7 +16,7 @@
     </div>
 
 <%Usuario usuarioSesionHeader = (Usuario) session.getAttribute("usuario"); 
-String email = usuarioSesionHeader.getEmail();%>
+String emailHeader = usuarioSesionHeader.getEmail();%>
     <div>
        
             <a href="nuevaReceta.jsp"><img src="images/anadir.png" alt="añadir receta" class="imagen-nav"/></a>
@@ -25,7 +25,7 @@ String email = usuarioSesionHeader.getEmail();%>
             <a href="#"><img id="login-image" src="images/login.png" alt="ver mi perfil" class="imagen-nav imagen-nav-click"/>
             <li>
                 <ul class="submenu">
-                    <li><a href="VerUsuarioServlet?email=<%= email %>">Ver mi perfil</a></li>
+                    <li><a href="VerUsuarioServlet?email=<%= emailHeader %>">Ver mi perfil</a></li>
                     <li><a href="#">Cambiar contraseña</a></li>
                     <li><a href="index.jsp" id="cerrar-sesion">Cerrar sesión</a></li>
                 </ul>

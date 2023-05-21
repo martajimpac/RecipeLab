@@ -133,6 +133,8 @@ if(lista!=null){
 <%@ include file="/includes/footer.html" %>
 
 <!-- Importar bootstrap -->
+<!-- Importar javascript -->
+<script src="js/jquery-3.6.4.js" type="text/javascript"></script>
 <script src="js/header.js" type="text/javascript"></script>
 <script src="js/guardarReceta.js" type="text/javascript"></script>
 

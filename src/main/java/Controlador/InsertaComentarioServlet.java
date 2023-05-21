@@ -4,12 +4,15 @@
  */
 package Controlador;
 
+
+import Modelo.Usuario;
+//import com.google.gson.Gson;
+import java.io.IOException;
 import Datos.ComentarioDB;
 import Modelo.Comentario;
 import Modelo.Usuario;
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -39,7 +42,7 @@ public class InsertaComentarioServlet extends HttpServlet {
             throws ServletException, IOException {
         
         
-        
+
         Gson gson = new Gson( );
         List<String> data = new ArrayList<>( );
         String idReceta = request.getParameter("id");
