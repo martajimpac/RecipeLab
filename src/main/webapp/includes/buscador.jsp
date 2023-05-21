@@ -107,8 +107,7 @@
     <div id="carousel" class="carousel slide">
         <div class="carousel-inner">
           
-<% 
-     ArrayList<Receta> recomendaciones = new ArrayList<>();
+<%   ArrayList<Receta> recomendaciones = new ArrayList<>();
         //recuperar los datos
         try{
             recomendaciones = RecetaDB.buscaRecetasPorNombre("");
@@ -139,13 +138,13 @@
             Receta r = recomendaciones.get(i); 
             int id = r.getId();
             if(i == 0){ 
-                carouselclass = "carousel-item-active";
+                carouselclass = "carousel-item active";
               
             }else{
                 carouselclass = "carousel-item";
             } System.out.println(carouselclass);      
      %>
-            <div class= <%=carouselclass %> >
+            <div class= "<%=carouselclass %>" >
                 <a href="VerRecetaServlet?id=2">
                     <img src="./images/slider2.jpg" class="d-block w-100" alt="slider2">
                     <div class="div-sobre-imagen">
@@ -178,7 +177,14 @@
                 </a>
             </div>
 <%      } //del for
-    }//del if %>
+    }else{//del if %>
+    
+        <div class="carousel-item active">
+            <a href="receta.jsp">
+                <img src="./images/slider1.jpg" class="d-block w-100" alt="slider1">
+            </a>
+        </div>
+   <% } %>
 
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">

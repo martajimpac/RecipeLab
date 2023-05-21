@@ -76,7 +76,7 @@ if(lista!=null){
             <div class="corazon-sobre-div">
                 <a href="#"> <img src="./images/corazon.png" alt="corazon" id="corazon">
                 <li>
-                    <ul class="submenuCorazon">
+                    <ul class="submenuCorazon" id="submenuCorazon">
                         <li><a href="#" id="anadir-lista">Favoritos</a></li>
                         <li><a href="#" id="crear-lista">Crear nueva lista</a></li>
                     </ul>

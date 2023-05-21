@@ -18,7 +18,7 @@
     <!--Vincular css -->
     <link rel="stylesheet" href="css/app.css">
     
-    <script src="js/cargarServlet.js" type="text/javascript"></script>
+    <!-- <script src="js/cargarServlet.js" type="text/javascript"></script> -->
 </head>
 
 <body>
