@@ -126,6 +126,11 @@ if(usuario!=null){ %>
 <!-- ***************************************************************************************************************** -->
 
      <%@ include file="/includes/footer.html" %>
-<script src="js/app.js" type="text/javascript"></script>
+     
+     
+<!-- Importar javascript -->
+<script src="js/jquery-3.6.4.js" type="text/javascript"></script>
+<script src="js/header.js" type="text/javascript"></script>
+
 </body>
 </html>

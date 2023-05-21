@@ -122,7 +122,7 @@ CREATE TABLE detallesReceta (
 # usuario 
 INSERT INTO usuario VALUES
 ('usuario1', 'contrasena1', 'usuario1@example.com', 'publicador',LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar1.jpg'), false, 4.5),
-('usuario2', 'contrasena2', 'usuario2@example.com', 'administrador', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar2.jpg'), true, 3.8),
+('usuario2', 'contrasena2', 'usuario2@example.com', 'publicador', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar2.jpg'), true, 3.8),
 ('usuario3', 'contrasena3', 'usuario3@example.com', 'publicador', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar2.jpg'), true, 3.3);
 
 # receta

@@ -21,7 +21,7 @@ public class SeguidorDeDB {
         ResultSet resultSet;
         int num = 0;
 
-        String query = "SELECT * FROM seguidorde WHERE email like ?";
+        String query = "SELECT COUNT(*) FROM seguidorde WHERE email = ?";
         
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -29,7 +29,7 @@ public class SeguidorDeDB {
             resultSet = preparedStatement.executeQuery();
             
             if(resultSet.next()) { //todo aqui deberia encontrar dos seguidores para el usuario 1
-                num++;
+                num = resultSet.getInt(1);
             }
             
             resultSet.close();
@@ -49,7 +49,7 @@ public class SeguidorDeDB {
         ResultSet resultSet;
         int num = 0;
 
-        String query = "SELECT * FROM seguidorde WHERE emailusuario = ?";
+        String query = "SELECT COUNT(*) FROM seguidorde WHERE emailusuario = ?";
         
         try {
             preparedStatement = connection.prepareStatement(query);
@@ -57,7 +57,7 @@ public class SeguidorDeDB {
             resultSet = preparedStatement.executeQuery();
             
             if(resultSet.next()) {
-                num++;
+                num = resultSet.getInt(1);
             }
             
             resultSet.close();
