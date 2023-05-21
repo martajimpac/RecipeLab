@@ -39,7 +39,6 @@ public class RecetaDB {
             //añadir las variables a la query
             statement.setString(1,"%"+nombreReceta+"%");
             
-            System.out.println(statement);
             //ejecutar la query
             ResultSet result = statement.executeQuery();
             
@@ -47,6 +46,7 @@ public class RecetaDB {
             while(result.next()){
                 int id = result.getInt("id");
                 String emailUsuario = result.getString("emailUsuario");
+                String nombre = result.getString("nombre");
                 int numPersonas = result.getInt("numPersonas");
                 String dificultad = result.getString("dificultadReceta");
                 int duracion = result.getInt("duracionEnSec");
@@ -56,7 +56,7 @@ public class RecetaDB {
                 byte [] imagen = result.getBytes("imagenReceta");
                 String categoria = result.getString("categoria");
                 
-                Receta receta = new Receta(id,emailUsuario,nombreReceta,numPersonas,dificultad,duracion,valoracion,comentarios,precio,imagen,categoria);
+                Receta receta = new Receta(id,emailUsuario,nombre,numPersonas,dificultad,duracion,valoracion,comentarios,precio,imagen,categoria);
                 lista.add(receta);     
             }
             return lista;

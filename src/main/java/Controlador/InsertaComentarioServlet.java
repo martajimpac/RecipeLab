@@ -4,12 +4,18 @@
  */
 package Controlador;
 
+<<<<<<< HEAD
+import Modelo.Usuario;
+//import com.google.gson.Gson;
+import java.io.IOException;
+=======
 import Datos.ComentarioDB;
 import Modelo.Comentario;
 import Modelo.Usuario;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -40,6 +46,21 @@ public class InsertaComentarioServlet extends HttpServlet {
         
         
         
+<<<<<<< HEAD
+        //Gson gson = new Gson( );
+        List<String> data = new ArrayList<String>( );
+        String comentario = request.getParameter("comentario");
+        HttpSession sesion = request.getSession(true);
+        Usuario user = (Usuario) sesion.getAttribute("usuario");
+        data.add(user.getNombreUsuario());
+        //añadir imagen user
+        data.add(comentario);
+        //insertar comentario en id, falta id receta y id hilo?
+
+
+        response.setContentType( "application/json");
+        //response.getWriter( ).println( gson.toJson( data));
+=======
         Gson gson = new Gson( );
         List<String> data = new ArrayList<>( );
         String idReceta = request.getParameter("id");
@@ -59,6 +80,7 @@ public class InsertaComentarioServlet extends HttpServlet {
 
         response.setContentType( "application/json");
         response.getWriter( ).println( gson.toJson( data));
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

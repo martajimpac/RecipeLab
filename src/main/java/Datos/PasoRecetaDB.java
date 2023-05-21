@@ -4,7 +4,13 @@
  */
 package Datos;
 
+<<<<<<< HEAD
+import Modelo.DetallesReceta;
 import Modelo.PasosReceta;
+import Modelo.Receta;
+=======
+import Modelo.PasosReceta;
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +26,11 @@ import java.util.logging.Logger;
  */
 public class PasoRecetaDB {
 
+<<<<<<< HEAD
+    static void insertaPasos(List<PasosReceta> pasos) {
+=======
     public static void insertaPasos(List<PasosReceta> pasos) {
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
        
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
@@ -47,6 +57,38 @@ public class PasoRecetaDB {
         }
     }
     
+<<<<<<< HEAD
+    
+    public static ArrayList<PasosReceta> getPasosReceta(int id) {
+
+        //Obtener conexion a la base de datos
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        
+        //vamos a buscar los usuarios cuyo nombre contenga la cadena introducida
+        String query = "SELECT * FROM pasosreceta p WHERE p.idReceta = ?";
+        ArrayList<PasosReceta> pasosReceta = new ArrayList<>();
+        
+        
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1,id);
+            ResultSet result  = statement.executeQuery();
+        
+
+            while(result.next()){
+                int numeroPaso = result.getInt("numeropaso");
+                String descripcion = result.getString("descripcion");
+                PasosReceta paso = new PasosReceta(id,numeroPaso,descripcion);
+                pasosReceta.add(paso);
+            } 
+  
+        } catch (SQLException e) {
+            //TODO: tratamiento excepciones
+        }
+
+        return pasosReceta;
+=======
     public static List<PasosReceta> getPasosByIdReceta(int idReceta){
         
         List<PasosReceta> pasos = new ArrayList<>();
@@ -74,6 +116,7 @@ public class PasoRecetaDB {
             //TODO: tratamiento excepciones
         }
         return pasos;
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
     }
     
 }

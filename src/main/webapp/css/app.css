@@ -18,7 +18,7 @@ body {
 
 a{
     color: black;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 h5{
@@ -513,6 +513,28 @@ footer {
 .corazon-sobre-div img{
     height: 30px;
     margin: 10px;
+}
+
+.submenuCorazon{
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background: #ff9900;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: none; /*para que no se muestre de primeras*/
+}
+
+.submenuCorazon li a{
+    color: #f2f2f2;
+    display: block;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 0px;
+}
+
+.submenuCorazon li a:hover{
+    color: #595959;
 }
 
 /*******************************************************************************************************************/

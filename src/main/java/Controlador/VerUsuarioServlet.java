@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,9 +38,23 @@ public class VerUsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nextStep = "/perfil.jsp";
-        
+        String nextStep; 
         String email = request.getParameter("email"); 
+        
+        HttpSession sesion = request.getSession(true);
+        Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
+        
+        //si no se ha iniciado sesion: 
+        if(usuarioSesion==null){      
+            nextStep = "/perfil.jsp";   
+        }else{ //si hemos iniciado sesion
+            //si es nuestro propio perfil
+            if( usuarioSesion.getEmail().equals(email)) {
+                nextStep = "/miPerfil.jsp";
+            }else{
+                nextStep = "/perfil.jsp";
+            }
+        }
         
         Usuario usuario = UsuarioDB.obtieneUsuario(email);
         int seguidores = SeguidorDeDB.obtieneSeguidores(email);
@@ -58,7 +73,6 @@ public class VerUsuarioServlet extends HttpServlet {
         } catch (IOException | ServletException e) {
             System.out.println(e);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

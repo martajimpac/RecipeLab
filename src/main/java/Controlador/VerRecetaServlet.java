@@ -53,6 +53,29 @@ public class VerRecetaServlet extends HttpServlet {
         HttpSession sesion = request.getSession(true);
         Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
         Usuario usuarioReceta;
+<<<<<<< HEAD
+        
+        //si no se ha iniciado sesion: 
+        if(usuarioSesion==null){
+            usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
+            nextStep = "/receta.jsp";   
+            
+        }else{ //si hemos iniciado sesion
+            if( usuarioSesion.getEmail().equals(receta.getEmailUsuario()) ) {
+            usuarioReceta = usuarioSesion;
+            nextStep = "/miReceta.jsp";
+            }
+            else {
+                usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
+                nextStep = "/receta.jsp";
+            }
+        }
+
+        
+        ArrayList<DetallesReceta> ingredientes = DetallesRecetaDB.obtieneIngredientes(id);
+        ArrayList<PasosReceta> pasos = PasoRecetaDB.getPasosReceta(id);
+        List<Comentario> comentarios = ComentarioDB.getComentariosByIdReceta(id);
+=======
         if( usuarioSesion.getEmail().equals(receta.getEmailUsuario()) ) {
             usuarioReceta = usuarioSesion;
             nextStep = "/miReceta.jsp";
@@ -65,21 +88,29 @@ public class VerRecetaServlet extends HttpServlet {
         List<DetallesReceta> ingredientes = DetallesRecetaDB.obtieneIngredientes(id);
         List<Comentario> comentarios = ComentarioDB.getComentariosByIdReceta(id);
         List<PasosReceta> pasos = PasoRecetaDB.getPasosByIdReceta(id);
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
         List<Usuario> usuariosComentarios = new ArrayList<>();
         for(Comentario i: comentarios){
             Usuario usuarioCom = UsuarioDB.obtieneUsuario(i.getEmailUsuario());
             usuariosComentarios.add(usuarioCom);
         }
+<<<<<<< HEAD
+=======
 
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
        
         try {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
                 request.setAttribute("receta", receta);
                 request.setAttribute("usuarioReceta", usuarioReceta);
                 request.setAttribute("ingredientes", ingredientes);
+<<<<<<< HEAD
+                request.setAttribute("pasos", pasos);
+=======
                 request.setAttribute("comentarios",comentarios);
                 request.setAttribute("pasos",pasos);
                 request.setAttribute("usuariosComentarios",usuariosComentarios);
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
 
                 dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {

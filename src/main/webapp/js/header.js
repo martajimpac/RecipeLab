@@ -3,10 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
  */
 
+<<<<<<< HEAD
+$(document).ready(function(){
+=======
 
 $(document).ready(function(){
     
    
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
     $('#login-image').click(function(){
         console.log($('.submenu').css('display'));
         if($('.submenu').css('display') === 'none') $('.submenu').css('display','block');
@@ -14,7 +18,10 @@ $(document).ready(function(){
     });
     
     $('#cerrar-sesion').click(function(){
+<<<<<<< HEAD
+=======
         
+>>>>>>> a6178d8b24c5f550abaad2e1885a0e67db03a392
         alert('sesion cerrada correctamante');
     });
 });

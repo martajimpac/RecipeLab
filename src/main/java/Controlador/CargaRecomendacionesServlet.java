@@ -5,20 +5,23 @@
 package Controlador;
 
 import java.io.IOException;
-import Datos.UsuarioDB;
+import Modelo.Receta;
+import Datos.RecetaDB;
+import java.util.ArrayList;
+import java.util.Iterator;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
 
 /**
  *
  * @author marta
  */
-@WebServlet(name = "Imagen", urlPatterns = {"/Imagen"})
-public class Imagen extends HttpServlet {
+@WebServlet(name = "CargaRecomendacionesServlet", urlPatterns = {"/CargaRecomendacionesServlet"})
+public class CargaRecomendacionesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,17 +34,49 @@ public class Imagen extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("image/jpg");
+        response.setContentType("text/html;charset=UTF-8");
         
-        System.out.println("ESTAMOS AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
-                + "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        OutputStream respuesta = response.getOutputStream();
-        String email = request.getParameter("email");
-        UsuarioDB.getImagen(email, respuesta); 
-        respuesta.close(); 
-        response.flushBuffer();
-    }
+        // variables que vamos a utilizar
+        String nextStep = "/buscador.jsp";
 
+        //Queremos que nos muestre dos recetas aleatorias de más de 4 estrellas
+        
+        ArrayList<Receta> lista = new ArrayList<>();
+        //recuperar los datos
+        try{
+            lista = RecetaDB.buscaRecetasPorNombre("");
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        Iterator<Receta> iter;
+
+        //eliminar de la lista los elementos que no cumplan la condicion
+
+        /*
+        iter = lista.iterator();
+        while (iter.hasNext()) {
+            Receta receta = iter.next();
+
+            //eliminamos las recetas que tengan menor valoracion que la selecionada
+            if (receta.getValoracionMedia() < 4) {
+                iter.remove();
+            }
+        }*/
+        
+        //elegir solo dos recetas aleatoriamente
+       
+        System.out.println("AAAAAAAAAAAAAArecom servlet "+lista.get(0));
+        // una vez se pulse el boton, se captura su evento y se recarga la pagina
+        try {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
+            request.setAttribute("recomendaciones", lista);
+
+            dispatcher.forward(request, response);
+        } catch (IOException | ServletException e) {
+            System.out.println(e);
+        }
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

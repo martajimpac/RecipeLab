@@ -57,7 +57,7 @@ public class BuscarListasServlet extends HttpServlet {
         // una vez se pulse el boton, se captura su evento y se recraga la misma pagina
         try {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
-            request.setAttribute("Listas", lista);  
+            request.setAttribute("listasBusqueda", lista);  
             request.setAttribute("Busqueda", true);
                 
             dispatcher.forward(request, response);
