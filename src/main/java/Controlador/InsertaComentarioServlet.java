@@ -10,7 +10,11 @@ import Modelo.Usuario;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,10 +56,17 @@ public class InsertaComentarioServlet extends HttpServlet {
         data.add(user.getNombreUsuario());
         data.add(user.getAvatarUrl());
         data.add(comentario);
-        //insertar comentario en id, falta id receta y id hilo?
         
-        //Comentario coment = new Comentario(email,Integer.valueOf(idReceta),0,texto,true,new java.util.Date(fecha),comentario);
-        //ComentarioDB.insertaComentario(coment);
+        //insertar comentario en id, falta id receta y id hilo?
+        DateFormat formatter = new SimpleDateFormat("d-MMM-yyyy,HH:mm:ss aaa");
+        Date date = null;
+        try {
+            date = formatter.parse(fecha);
+        }catch(ParseException e){
+            
+        }
+        Comentario coment = new Comentario(email,Integer.valueOf(idReceta),0,texto,true,date,comentario);
+        ComentarioDB.insertaComentario(coment);
 
         response.setContentType( "application/json");
         response.getWriter( ).println( gson.toJson( data));
