@@ -17,7 +17,7 @@
 
     <div>
             <a href="nuevaReceta.jsp"><img src="images/anadir.png" alt="añadir receta" class="imagen-nav"/></a>
-            <img src="images/mensaje.png" alt="ver mensajes" class="imagen-nav"/>
+            <a href="#"><img id="comentario-image" src="images/mensaje.png" alt="ver mensajes" class="imagen-nav"/></a>
             <a href="listas.jsp"><img src="images/corazon.png" alt="ver mis listas" class="imagen-nav"/></a>
             <a href="#"><img id="login-image" src="images/login.png" alt="ver mi perfil" class="imagen-nav imagen-nav-click"/>
             <li>
@@ -26,6 +26,10 @@
                     <li><a href="#">Cambiar contraseña</a></li>
                     <li><a href="index.jsp" id="cerrar-sesion">Cerrar sesión</a></li>
                 </ul>
-            </li> </a>
+            </li> 
+            <li>
+                <ul class="submenu-comentarios">
+                </ul>
+            </li> 
     </div>
 </nav>
