@@ -6,11 +6,26 @@
 
 $(document).ready(function(){
     
+    $.getJSON("ObtenerComentarios",function(data){
+        data.forEach(function(e){
+            if(e.respuesta === "")$('.submenu-comentarios').append('<li><a href="VerRecetaServlet?id=' + e.idReceta + '"> Comentario nuevo: <br>'+ e.texto +'</a></li>');
+            else $('.submenu-comentarios').append('<li><a href="VerRecetaServlet?id=' + e.idReceta + '"> Respuesta nueva: <br>'+ e.respuesta +'</a></li>');
+        });
+        
+    });
    
     $('#login-image').click(function(){
-        console.log($('.submenu').css('display'));
-        if($('.submenu').css('display') === 'none') $('.submenu').css('display','block');
-        else $('.submenu').css('display','none');
+        if($('.submenu').css('display') === 'none'){
+            $('.submenu-comentarios').css('display','none')
+            $('.submenu').css('display','block');
+        } else $('.submenu').css('display','none');
+    });
+    
+    $('#comentario-image').click(function(){
+        if($('.submenu-comentarios').css('display') === 'none') {
+            $('.submenu').css('display','none');
+            $('.submenu-comentarios').css('display','block');
+        } else $('.submenu-comentarios').css('display','none');
     });
     
     $('#cerrar-sesion').click(function(){
