@@ -42,7 +42,7 @@ public class CargarNovedadesServlet extends HttpServlet {
 
         String email = request.getParameter("email"); 
         //Ver a quien sigo
-        ArrayList<String> emailSeguidos = SeguidorDeDB.obtieneSeguidores(email);
+        ArrayList<String> emailSeguidos = SeguidorDeDB.obtieneSeguidos(email);
         
         ArrayList<Receta> recetas = new ArrayList<>();
         //Ver las publicaciones de los usuarios que sigo
@@ -53,7 +53,7 @@ public class CargarNovedadesServlet extends HttpServlet {
 
         //Ver cuales son las 5 más recientes
         Collections.sort(recetas, new RecetaComparator());
-        List<Receta> novedades = recetas.subList(0, Math.min(5, recetas.size()));
+        List<Receta> novedades = recetas.subList(0, Math.min(5, recetas.size())); 
 
         try {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/sesionIniciada.jsp");

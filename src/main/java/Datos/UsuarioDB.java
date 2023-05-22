@@ -4,16 +4,17 @@
  */
 package Datos;
 
-import Modelo.Usuario;
 import Modelo.RolUsuario;
+import Modelo.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.Blob;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.rowset.serial.SerialBlob;
 
 /**
@@ -123,32 +124,38 @@ public class UsuarioDB {
         }                
     }
     
-    
-    public static void modificaUsuario(String nombreUsuario, String contraseña, String emailUsuario,Rol rol, Blob imagen,) { 
+    public static void modificaUsuario(Usuario usuario) { 
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        String update = "UPDATE usuario SET nombreusuario = ?, avatar = ? WHERE email = ?";
+        
         try {
-            Conexion pool = Conexion.getInstance();
-            Connection connection = pool.getConnection();
-            PreparedStatement statement = null; 
-            statement = connection.prepareStatement( 
-                    "SELECT imagen FROM usuarioimg WHERE emailAddress=? ");
-            statement.setString(1, email); 
-            ResultSet result = statement.executeQuery(); 
-            if (result.next()) { 
-                Blob blob = result.getBlob("imagen"); 
-                if (!result.wasNull() && blob.length() > 1) { 
-                    InputStream imagen = blob.getBinaryStream(); 
-                    byte[] buffer = new byte[1000]; 
-                    int len = imagen.read(buffer); 
-                    while (len != -1) {
-                        respuesta.write(buffer, 0, len); 
-                        len = imagen.read(buffer);
-                    } 
-                    imagen.close(); 
-                } 
-            } 
-            pool.freeConnection(connection);
-        } catch (Exception e) { 
-            e.printStackTrace();
-        } 
+            preparedStatement = connection.prepareStatement(update);
+            preparedStatement.setString(1,usuario.getNombreUsuario());
+            preparedStatement.setBlob(2,new SerialBlob(usuario.getAvatar()));
+            preparedStatement.setString(3,usuario.getEmail());
+            
+            preparedStatement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(RecetaDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
+    
+    public static void modificaContraseña(Usuario usuario) { 
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        String update = "UPDATE usuario SET contraseña = ? WHERE email = ?";
+        
+        try {
+            preparedStatement = connection.prepareStatement(update);
+            preparedStatement.setString(1,usuario.getContraseña());
+            preparedStatement.setString(2,usuario.getEmail());
+            
+            preparedStatement.executeUpdate(); 
+        } catch (SQLException ex) {
+            Logger.getLogger(RecetaDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 }

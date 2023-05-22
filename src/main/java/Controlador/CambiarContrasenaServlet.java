@@ -5,13 +5,24 @@
 
 package Controlador;
 
+import Datos.RecetaDB;
+import Datos.SeguidorDeDB;
+import Datos.UsuarioDB;
+import Modelo.Receta;
+import Modelo.RolUsuario;
+import Modelo.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,17 +41,44 @@ public class CambiarContrasenaServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CambiarContrasenaServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CambiarContrasenaServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+       
+        String contrasena1 = request.getParameter("contrasena");
+        String contrasena2 = request.getParameter("repetirContrasena");
+        
+        HttpSession sesion = request.getSession(true);
+        Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
+        
+        RequestDispatcher dispatcher;
+        try {
+            if (!contrasena1.equals(contrasena2)) {
+                response.addHeader("error", "Las contraseñas no coinciden");
+                dispatcher = getServletContext().getRequestDispatcher("/cambiarContraseña.jsp"); 
+                dispatcher.forward(request,response);  
+            } else {
+                usuarioSesion.setContraseña(contrasena1);
+                UsuarioDB.modificaContraseña(usuarioSesion);
+                
+                //cargar novedades
+                //Ver a quien sigo
+                ArrayList<String> emailSeguidos = SeguidorDeDB.obtieneSeguidos(usuarioSesion.getEmail());
+
+                ArrayList<Receta> recetas = new ArrayList<>();
+                //Ver las publicaciones de los usuarios que sigo
+                for (String emailSeguido : emailSeguidos) {
+                    ArrayList<Receta> recetasSeguido = RecetaDB.buscaRecetasPorUsuario(emailSeguido);
+                    recetas.addAll(recetasSeguido);
+                }
+
+                //Ver cuales son las 5 más recientes
+                Collections.sort(recetas, new RecetaComparator());
+                List<Receta> novedades = recetas.subList(0, Math.min(5, recetas.size())); 
+                
+                request.setAttribute("novedades", novedades);
+                dispatcher = getServletContext().getRequestDispatcher("/sesionIniciada.jsp"); 
+                dispatcher.forward(request,response);
+            }    
+        } catch (IOException | ServletException e) {
+            System.out.println(e);
         }
     } 
 

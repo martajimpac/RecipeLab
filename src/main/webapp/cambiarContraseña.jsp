@@ -28,13 +28,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
 <div class="container-sm contenido">
 
+    <% String error = response.getHeader("error"); %>
 
     <div class="inicioSesion">
         <form action="CambiarContrasenaServlet" method="POST">
             <p class="noRegistrado">Cambiar contraseña</p>
             <input type="password" id="contrasena" name="contrasena" placeholder="Constraseña" required>
             <input type="password" id="repetirContrasena" name="repetirContrasena" placeholder="Repite la contraseña" required>
+            <input type="submit" value="Guardar cambios">
         </form>
+        <p>
+            <%if (error != null) {%>
+                <i><%=error%></i>
+            <%}%>
+        </p>
     </div>
 
 </div>

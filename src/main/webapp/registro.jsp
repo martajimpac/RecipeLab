@@ -25,6 +25,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     
     <%@ include file="/includes/header.html" %>
 
+    <% String error = response.getHeader("error"); %>
 
 <div class="container-sm contenido">
 
@@ -38,8 +39,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <input id="file-input" type="file" name="imagen" hidden="true"/>
             <input type="submit" value="Registrarte">
         </form>
+        <p>
+            <%if (error != null) {%>
+                <i><%=error%></i>
+            <%}%>
+        </p>
     </div>
 </div>
+   
 
 <!-- ***************************************************************************************************************** -->
 <!-- Pie de página                                                                                                     -->
