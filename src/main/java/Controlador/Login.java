@@ -1,8 +1,15 @@
 package Controlador;
 
+import Datos.SeguidorDeDB;
 import Datos.UsuarioDB;
+import Datos.RecetaDB;
 import Modelo.Usuario;
+import Modelo.Receta;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Comparator;
+import java.util.Collections;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,11 +38,34 @@ public class Login extends HttpServlet {
         String url;
         Usuario usuario = UsuarioDB.obtieneUsuario(email);
         
+        //NOVEDADES
+        
+        //Ver a quien sigo
+        ArrayList<String> emailSeguidos = SeguidorDeDB.obtieneSeguidos(email);
+        
+        ArrayList<Receta> recetas = new ArrayList<>();
+        //Ver las publicaciones de los usuarios que sigo
+        for (String emailSeguido : emailSeguidos) {
+            ArrayList<Receta> recetasSeguido = RecetaDB.buscaRecetasPorUsuario(emailSeguido);
+            recetas.addAll(recetasSeguido);
+        }
+
+        //Ver cuales son las 5 más recientes
+        Collections.sort(recetas, new RecetaComparator());
+        List<Receta> novedades = recetas.subList(0, Math.min(5, recetas.size())); 
+
         if (usuario != null && UsuarioDB.validaContrasena(usuario,contrasena)) {
+            
             HttpSession nuevaSesion = request.getSession(true);
             nuevaSesion.setAttribute("usuario", usuario);
-            url = "sesionIniciada.jsp";
-            response.sendRedirect(url);
+            url = "/sesionIniciada.jsp";
+            try {
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+                request.setAttribute("novedades", novedades);
+                dispatcher.forward(request, response);
+            } catch (IOException | ServletException e) {
+                System.out.println(e);
+            }
         } else {
             response.setHeader("error", "Las credenciales no son correctas");
             url = "/login.jsp";
@@ -82,4 +112,12 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+}
+
+
+class RecetaComparator implements Comparator<Receta> {
+    @Override
+    public int compare(Receta receta1, Receta receta2) {
+        return receta2.getFechaPublicacion().compareTo(receta1.getFechaPublicacion());
+    }
 }

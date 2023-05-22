@@ -5,26 +5,29 @@
 package Controlador;
 
 import Datos.RecetaDB;
-import Modelo.Usuario;
-import Datos.UsuarioDB;
 import Datos.SeguidorDeDB;
+import Datos.UsuarioDB;
 import Modelo.Receta;
+import Modelo.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author marta
  */
-@WebServlet(name = "VerUsuarioServlet", urlPatterns = {"/VerUsuarioServlet"})
-public class VerUsuarioServlet extends HttpServlet {
+@WebServlet(name = "GuardarCambiosPerfilServlet", urlPatterns = {"/GuardarCambiosPerfilServlet"})
+@MultipartConfig
+public class GuardarCambiosPerfilServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,31 +41,17 @@ public class VerUsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nextStep; 
-        String email = request.getParameter("email"); 
-        String editarPerfil = request.getParameter("editarPerfil"); 
+        String nextStep = "/miPerfil.jsp";
+        Part imagen = request.getPart("imagen");
+        String nombre = request.getParameter("nombre");
         
         HttpSession sesion = request.getSession(true);
         Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
-        boolean seguido = false; 
+        String email = usuarioSesion.getEmail();
         
-        //si no se ha iniciado sesion: 
-        if(usuarioSesion==null){      
-            nextStep = "/perfil.jsp";   
-        }else{ //si hemos iniciado sesion
-            
-            seguido = SeguidorDeDB.verSiLeSigo(usuarioSesion.getEmail(),email);
-            //si es nuestro propio perfil
-            if( usuarioSesion.getEmail().equals(email)) {
-                nextStep = "/miPerfil.jsp";
-            }else{
-                nextStep = "/perfil.jsp";
-            }
-        }
-        
-        if(editarPerfil != null){
-            nextStep = "/editarPerfil.jsp";
-        }
+        usuarioSesion.setNombreUsuario(nombre);
+        usuarioSesion.setAvatar(imagen.getInputStream().readAllBytes());
+        UsuarioDB.modificaUsuario(usuarioSesion);
         
         Usuario usuario = UsuarioDB.obtieneUsuario(email);
         int seguidores = SeguidorDeDB.obtieneNumeroSeguidores(email);
@@ -74,7 +63,6 @@ public class VerUsuarioServlet extends HttpServlet {
                 request.setAttribute("usuario", usuario);
                 request.setAttribute("seguidores", seguidores);
                 request.setAttribute("seguidos", seguidos);
-                request.setAttribute("seguido", seguido);
                 request.setAttribute("lista", lista);
 
                 dispatcher.forward(request, response);

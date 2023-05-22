@@ -67,9 +67,9 @@
                     <div class="col-8">
                     <select class="form-select" aria-label="Default select example" id="selectTiempo" name="tiempo">
                         <option selected hidden>Selecciona la medida de tiempo</option>
-                        <option value="facil">Segundos</option>
-                        <option value="media">Minutos</option>
-                        <option value="dificil">Horas</option>
+                        <option value="segundos">Segundos</option>
+                        <option value="minutos">Minutos</option>
+                        <option value="horas">Horas</option>
                     </select>
                     </div>
                 </div>
@@ -95,7 +95,6 @@
         <ol id="listaPasos"></ol>
       </div>
     </div>
-
   </div>
     
     
@@ -111,8 +110,6 @@
      <%@ include file="/includes/footer.html" %>
 
 <!-- Importar javascript -->
-<script src="js/jquery-3.6.4.js" type="text/javascript"></script>
-<script src="js/header.js" type="text/javascript"></script>     
 <script src="js/imageUpload.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>    
 </body>

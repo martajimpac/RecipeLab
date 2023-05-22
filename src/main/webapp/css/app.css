@@ -68,7 +68,6 @@ nav li{
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     display: none; /*para que no se muestre de primeras*/
 }
-
 .submenu li a{
     color: #f2f2f2;
     display: block;
@@ -80,6 +79,27 @@ nav li{
 .submenu li a:hover{
     color: #595959;
 }
+
+.submenu-comentarios{
+    position: absolute;
+    top: 110px;
+    right: 80px;
+    background: #ffffff;
+    border-style: solid;
+    border-color: #000000;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.submenu-comentarios li a{
+    display: block;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 0px;
+    text-decoration: none;
+}
+
 
 .imagen-logo {
     height: 60px;
@@ -219,20 +239,21 @@ footer {
 
 .carousel-inner{
     border-radius: 5px;
+    height: 400px;
 }
 
 .div-sobre-imagen{
     border-radius: 5px;
     opacity: 0.7;
     position: absolute;
-    top: 10%;
+    top: 40px;
     left: 15%;
     padding: 30px;
     background-color: white;
     color: black;
     max-width: 600px;
     width: 80%;
-    height: 80%;
+    height: auto;
     overflow: hidden;
 }
 
@@ -283,10 +304,12 @@ footer {
 .banner{
     position: relative;
     margin-bottom: 20px;
+    height: 400px;
 }
 
 .banner img{
     border-radius: 5px;
+    max-height: 400px;
 }
 
 /*Valaración con estrellas*/
@@ -324,6 +347,10 @@ footer {
 
 .card{
     margin-bottom: 20px;
+}
+
+.card img{
+    max-height: 300px;
 }
 
 .info-receta-pequeño {
@@ -549,8 +576,8 @@ footer {
 }
 
 #imagenReceta {
-    width: 180px;
-    height: 250px;
+    width: 230px;
+    height: 230px;
     transition: .5s ease;
 }
 

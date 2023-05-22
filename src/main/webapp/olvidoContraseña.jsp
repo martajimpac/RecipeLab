@@ -25,7 +25,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
     <%@ include file="/includes/header.html" %>
 
-        <div class="container-sm contenido">  
+        
+        <div class="container-sm contenido">
+            
+            
+            
             <div class="inicioSesion">
                 <form method="POST" action="login.jsp">
                     <input type="text" id="email" name="email" placeholder="Correo electrónico" required>
@@ -41,5 +45,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 <!-- ***************************************************************************************************************** -->
 
      <%@ include file="/includes/footer.html" %>
+     
+     <script src="js/app.js" type="text/javascript"></script>
     </body>
 </html>

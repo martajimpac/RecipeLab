@@ -62,8 +62,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
      
    
     <!-- Importar javascript -->
-    <script src="js/jquery-3.6.4.js" type="text/javascript"></script>
-    <script src="js/header.js" type="text/javascript"></script>
+
 
     </body>
 </html>

@@ -79,4 +79,72 @@ public class ComentarioDB {
         }
         return comentarios;
     }
+
+   
+    public static List<Comentario> getComentariosNoLeidos(int id) {
+        
+        List<Comentario> comentarios = new ArrayList<>();
+        
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        ResultSet result;
+        
+        String query = "SELECT * FROM comentario WHERE idReceta = ? AND respuesta = ? AND leido = 0";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, "");
+            result = preparedStatement.executeQuery();
+            while(result.next()){
+  
+                String email = result.getString("emailUsuario");
+                String texto = result.getString("texto");
+                int valoracion = result.getInt("valoracion");
+                boolean leido = result.getBoolean("leido");
+                Date fecha = result.getDate("fechaComentario");
+                String respuesta = result.getString("respuesta");
+                
+                Comentario comentario = new Comentario(email,id,valoracion,texto,leido,fecha,respuesta);
+                comentarios.add(comentario);
+            }
+        } catch (SQLException e) {
+            //TODO: tratamiento excepciones
+        }
+        return comentarios;
+    }
+
+    public static List<Comentario> getRespuestasNoLeidas(String email) {
+        List<Comentario> comentarios = new ArrayList<>();
+        
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        ResultSet result;
+        
+        String query = "SELECT * FROM comentario WHERE emailUsuario = ? AND respuesta != ? AND leido = 0";
+        
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, "");
+            result = preparedStatement.executeQuery();
+            while(result.next()){
+  
+                int id = result.getInt("idReceta");
+                String texto = result.getString("texto");
+                int valoracion = result.getInt("valoracion");
+                boolean leido = result.getBoolean("leido");
+                Date fecha = result.getDate("fechaComentario");
+                String respuesta = result.getString("respuesta");
+                
+                Comentario comentario = new Comentario(email,id,valoracion,texto,leido,fecha,respuesta);
+                comentarios.add(comentario);
+            }
+        } catch (SQLException e) {
+            //TODO: tratamiento excepciones
+        }
+        return comentarios;
+    }
 }

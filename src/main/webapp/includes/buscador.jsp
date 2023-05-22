@@ -9,6 +9,7 @@
 <%@page import="Modelo.Receta"%>
 <%@page import="Datos.RecetaDB"%>
 <%@page import="java.util.Iterator"%>
+<%@page import="java.util.Random"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
     <!-- ***************************************************************************************************************** -->
@@ -117,43 +118,52 @@
         
         Iterator<Receta> iter;
 
-        //eliminar de la lista los elementos que no cumplan la condicion
-
-       /*
+        //eliminar de la lista los elementos que no cumplan la condicion  
         iter = recomendaciones.iterator();
         while (iter.hasNext()) {
             Receta receta = iter.next();
 
             //eliminamos las recetas que tengan menor valoracion que la selecionada
-            if (receta.getValoracionMedia() < 2) {
+            if (receta.getValoracionMedia() < 3) {
                 iter.remove();
             }
-        }*/
+        }
+        
+        //Elejimos tres recetas aleatoriamente
+        ArrayList<Receta> recetasAleatorias = new ArrayList<>();
+        Random random = new Random();
+
+        int numRecetasSeleccionadas = Math.min(recomendaciones.size(), 3);
+
+        for (int i = 0; i < numRecetasSeleccionadas; i++) {
+            int indiceAleatorio = random.nextInt(recomendaciones.size());
+            Receta recetaSeleccionada = recomendaciones.get(indiceAleatorio);
+            recetasAleatorias.add(recetaSeleccionada);
+            recomendaciones.remove(indiceAleatorio);
+        } 
         
     String carouselclass = null;
-    //ArrayList<Receta> recomendaciones = (ArrayList<Receta>)request.getAttribute("recomendaciones");
-    System.out.println("estas son las recetas" + recomendaciones);
     if(recomendaciones!=null){
-        for(int i=0; i<recomendaciones.size();i++){
-            Receta r = recomendaciones.get(i); 
+        for(int i=0; i<recetasAleatorias.size();i++){
+            Receta r = recetasAleatorias.get(i); 
             int id = r.getId();
             if(i == 0){ 
                 carouselclass = "carousel-item active";
               
             }else{
                 carouselclass = "carousel-item";
-            } System.out.println(carouselclass);      
+            }   
      %>
             <div class= "<%=carouselclass %>" >
-                <a href="VerRecetaServlet?id=2">
-                    <img src="./images/slider2.jpg" class="d-block w-100" alt="slider2">
+                <a href="VerRecetaServlet?id=<%= id %>">
+                    <img src="<%=r.getUrlImagen()%>" class="d-block w-100" alt="slider2">
                     <div class="div-sobre-imagen">
                         <h5> <%=r.getNombre() %> </h5>
                         <div class="info-receta">
                             <div class="item">
-                                <img src="./images/estrella.png" alt="valoracion">
-                                <img src="./images/estrella.png" alt="valoracion">
-                                <img src="./images/estrella.png" alt="valoracion">
+                                <% for(int estrellas=0; estrellas<r.getValoracionMedia(); estrellas++){ %>
+                                     <img src="./images/estrella.png" alt="valoracion"> 
+                                <%} %>
                             </div>
                             <div class="item">
                                 <img src="images/personas.png" alt="numero personas">
@@ -161,7 +171,12 @@
                             </div>
                             <div class="item">
                                 <img src="./images/reloj.png" alt="duracion">
-                                <p> <%=r.getDuracionEnSec() %> </p>
+                                <% int segundos = r.getDuracionEnSec();
+                                   int hor=segundos/3600;
+                                   int min=(segundos-(3600*hor))/60;
+                                   String tiempo = hor+"h "+min+"m ";
+                                %>
+                                <p> <%=tiempo %> </p>
                             </div>
                             <div class="item">
                                 <strong> <%=r.getPrecio() %>€ </strong>

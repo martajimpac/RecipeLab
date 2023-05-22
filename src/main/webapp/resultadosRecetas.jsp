@@ -122,8 +122,7 @@ if(lista!=null){
             </div>
             <%  }%>
             <a href="VerRecetaServlet?id=<%= id %>">
-              <img src="./images/ejemplo-receta-1.jpg" class="card-img-top" alt="receta">
-              <!-- <img src="Imagen?email= USUARIO.GETEMAIL " class="card-img-top" alt="receta"> -->
+              <img src="<%=receta.getUrlImagen()%>" class="card-img-top" alt="receta">
             </a>
             <div class="card-body">
               <h5 class="card-title"><%=receta.getNombre() %></h5>

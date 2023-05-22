@@ -51,7 +51,7 @@
                 <div class="col">
                     <% if(usuarioReceta != null) { %>
                     <a href="VerUsuarioServlet?email=<%= usuarioReceta.getEmail() %>">
-                        <img class="img fotoPerfil" src="images/perfil.jpg" />
+                        <img class="img fotoPerfil" src="<%= usuarioReceta.getAvatarUrl() %>" />
                         <label id="perfilPublicador"> <%= usuarioReceta.getNombreUsuario() %></label>
                     </a>
                     <% } %>
@@ -181,9 +181,6 @@
 
      <%@ include file="/includes/footer.html" %>
      
-     
-<!-- Importar javascript -->
-<script src="js/jquery-3.6.4.js" type="text/javascript"></script>
-<script src="js/header.js" type="text/javascript"></script>
+
 </body>
 </html>

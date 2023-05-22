@@ -21,11 +21,11 @@ import Modelo.DificultadReceta;
 public class ListaDB {
     //Obtener todas la listas de un usuario
     public static List<ListaRecetas> getAll(String email){
-        
+
         //Obtener conexion a la base de datos
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
-        
+
         String query = "SELECT * FROM listarecetas WHERE emailUsuario = ?";
         try {
             List<ListaRecetas> lista = new ArrayList<>();
@@ -44,8 +44,8 @@ public class ListaDB {
                 l.setDescripcion(result.getString("DESCRIPCION"));
                 l.setFechaCreacion(result.getDate("FECHACREACION"));
                 l.setFechaModificacion(result.getDate("FECHAMODIFICACION"));
-                l.setImagenLista(result.getBytes("IMAGENLISTA"));
-                
+                l.setImagenLista(result.getBytes("IMAGENLISTA"));            
+
                 lista.add(0,l);
             }
             connection.close();
@@ -54,14 +54,14 @@ public class ListaDB {
             return null;
         }
     }
-    
+
     //Obtener listas de un usuario en base a una busqueda
     public static List<ListaRecetas> getListasPorBusqueda(String nombre, String email){
-        
+
         //Obtener conexion a la base de datos
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
-        
+
         String query = "SELECT * FROM listarecetas WHERE nombre LIKE ? AND emailUsuario = ?";
         try {
             List<ListaRecetas> lista = new ArrayList<>();

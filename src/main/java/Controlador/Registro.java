@@ -3,6 +3,7 @@ package Controlador;
 import Datos.UsuarioDB;
 import Modelo.RolUsuario;
 import Modelo.Usuario;
+
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,12 +12,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author teresa
  */
 @WebServlet(name = "Registro", urlPatterns = {"/Registro"})
+@MultipartConfig
 public class Registro extends HttpServlet {
     
     protected void processRequest(
@@ -31,7 +35,7 @@ public class Registro extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String contrasena1 = request.getParameter("contrasena");
         String contrasena2 = request.getParameter("repetirContrasena");
-        int codigoError;
+        Part imagen = request.getPart("imagen");
         
         RequestDispatcher dispatcher;
         
@@ -48,11 +52,12 @@ public class Registro extends HttpServlet {
                 Usuario usuario = new Usuario();
                 usuario.setEmail(email);
                 usuario.setNombreUsuario(nombre);
+                usuario.setContraseña(contrasena1);
                 RolUsuario rol = RolUsuario.valueOf("publicador");
                 usuario.setRolUsuario(rol);
                 usuario.setValoracion(0);
-                usuario.setContraseña(contrasena1);
                 usuario.setEsPrivado(false);
+                usuario.setAvatar(imagen.getInputStream().readAllBytes());
                 
                 HttpSession nuevaSesion = request.getSession(true);
                 nuevaSesion.setAttribute ("usuario", usuario);
@@ -64,9 +69,6 @@ public class Registro extends HttpServlet {
         } catch (IOException | ServletException e) {
             System.out.println(e);
         }
-   
-        
-  
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

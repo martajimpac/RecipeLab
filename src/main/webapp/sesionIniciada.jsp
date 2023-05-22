@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="Modelo.Receta"%>
+<%@page import="Datos.UsuarioDB"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,41 +38,55 @@
     <!-- ***************************************************************************************************************** -->
     <!-- Novedades usuarios                                                                                                -->
     <!-- ***************************************************************************************************************** -->
+    
     <p class="display-6"> Novedades </p>
+    <% 
+    List<Receta> novedades = (List<Receta>)request.getAttribute("novedades");
+    if(novedades!=null){
+        for(int i=0; i<novedades.size();i++){
+            Receta r = novedades.get(i); 
+            int id = r.getId();
+            Usuario usuarioReceta = UsuarioDB.obtieneUsuario(r.getEmailUsuario());
+    %>
 
     <div class="div-usuario">
-        <a href="perfil.jsp">
-            <img src="images/perfil.jpg" alt="Descripción de la imagen">
+        <a href="VerUsuarioServlet?email=<%= usuarioReceta.getEmail() %>">
+            <img src="<%=usuarioReceta.getAvatarUrl()%>" alt="Descripción de la imagen">
         </a>
-        <a href="perfil.jsp">
-            <h4>Nombre del usuario</h4>
+        <a href="VerUsuarioServlet?email=<%= usuarioReceta.getEmail() %>">
+            <h4><%=usuarioReceta.getNombreUsuario()%></h4>
         </a>
     </div>
 
     <div class="banner">
-        <a href="receta.jsp">
-            <img src="./images/slider3.jpg" alt="Imagen de ejemplo" class="d-block w-100">
+        <a href="VerRecetaServlet?id=<%= id %>">
+            <img src="<%=r.getUrlImagen()%>" class="d-block w-100">
             <div class="div-sobre-imagen">
-                <h5> Nombre receta </h5>
+                <h5> <%=r.getNombre() %> </h5>
                 <div class="info-receta">
                     <div class="item">
-                        <img src="./images/estrella.png" alt="valoracion">
-                        <img src="./images/estrella.png" alt="valoracion">
-                        <img src="./images/estrella.png" alt="valoracion">
+                        <% for(int estrellas=0; estrellas<r.getValoracionMedia(); estrellas++){ %>
+                            <img src="./images/estrella.png" alt="valoracion"> 
+                        <%} %>
                     </div>
                     <div class="item">
                         <img src="images/personas.png" alt="numero personas">
-                        <p> Número de comensales </p>
+                        <p> <%=r.getNumPersonas() %> </p>
                     </div>
                     <div class="item">
                         <img src="./images/reloj.png" alt="duracion">
-                        <p> Duración </p>
+                        <%  int segundos = r.getDuracionEnSec();
+                            int hor=segundos/3600;
+                            int min=(segundos-(3600*hor))/60;
+                            String tiempo = hor+"h "+min+"m ";
+                        %>
+                        <p> <%=tiempo %> </p>
                     </div>
                     <div class="item">
-                        <strong> €€ </strong>
+                        <strong> <%=r.getPrecio() %>€ </strong>
                     </div>
                     <div class="item">
-                        <p> Fácil </p>
+                        <p> <%=r.getDificultad() %> </p>
                     </div>
                     <div class="item">
                         <p> Los ingredientes están disponibles</p>
@@ -76,7 +94,9 @@
                 </div>
             </div>
         </a>
-    </div>  
+    </div> 
+        <%} //del for
+}//del if%>
 </div>
 
 
@@ -89,7 +109,6 @@
 
 <!-- Importar javascript -->
 <script src="js/jquery-3.6.4.js" type="text/javascript"></script>
-<script src="js/header.js" type="text/javascript"></script>
 <script src="js/buscador.js" type="text/javascript"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

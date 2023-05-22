@@ -5,6 +5,8 @@
 package Controlador;
 
 import Datos.RecetaDB;
+import Datos.SeguidorDeDB;
+import Datos.UsuarioDB;
 import Modelo.Categoria;
 import Modelo.Receta;
 import Modelo.Usuario;
@@ -85,7 +87,6 @@ public class ServletPublicarReceta extends HttpServlet {
         Part imagen = request.getPart("imagen");
         String nombre = request.getParameter("nombre");
         
-        
         ArrayList<String> nombresIngr = new ArrayList<>();
         ArrayList<String> cantidadesIngr = new ArrayList<>();
         
@@ -104,13 +105,13 @@ public class ServletPublicarReceta extends HttpServlet {
         int duracionEnSec,multiplicador = 1;
         
         switch(unidadTiempo){
-            case "Segundos":
+            case "segundos":
                 multiplicador = 1;
                 break;
-            case "Minutos":
+            case "minutos":
                 multiplicador = 60;
                 break;
-            case "Horas":
+            case "horas":
                 multiplicador = 3600;
                 break;
         }
@@ -138,17 +139,20 @@ public class ServletPublicarReceta extends HttpServlet {
         //receta.setIngredientes(nombresIngr,cantidadesIngr);
         RecetaDB.insertaReceta(receta);
        
-        ArrayList<Receta> recetas = RecetaDB.buscaRecetasPorUsuario(email);
-        
+        Usuario usuario = UsuarioDB.obtieneUsuario(email);
+        int seguidores = SeguidorDeDB.obtieneNumeroSeguidores(email);
+        int seguidos = SeguidorDeDB.obtieneNumeroSeguidos(email);
+        ArrayList<Receta> lista = RecetaDB.buscaRecetasPorUsuario(email);
+
         
         // forward request and response objects to JSP page
         String url = "/miPerfil.jsp";
         RequestDispatcher dispatcher =
         getServletContext().getRequestDispatcher(url);
         request.setAttribute("usuario",user);
-        request.setAttribute("usuario",user);
-        request.setAttribute("usuario",user);
-        request.setAttribute("recetas", recetas);
+        request.setAttribute("seguidores",seguidores);
+        request.setAttribute("seguidos",seguidos);
+        request.setAttribute("lista", lista);
         dispatcher.forward(request, response); 
     }
 
