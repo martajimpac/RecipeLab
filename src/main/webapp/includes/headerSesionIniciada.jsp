@@ -7,16 +7,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <nav>
+    
+<%Usuario usuarioSesionHeader = (Usuario) session.getAttribute("usuario"); 
+String emailHeader = usuarioSesionHeader.getEmail();%>
     <script src="js/jquery-3.6.4.js" type="text/javascript"></script>
     <script src="js/header.js" type="text/javascript"></script>
     <div>
-        <a href="sesionIniciada.jsp">
+        <a href="CargarNovedadesServlet?email=<%= emailHeader %>">
             <img src="images/logo.png" alt="logo" class="imagen-logo"/>
         </a>
     </div>
-
-<%Usuario usuarioSesionHeader = (Usuario) session.getAttribute("usuario"); 
-String emailHeader = usuarioSesionHeader.getEmail();%>
     <div>
        
             <a href="nuevaReceta.jsp"><img src="images/anadir.png" alt="añadir receta" class="imagen-nav"/></a>
@@ -26,7 +26,7 @@ String emailHeader = usuarioSesionHeader.getEmail();%>
             <li>
                 <ul class="submenu">
                     <li><a href="VerUsuarioServlet?email=<%= emailHeader %>">Ver mi perfil</a></li>
-                    <li><a href="#">Cambiar contraseña</a></li>
+                    <li><a href="cambiarContraseña.jsp">Cambiar contraseña</a></li>
                     <li><a href="index.jsp" id="cerrar-sesion">Cerrar sesión</a></li>
                 </ul>
             </li> </a>

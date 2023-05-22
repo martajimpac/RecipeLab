@@ -23,22 +23,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 </head>
 <body>
     
-    <%@ include file="/includes/header.html" %>
+    <%@ include file="/includes/headerSesionIniciada.jsp" %>
 
 
 <div class="container-sm contenido">
 
+
     <div class="inicioSesion">
-        <form action="Registro" method="POST" enctype="multipart/form-data">
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre de usuario" required>
-            <input type="text" id="email" name="email" placeholder="Correo electrónico" required>
+        <form action="CambiarContrasenaServlet" method="POST">
+            <p class="noRegistrado">Cambiar contraseña</p>
             <input type="password" id="contrasena" name="contrasena" placeholder="Constraseña" required>
             <input type="password" id="repetirContrasena" name="repetirContrasena" placeholder="Repite la contraseña" required>
-            <input type="checkbox" id="terminosCondiciones" name="terminosCondiciones" required> Acepto los términos y condiciones
-            <input id="file-input" type="file" name="imagen" hidden="true"/>
-            <input type="submit" value="Registrarte">
         </form>
     </div>
+
 </div>
 
 <!-- ***************************************************************************************************************** -->

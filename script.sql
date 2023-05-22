@@ -39,6 +39,7 @@ CREATE TABLE receta (
   precio double,
   imagenReceta LONGBLOB,                                                                                
   categoria enum ('desayuno', 'comida', 'cena', 'snack', 'postre'),
+  fechaPublicacion date,
   PRIMARY KEY (id),
   FOREIGN KEY (emailUsuario) REFERENCES usuario(email)
 );
@@ -123,12 +124,13 @@ CREATE TABLE detallesReceta (
 INSERT INTO usuario VALUES
 ('usuario1', 'contrasena1', 'usuario1@example.com', 'publicador',LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar1.jpg'), false, 4.5),
 ('usuario2', 'contrasena2', 'usuario2@example.com', 'publicador', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar2.jpg'), true, 3.8),
-('usuario3', 'contrasena3', 'usuario3@example.com', 'publicador', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar2.jpg'), true, 3.3);
+('usuario3', 'contrasena3', 'usuario3@example.com', 'publicador', LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\avatar3.jpg'), true, 3.3);
 
 # receta
 INSERT INTO receta VALUES
-(1, 'usuario1@example.com', 'Tarta de manzana', 8, 'media', 3600, 4.2, true, 12.50, LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\receta1.jpg'), 'postre'),
-(2, 'usuario2@example.com', 'Lasaña de verduras', 4, 'dificil', 4800, 5, false, 18.75, LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\receta2.jpg'), 'comida');
+(1, 'usuario1@example.com', 'Tarta de manzana', 8, 'media', 3600, 4.2, true, 12.50, LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\receta1.jpg'), 'postre', '2023-01-21'),
+(2, 'usuario2@example.com', 'Lasaña de verduras', 4, 'dificil', 4800, 5, false, 18.75, LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\receta2.jpg'), 'comida', '2023-03-20'),
+(3, 'usuario3@example.com', 'Tarta de Chocolate', 8, 'media', 3600, 4.8, true, 19.99, LOAD_FILE('C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\receta3.jpg'), 'postre', '2023-05-21');
 
 # seguidorDe
 INSERT INTO seguidorDe VALUES
@@ -148,7 +150,7 @@ INSERT INTO comentario VALUES
 
 # listaRecetas
 INSERT INTO listaRecetas VALUES  
-('Mis recetas favoritas', 'usuario1@example.com', '2023-04-15', '2023-04-16', 'Lista en la que guardo mis recetas favoritas', LOAD_FILE('C:\Users\juani\Desktop\UNI\3ano\SSW\prueba\RecipeLab\src\main\webapp\images\DB\lista1.png'));
+('Mis recetas favoritas', 'usuario1@example.com', '2023-04-15', '2023-04-16', 'Lista en la que guardo mis recetas favoritas', LOAD_FILE('C:\Users\juani\Desktop\UNI\3ano\SSW\prueba\RecipeLab\src\main\webapp\images\DB\lista1.jpg'));
 
 # detallesLista
 INSERT INTO detallesLista VALUES
@@ -167,7 +169,14 @@ INSERT INTO pasosReceta VALUES
 ('2', 3, 'Saltear las verduras en una sartén con aceite de oliva hasta que estén tiernas.'),
 ('2', 4, 'Preparar la bechamel con leche, harina y mantequilla y añadirle queso rallado.'),
 ('2', 5, 'Montar la lasaña intercalando capas de láminas de lasaña, verduras y bechamel.'),
-('2', 6, 'Hornear la lasaña a 200 grados durante 30 minutos.');
+('2', 6, 'Hornear la lasaña a 200 grados durante 30 minutos.'),
+('3', 1, 'Precalienta el horno a 180°C.'),
+('3', 2, 'Derrite el chocolate y la mantequilla en el microondas.'),
+('3', 3, 'En un bol, mezcla los huevos y el azúcar.'),
+('3', 4, 'Añade la harina y la mezcla de chocolate derretido, y mezcla bien.'),
+('3', 5, 'Vierte la mezcla en un molde para tarta previamente engrasado.'),
+('3', 6, 'Hornea durante 30-35 minutos o hasta que esté firme.'),
+('3', 7, 'Deja enfriar antes de servir.');
 
 
 # ingrediente
@@ -184,7 +193,9 @@ INSERT INTO ingrediente VALUES
 ('cebolla', true, 0.25),
 ('champiñones', true, 1.00),
 ('leche', true, 0.40),
-('queso rallado', true, 0.75);
+('queso rallado', true, 0.75),
+('Chocolate', true, 3.99), 
+('Huevos', true, 2.49);
 
 
 # detallesReceta
@@ -203,4 +214,9 @@ INSERT INTO detallesReceta VALUES
 ('2', 'leche', '500 ml', false),
 ('2', 'harina', '50 gr', false),
 ('2', 'mantequilla', '50 gr', false),
-('2', 'queso rallado', '100 gr', false);
+('2', 'queso rallado', '100 gr', false),
+('3', 'Chocolate', '200g', false),
+('3', 'mantequilla', '150g', true),
+('3', 'Huevos', '4 unidades', false),
+('3', 'azúcar', '200g', false),
+('3', 'harina', '150g', false);

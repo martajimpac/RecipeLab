@@ -70,7 +70,7 @@
                  %> 
                       <div class="card" style="width: 18rem;">
                         <a href="VerUsuarioServlet?email=<%= user.getEmail() %>">
-                          <img src="./images/fotoPerfil.jpg" class="card-img-top" alt="foto de perfil">
+                          <img src="<%= user.getAvatarUrl() %>" class="card-img-top" alt="foto de perfil">
                         </a>
                         <div class="card-body">
                           <h5 class="card-title"><%= user.getNombreUsuario() %> </h5>

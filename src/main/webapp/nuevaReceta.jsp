@@ -67,9 +67,9 @@
                     <div class="col-8">
                     <select class="form-select" aria-label="Default select example" id="selectTiempo" name="tiempo">
                         <option selected hidden>Selecciona la medida de tiempo</option>
-                        <option value="facil">Segundos</option>
-                        <option value="media">Minutos</option>
-                        <option value="dificil">Horas</option>
+                        <option value="segundos">Segundos</option>
+                        <option value="minutos">Minutos</option>
+                        <option value="horas">Horas</option>
                     </select>
                     </div>
                 </div>
@@ -95,7 +95,6 @@
         <ol id="listaPasos"></ol>
       </div>
     </div>
-
   </div>
     
     

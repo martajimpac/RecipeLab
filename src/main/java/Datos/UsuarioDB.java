@@ -123,7 +123,8 @@ public class UsuarioDB {
         }                
     }
     
-    public static void getImagen(String email, OutputStream respuesta) { 
+    
+    public static void modificaUsuario(String nombreUsuario, String contraseña, String emailUsuario,Rol rol, Blob imagen,) { 
         try {
             Conexion pool = Conexion.getInstance();
             Connection connection = pool.getConnection();

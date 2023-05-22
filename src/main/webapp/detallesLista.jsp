@@ -96,46 +96,42 @@
             int sec=(r.getDuracionEnSec()%3600)%60;
 
             int valoracionRedondeada = (int) Math.round(r.getValoracionMedia());
-
-            if(i%3==0){
-%>
-    <div class="row d-flex justify-content-around">
-<%
-            }
-%>
-        <div class="col-3">
-            <div class="card" style="width: 18rem;">
-                <a href="miReceta.jsp">
-                    <!--Provisional hasta que las imagenes en la bd funcionen-->
-                    <img src="./images/DB/lista1.png" class="card-img-top" alt="receta">
-                </a>
-                <div class="card-body">
-                    <h5 class="card-title"><%=r.getNombre()%></h5>
-                    <div class="info-receta-pequeño">
-                        <div class="item">
-<%
-                            for(int j = 0;j<valoracionRedondeada;j++){
-%>
-                            <img src="./images/estrella.png" alt="valoracion">
-<%
-                            }
-%>
-                        </div>
-                        <div class="item">
-                            <img src="images/personas.png" alt="numero personas">
-                            <p> <%=r.getNumPersonas()%> </p>
-                        </div>
-                        <div class="item">
-                            <img src="./images/reloj.png" alt="duracion">
-                            <p><%=horas%>h <%=min%>m <%=sec%>s </p>
-                        </div>
-                        <div class="item">
-                            <strong> <%=r.getPrecio()%> </strong>
-                        </div>
-                        <div class="item">
-                            <p> <%=r.getDificultad()%> </p>
-                        </div>
-                    </div>
+          <%
+              List<Receta> recetas = (List<Receta>) request.getAttribute("recetas");
+              if(recetas != null && recetas.size() > 0){
+                for(Receta i: recetas){
+              
+              %>
+          <div class="card" style="width: 18rem;">
+              <div class="text-center ">
+                  <% 
+                        String salto = "VerRecetaServlet?id="+i.getId();
+                  %>
+                  <a href="<%=salto%>">
+                    <img src="<%=i.getUrlImagen()%>" class="card-img-top" alt="receta" >
+                  </a>
+              </div>
+            
+            <div class="card-body">
+              <h5 class="card-title"><%=i.getNombre()%></h5>
+              <div class="info-receta-pequeño">
+                <div class="item">
+                    <% for(int j = 0; j < i.getValoracionMedia(); j++){ %>
+                  <img src="./images/estrella.png" alt="valoracion">
+                    <% }%>
+                </div>
+                <div class="item">
+                  <img src="images/personas.png" alt="numero personas">
+                  <p> <%=i.getNumPersonas()%> </p>
+                </div>
+                <div class="item">
+                  <img src="./images/reloj.png" alt="duracion">
+                  <% int segundos = i.getDuracionEnSec();
+                           int hor=segundos/3600;
+                           int min=(segundos-(3600*hor))/60;
+                           String tiempo = hor+"h "+min+"m ";
+                        %>
+                  <p> <%=tiempo%> </p>
                 </div>
             </div>
         </div>

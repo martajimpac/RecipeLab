@@ -132,7 +132,6 @@
         
     String carouselclass = null;
     //ArrayList<Receta> recomendaciones = (ArrayList<Receta>)request.getAttribute("recomendaciones");
-    System.out.println("estas son las recetas" + recomendaciones);
     if(recomendaciones!=null){
         for(int i=0; i<recomendaciones.size();i++){
             Receta r = recomendaciones.get(i); 
@@ -142,18 +141,18 @@
               
             }else{
                 carouselclass = "carousel-item";
-            } System.out.println(carouselclass);      
+            }   
      %>
             <div class= "<%=carouselclass %>" >
-                <a href="VerRecetaServlet?id=2">
-                    <img src="./images/slider2.jpg" class="d-block w-100" alt="slider2">
+                <a href="VerRecetaServlet?id=<%= id %>">
+                    <img src="<%=r.getUrlImagen()%>" class="d-block w-100" alt="slider2">
                     <div class="div-sobre-imagen">
                         <h5> <%=r.getNombre() %> </h5>
                         <div class="info-receta">
                             <div class="item">
-                                <img src="./images/estrella.png" alt="valoracion">
-                                <img src="./images/estrella.png" alt="valoracion">
-                                <img src="./images/estrella.png" alt="valoracion">
+                                <% for(int estrellas=0; estrellas<r.getValoracionMedia(); estrellas++){ %>
+                                     <img src="./images/estrella.png" alt="valoracion"> 
+                                <%} %>
                             </div>
                             <div class="item">
                                 <img src="images/personas.png" alt="numero personas">
