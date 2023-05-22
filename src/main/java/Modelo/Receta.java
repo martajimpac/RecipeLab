@@ -29,6 +29,7 @@ public class Receta {
     private List<PasosReceta> pasos;
     private Date fechaPublicacion;
 
+
     public Receta(int id, String emailUsuario, String nombre, int numPersonas, String dificultad, int duracionEnSec, int valoracionMedia, boolean comentariosActivados, double precio, byte[] imagenReceta, String categoria) {
         this.id = id;
         this.emailUsuario = emailUsuario;
