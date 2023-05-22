@@ -52,10 +52,6 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col">
-                    <label class="form-label">Introduce una descripción</label>
-                    <textarea class="form-control" name="descripcion" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
             </div>
         </div>
         </form>

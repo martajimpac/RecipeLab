@@ -36,7 +36,7 @@ if(usuario!=null){ %>
 
     <div class="d-flex">
         <div>
-            <img class="avatar" src="<%=usuario.getAvatarUrl()%> alt="imagen-receta""/>
+            <img class="avatar" src="<%=usuario.getAvatarUrl()%>" alt="foto de perfil"/>
         </div>
 
         <div class="info-perfil">

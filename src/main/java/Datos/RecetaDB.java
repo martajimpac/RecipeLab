@@ -92,8 +92,10 @@ public class RecetaDB {
                 double precio = result.getDouble("precio");
                 byte [] imagen = result.getBytes("imagenReceta");
                 String categoria = result.getString("categoria");
+                Date fechaPublicacion = result.getDate("fechaPublicacion");
                 
                 Receta receta = new Receta(id,email,nombre,numPersonas,dificultad,duracion,valoracion,comentarios,precio,imagen,categoria);
+                receta.setFechaPublicacion(fechaPublicacion);
                 recetas.add(receta);
             }
         } catch (SQLException e) {
@@ -184,10 +186,7 @@ public class RecetaDB {
         try {
             preparedStatement = connection.prepareStatement(query);
             result = preparedStatement.executeQuery();
-            if(result.next()) id = result.getInt("MAX(id)") + 1;
-
-            
-            
+            if(result.next()) id = result.getInt("MAX(id)") + 1;          
         } catch (SQLException e) {
             //TODO: tratamiento excepciones
         }
