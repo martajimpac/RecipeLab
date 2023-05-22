@@ -5,7 +5,7 @@
 package Controlador;
 
 import Datos.ListaDB;
-import Modelo.ListaRecetas;
+import Modelo.Receta;
 import Modelo.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Víctor
  */
-@WebServlet(name = "BuscarListasServlet", urlPatterns = {"/BuscarListasServlet"})
-public class BuscarListasServlet extends HttpServlet {
+@WebServlet(name = "DetallesListaServlet", urlPatterns = {"/DetallesListaServlet"})
+public class DetallesListaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,17 +39,16 @@ public class BuscarListasServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
          // variables que vamos a utilizar
-        String nextStep = "/listas.jsp";
-        List<ListaRecetas> lista = new ArrayList<>();
+        String nextStep = "/detallesLista.jsp";
+        List<Receta> lista = new ArrayList<>();
         
         //recuperar los datos
         try{
             
             //Obtener sesion de usuario identificado
             HttpSession session = request.getSession();
-            Usuario user = (Usuario) session.getAttribute("usuario");
  
-            lista = ListaDB.getListasPorBusqueda(request.getParameter("busqueda"),user.getEmail());
+            lista = ListaDB.getRecetasBusqueda(request.getParameter("nombreLista"), request.getParameter("busqueda"));
         }catch(Exception e){
             System.out.println(e);
         }
@@ -57,8 +56,7 @@ public class BuscarListasServlet extends HttpServlet {
         // una vez se pulse el boton, se captura su evento y se recraga la misma pagina
         try {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
-            request.setAttribute("Listas", lista);  
-            request.setAttribute("Busqueda", true);
+            request.setAttribute("Recetas", lista);  
                 
             dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {
