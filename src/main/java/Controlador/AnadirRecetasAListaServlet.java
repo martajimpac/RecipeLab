@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Víctor
  */
-@WebServlet(name = "EliminarRecetaDeListaServlet", urlPatterns = {"/EliminarRecetaDeListaServlet"})
-public class EliminarRecetaDeListaServlet extends HttpServlet {
+@WebServlet(name = "AnadirRecetasAListaServlet", urlPatterns = {"/AnadirRecetasAListaServlet"})
+public class AnadirRecetasAListaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,11 +36,11 @@ public class EliminarRecetaDeListaServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // variables que vamos a utilizar
-        String nextStep = "/"+request.getParameter("nextStep");
+        String nextStep = "/resultadosRecetas.jsp";
         
         //recuperar los datos
         try{
-            ListaDB.removeRecetaList(request.getParameter("nombreLista"), request.getParameter("idReceta"));
+            ListaDB.addRecetaList(request.getParameter("nombreLista"), request.getParameter("idReceta"));
         }catch(Exception e){
             System.out.println(e);
         }

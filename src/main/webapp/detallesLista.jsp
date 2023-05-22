@@ -110,7 +110,7 @@
                     <div class="submenu bg-transparent border-0 shadow-none position-absolute top-0 start-0 h-100 w-100" id="submenu<%=i%>">
                         <ul class="list-unstyled">
                             <li>
-                                <form class="buscador" method="POST" action="EliminarRecetaDeListaServlet?nombreLista=<%=nombreLista%>&idReceta=<%=r.getId()%>">
+                                <form class="buscador" method="POST" action="EliminarRecetaDeListaServlet?nombreLista=<%=nombreLista%>&idReceta=<%=r.getId()%>&nextStep=detallesLista.jsp">
                                     <button class="bg-white border-0 rounded text-white h-100 w-100 d-flex justify-content-center align-items-center">
                                         <img src="images/check.png" alt="lista favoritos">
                                     </button>
@@ -182,6 +182,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
 <script src="js/editarLista.js" type="text/javascript"></script>
-<script src="js/eliminarLista_Receta.js" type="text/javascript"></script>
+<script src="js/submenuEliminar.js" type="text/javascript"></script>
 </body>
 </html>

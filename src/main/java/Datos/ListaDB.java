@@ -225,4 +225,26 @@ public class ListaDB {
         } catch (Exception e) {
         }
     }
+    
+    //Añade una receta a la lista
+    public static void addRecetaList(String nombreLista, String idReceta){
+        
+        //Obtener conexion a la base de datos
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+
+        String query = "INSERT INTO detalleslista (nombreLista, idReceta) VALUES(?, ?)";
+        try {
+            /*crear la consulta dinamica
+             *añadir las variables a la query
+             *ejecutar la query*/
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, nombreLista);
+            statement.setString(2, idReceta);
+            statement.executeUpdate();
+            
+            connection.close();
+        } catch (Exception e) {
+        }
+    }
 }
