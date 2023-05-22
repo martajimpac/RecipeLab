@@ -61,7 +61,7 @@ public class ListaRecetas {
         this.imagenLista = imagenLista;
     }
 
-    public byte[] getImagenLista() {
-        return imagenLista;
+    public String getImagenLista() {
+        return Encoder.fromByteArrayToUrl(imagenLista);
     }
 }
