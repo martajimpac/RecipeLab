@@ -10,7 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.rowset.serial.SerialBlob;
@@ -39,7 +40,6 @@ public class RecetaDB {
             //añadir las variables a la query
             statement.setString(1,"%"+nombreReceta+"%");
             
-            System.out.println(statement);
             //ejecutar la query
             ResultSet result = statement.executeQuery();
             
@@ -47,6 +47,7 @@ public class RecetaDB {
             while(result.next()){
                 int id = result.getInt("id");
                 String emailUsuario = result.getString("emailUsuario");
+                String nombre = result.getString("nombre");
                 int numPersonas = result.getInt("numPersonas");
                 String dificultad = result.getString("dificultadReceta");
                 int duracion = result.getInt("duracionEnSec");
@@ -56,7 +57,7 @@ public class RecetaDB {
                 byte [] imagen = result.getBytes("imagenReceta");
                 String categoria = result.getString("categoria");
                 
-                Receta receta = new Receta(id,emailUsuario,nombreReceta,numPersonas,dificultad,duracion,valoracion,comentarios,precio,imagen,categoria);
+                Receta receta = new Receta(id,emailUsuario,nombre,numPersonas,dificultad,duracion,valoracion,comentarios,precio,imagen,categoria);
                 lista.add(receta);     
             }
             return lista;
@@ -144,7 +145,7 @@ public class RecetaDB {
         Connection connection = pool.getConnection();
         PreparedStatement preparedStatement;
         //('1', 'usuario1@example.com', 'Tarta de manzana', 8, 'media', 3600, 4, true, 12.50, LOAD_FILE('C:\Users\juani\Desktop\UNI\3ano\SSW\RecipeLab\src\main\webapp\images\ejemplo-receta-1'), 'postre')
-        String insert = "INSERT INTO receta VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String insert = "INSERT INTO receta VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
         
         try {
             preparedStatement = connection.prepareStatement(insert);
@@ -159,9 +160,10 @@ public class RecetaDB {
             preparedStatement.setDouble(9,receta.getPrecio());
             preparedStatement.setBlob(10,new SerialBlob(receta.getImagenReceta()));
             preparedStatement.setString(11,receta.getCategoria().toString());
-            preparedStatement.executeUpdate();
-            
-
+            LocalDate localDate = LocalDate.now();
+            Date sqlDate = Date.valueOf(localDate);
+            preparedStatement.setDate(12,sqlDate);
+            preparedStatement.executeUpdate(); 
         } catch (SQLException ex) {
             Logger.getLogger(RecetaDB.class.getName()).log(Level.SEVERE, null, ex);
         }

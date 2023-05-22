@@ -53,25 +53,34 @@ public class VerRecetaServlet extends HttpServlet {
         HttpSession sesion = request.getSession(true);
         Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
         Usuario usuarioReceta;
-        if( usuarioSesion.getEmail().equals(receta.getEmailUsuario()) ) {
+
+        
+        //si no se ha iniciado sesion: 
+        if(usuarioSesion==null){
+            usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
+            nextStep = "/receta.jsp";   
+            
+        }else{ //si hemos iniciado sesion
+            if( usuarioSesion.getEmail().equals(receta.getEmailUsuario()) ) {
             usuarioReceta = usuarioSesion;
             nextStep = "/miReceta.jsp";
+            }
+            else {
+                usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
+                nextStep = "/receta.jsp";
+            }
         }
-        else {
-            usuarioReceta = UsuarioDB.obtieneUsuario(receta.getEmailUsuario());
-            nextStep = "/receta.jsp";
-        }
+
         
-        List<DetallesReceta> ingredientes = DetallesRecetaDB.obtieneIngredientes(id);
-        List<Comentario> comentarios = ComentarioDB.getComentariosByIdReceta(id);
+        ArrayList<DetallesReceta> ingredientes = DetallesRecetaDB.obtieneIngredientes(id);
         List<PasosReceta> pasos = PasoRecetaDB.getPasosByIdReceta(id);
+        List<Comentario> comentarios = ComentarioDB.getComentariosByIdReceta(id);
         List<Usuario> usuariosComentarios = new ArrayList<>();
         for(Comentario i: comentarios){
             Usuario usuarioCom = UsuarioDB.obtieneUsuario(i.getEmailUsuario());
             usuariosComentarios.add(usuarioCom);
         }
 
-       
         try {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
                 request.setAttribute("receta", receta);
@@ -80,7 +89,6 @@ public class VerRecetaServlet extends HttpServlet {
                 request.setAttribute("comentarios",comentarios);
                 request.setAttribute("pasos",pasos);
                 request.setAttribute("usuariosComentarios",usuariosComentarios);
-
                 dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {
             System.out.println(e);

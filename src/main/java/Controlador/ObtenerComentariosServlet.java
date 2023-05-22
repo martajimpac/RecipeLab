@@ -4,24 +4,59 @@
  */
 package Controlador;
 
-import Datos.DetallesListaDB;
+import Datos.ComentarioDB;
+import Datos.RecetaDB;
+import Modelo.Comentario;
 import Modelo.Receta;
+import Modelo.Usuario;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author juani
  */
-@WebServlet(name = "verDetallesListaServlet", urlPatterns = {"/verDetallesListaServlet"})
-public class verDetallesListaServlet extends HttpServlet {
+@WebServlet(name = "ObtenerComentariosServlet", urlPatterns = {"/ObtenerComentarios"})
+public class ObtenerComentariosServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+       
+        Gson gson = new Gson( );
+        List<Comentario> data = new ArrayList<>( );
+        HttpSession sesion = request.getSession(true);
+        Usuario user = (Usuario) sesion.getAttribute("usuario");
+        
+        List<Receta> recetas = RecetaDB.buscaRecetasPorUsuario(user.getEmail());
+        for(Receta i: recetas){
+            List<Comentario> comentarios = ComentarioDB.getComentariosNoLeidos(i.getId());
+            data.addAll(comentarios);
+        }
+        List<Comentario> respuestas = ComentarioDB.getRespuestasNoLeidas(user.getEmail());
+        data.addAll(respuestas);
+        
+        response.setContentType( "application/json");
+        response.getWriter( ).println( gson.toJson( data));
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -34,16 +69,7 @@ public class verDetallesListaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String nombre = request.getParameter("nombre");
-        List<Receta> recetas = DetallesListaDB.getRecetasPorLista(nombre);
-        
-        request.setAttribute("recetas", recetas);
-        
-        String url = "/detallesLista.jsp";
-        RequestDispatcher dispatcher =
-        getServletContext().getRequestDispatcher(url);
-        dispatcher.forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -57,7 +83,7 @@ public class verDetallesListaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        processRequest(request, response);
     }
 
     /**

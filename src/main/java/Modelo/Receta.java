@@ -7,6 +7,7 @@ package Modelo;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Date;
 
 /**
  *
@@ -14,7 +15,6 @@ import java.util.List;
  */
 public class Receta {
 
-    
     private int id;
     private String emailUsuario;
     private String nombre;
@@ -27,7 +27,11 @@ public class Receta {
     private byte[] imagenReceta;
     private Categoria categoria;
     private List<PasosReceta> pasos;
+    private Date fechaPublicacion;
 
+    public Receta() {
+    }
+    
     public Receta(int id, String emailUsuario, String nombre, int numPersonas, String dificultad, int duracionEnSec, int valoracionMedia, boolean comentariosActivados, double precio, byte[] imagenReceta, String categoria) {
         this.id = id;
         this.emailUsuario = emailUsuario;
@@ -46,25 +50,14 @@ public class Receta {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getEmailUsuario() {
         return emailUsuario;
-    }
-
-    public void setEmailUsuario(String emailUsuario) {
-        this.emailUsuario = emailUsuario;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public int getNumPersonas() {
         return numPersonas;
@@ -78,57 +71,31 @@ public class Receta {
         return dificultad;
     }
 
-    public void setDificultad(DificultadReceta dificultad) {
-        this.dificultad = dificultad;
-    }
-
     public int getDuracionEnSec() {
         return duracionEnSec;
     }
 
-    public void setDuracionEnSec(int duracionEnSec) {
-        this.duracionEnSec = duracionEnSec;
-    }
 
     public double getValoracionMedia() {
         return valoracionMedia;
-    }
-
-    public void setValoracionMedia(double valoracionMedia) {
-        this.valoracionMedia = valoracionMedia;
     }
 
     public boolean isComentariosActivados() {
         return comentariosActivados;
     }
 
-    public void setComentariosActivados(boolean comentariosActivados) {
-        this.comentariosActivados = comentariosActivados;
-    }
-
     public double getPrecio() {
         return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
     }
 
     public byte[] getImagenReceta() {
         return imagenReceta;
     }
 
-    public void setImagenReceta(byte[] imagenReceta) {
-        this.imagenReceta = imagenReceta;
-    }
-
     public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
 
     public void setPasos(ArrayList<String> pasos) {
         
@@ -145,4 +112,34 @@ public class Receta {
         
         return Encoder.fromByteArrayToUrl(imagenReceta);
     }
+    
+    public Date getFechaPublicacion() {
+        return fechaPublicacion;
+    }
+
+    public void setFechaPublicacion(Date fechaPublicacion) {
+        this.fechaPublicacion = fechaPublicacion;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDificultad(DificultadReceta dificultad) {
+        this.dificultad = dificultad;
+    }
+
+    public void setDuracionEnSec(int duracionEnSec) {
+        this.duracionEnSec = duracionEnSec;
+    }
+
+    public void setValoracionMedia(double valoracionMedia) {
+        this.valoracionMedia = valoracionMedia;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    
 }

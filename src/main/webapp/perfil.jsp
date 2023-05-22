@@ -40,7 +40,7 @@
 if(usuario!=null){ %>
     <div class="d-flex">
         <div>
-            <img class="avatar" src="images/usuario.png"/>
+            <img class="avatar" src="<%=usuario.getAvatarUrl()%>"/>
         </div>
 
         <div class="info-perfil">
@@ -56,11 +56,22 @@ if(usuario!=null){ %>
                         <% } 
                       }  %>
                 </div>
-                <%if(usuarioSesion!=null){%>
-                    <div class="col">
-                        <button id="Seguir" class="btn btn-secondary"  type="submit" >Seguir</button>
-                    </div>
+                
+                <form class="buscador" method="POST" action="SeguirServlet">
+                    <input type="hidden" name="email" value="<%=usuario.getEmail() %>">
+                <%if(usuarioSesion!=null){ 
+                    boolean seguido = (boolean)request.getAttribute("seguido");
+                    if(seguido){%>
+                        <div class="col">   
+                            <button name="DejarSeguir" class="btn btn-secondary"  type="submit" >Dejar de seguir</button>
+                        </div>
+                    <%}else{ %>
+                        <div class="col">
+                            <button name="Seguir" class="btn btn-secondary"  type="submit" >Seguir</button>
+                        </div>
+                    <% }%>
                 <%}%>
+                </form>
             </div>
             <div class="row">
                 <h6><%=usuario.getEmail() %></h6>
@@ -82,10 +93,11 @@ if(usuario!=null){ %>
     <div class="recetas-perfil">
         
         <% for(int i=0; i<lista.size();i++){
-            Receta receta = lista.get(i); %>
+            Receta receta = lista.get(i);
+            int id = receta.getId();%>
         <div class="recetas-perfil__receta">
-            <a href="receta.jsp">
-                <img class="receta__imagen" src="images/ejemplo-receta-1.jpg" alt="imagen-receta-1"/>
+            <a href="VerRecetaServlet?id=<%= id %>">
+                <img class="receta__imagen" src="<%=receta.getUrlImagen()%>" alt="imagen-receta"/>
             </a>
             <div class="receta__informacion">
                 <h5 class="card-title"><%=receta.getNombre() %></h5>
@@ -116,7 +128,6 @@ if(usuario!=null){ %>
                     </div>
                 </div>   
             </div>
-            </div>
         </div>
         <% } %> <!-- del for -->
     </div>
@@ -127,6 +138,11 @@ if(usuario!=null){ %>
 <!-- ***************************************************************************************************************** -->
 
      <%@ include file="/includes/footer.html" %>
-<script src="js/app.js" type="text/javascript"></script>
+     
+     
+<!-- Importar javascript -->
+<script src="js/jquery-3.6.4.js" type="text/javascript"></script>
+<script src="js/header.js" type="text/javascript"></script>
+
 </body>
 </html>

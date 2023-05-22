@@ -159,10 +159,13 @@
 <!-- Pie de página                                                                                                     -->
 <!-- ***************************************************************************************************************** -->
 
-     <%@ include file="/includes/footer.html" %>
-     
+
+<%@ include file="/includes/footer.html" %>
+
+
+>>>>>>> fbf9fdb (resolver coonflictos)
 <script src="js/jquery-3.6.4.js" type="text/javascript"></script>
 <script src="js/comentariosReceta.js" type="text/javascript"></script>
-<script src="js/app.js" type="text/javascript"></script>
+<script src="js/header.js" type="text/javascript"></script>
 </body>
 </html>

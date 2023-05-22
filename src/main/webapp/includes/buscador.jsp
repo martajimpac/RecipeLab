@@ -4,6 +4,11 @@
     Author     : marta
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.lang.Math"%>
+<%@page import="Modelo.Receta"%>
+<%@page import="Datos.RecetaDB"%>
+<%@page import="java.util.Iterator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
     <!-- ***************************************************************************************************************** -->
@@ -97,65 +102,71 @@
     <!-- Slider                                                                                                            -->
     <!-- ***************************************************************************************************************** -->
     <p class="display-6">Recomendaciones</p>
+   
 
     <div id="carousel" class="carousel slide">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <a href="VerRecetaServlet?id=1">
-                    <img src="./images/slider1.jpg" class="d-block w-100" alt="slider1">
+          
+<%   ArrayList<Receta> recomendaciones = new ArrayList<>();
+        //recuperar los datos
+        try{
+            recomendaciones = RecetaDB.buscaRecetasPorNombre("");
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        Iterator<Receta> iter;
+
+        //eliminar de la lista los elementos que no cumplan la condicion
+
+       /*
+        iter = recomendaciones.iterator();
+        while (iter.hasNext()) {
+            Receta receta = iter.next();
+
+            //eliminamos las recetas que tengan menor valoracion que la selecionada
+            if (receta.getValoracionMedia() < 2) {
+                iter.remove();
+            }
+        }*/
+        
+    String carouselclass = null;
+    //ArrayList<Receta> recomendaciones = (ArrayList<Receta>)request.getAttribute("recomendaciones");
+    if(recomendaciones!=null){
+        for(int i=0; i<recomendaciones.size();i++){
+            Receta r = recomendaciones.get(i); 
+            int id = r.getId();
+            if(i == 0){ 
+                carouselclass = "carousel-item active";
+              
+            }else{
+                carouselclass = "carousel-item";
+            }   
+     %>
+            <div class= "<%=carouselclass %>" >
+                <a href="VerRecetaServlet?id=<%= id %>">
+                    <img src="<%=r.getUrlImagen()%>" class="d-block w-100" alt="slider2">
                     <div class="div-sobre-imagen">
-                        <h5> Nombre receta </h5>
-                         <div class="info-receta">
-                             <div class="item">
-                                 <img src="./images/estrella.png" alt="valoracion">
-                                 <img src="./images/estrella.png" alt="valoracion">
-                                 <img src="./images/estrella.png" alt="valoracion">
-                             </div>
-                             <div class="item">
-                                 <img src="images/personas.png" alt="numero personas">
-                                 <p> Número de comensales </p>
-                             </div>
-                             <div class="item">
-                                 <img src="./images/reloj.png" alt="duracion">
-                                 <p> Duración </p>
-                             </div>
-                             <div class="item">
-                                <strong> €€ </strong>
-                             </div>
-                             <div class="item">
-                                <p> Fácil </p>
-                             </div>
-                             <div class="item">
-                                <p> Los ingredientes están disponibles</p>
-                             </div>
-                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="carousel-item">
-                <a href="VerRecetaServlet?id=2">
-                    <img src="./images/slider2.jpg" class="d-block w-100" alt="slider2">
-                    <div class="div-sobre-imagen">
-                        <h5> Nombre receta </h5>
+                        <h5> <%=r.getNombre() %> </h5>
                         <div class="info-receta">
                             <div class="item">
-                                <img src="./images/estrella.png" alt="valoracion">
-                                <img src="./images/estrella.png" alt="valoracion">
-                                <img src="./images/estrella.png" alt="valoracion">
+                                <% for(int estrellas=0; estrellas<r.getValoracionMedia(); estrellas++){ %>
+                                     <img src="./images/estrella.png" alt="valoracion"> 
+                                <%} %>
                             </div>
                             <div class="item">
                                 <img src="images/personas.png" alt="numero personas">
-                                <p> Número de comensales </p>
+                                <p> <%=r.getNumPersonas() %> </p>
                             </div>
                             <div class="item">
                                 <img src="./images/reloj.png" alt="duracion">
-                                <p> Duración </p>
+                                <p> <%=r.getDuracionEnSec() %> </p>
                             </div>
                             <div class="item">
-                                <strong> €€ </strong>
+                                <strong> <%=r.getPrecio() %>€ </strong>
                             </div>
                             <div class="item">
-                                <p> Fácil </p>
+                                <p> <%=r.getDificultad() %> </p>
                             </div>
                             <div class="item">
                                 <p> Los ingredientes están disponibles</p>
@@ -164,38 +175,16 @@
                     </div>
                 </a>
             </div>
-            <div class="carousel-item">
-                <a href="receta.jsp">
-                    <img src="./images/slider3.jpg" class="d-block w-100" alt="slider3">
-                    <div class="div-sobre-imagen">
-                        <h5> Nombre receta </h5>
-                        <div class="info-receta">
-                            <div class="item">
-                                <img src="./images/estrella.png" alt="valoracion">
-                                <img src="./images/estrella.png" alt="valoracion">
-                                <img src="./images/estrella.png" alt="valoracion">
-                            </div>
-                            <div class="item">
-                                <img src="images/personas.png" alt="numero personas">
-                                <p> Número de comensales </p>
-                            </div>
-                            <div class="item">
-                                <img src="./images/reloj.png" alt="duracion">
-                                <p> Duración </p>
-                            </div>
-                            <div class="item">
-                                <strong> €€ </strong>
-                            </div>
-                            <div class="item">
-                                <p> Fácil </p>
-                            </div>
-                            <div class="item">
-                                <p> Los ingredientes están disponibles</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+<%      } //del for
+    }else{//del if %>
+    
+        <div class="carousel-item active">
+            <a href="receta.jsp">
+                <img src="./images/slider1.jpg" class="d-block w-100" alt="slider1">
+            </a>
+        </div>
+   <% } %>
+
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -207,4 +196,3 @@
         </button>
     </div>
     
-    <script src="js/app.js" type="text/javascript"></script>

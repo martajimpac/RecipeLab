@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author juani
  */
-public class DetallesListaDB {
+public class PasosRecetaDB {
     
     public static List<Receta> getRecetasPorLista(String nombreLista) {
 

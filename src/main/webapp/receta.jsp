@@ -5,6 +5,7 @@
 --%>
 
 <%@page import="Modelo.Receta"%>
+<%@page import="Modelo.PasosReceta"%>
 <%@page import="Modelo.DetallesReceta"%>
 <%@page import="Modelo.Usuario"%>
 <%@page import="java.util.ArrayList"%>
@@ -41,6 +42,7 @@
             <% Receta receta = (Receta)request.getAttribute("receta"); 
                Usuario usuarioReceta = (Usuario)request.getAttribute("usuarioReceta");
                ArrayList<DetallesReceta> ingredientes = (ArrayList<DetallesReceta>)request.getAttribute("ingredientes");
+               ArrayList<PasosReceta> pasos = (ArrayList<PasosReceta>)request.getAttribute("pasos");
             if (receta != null){ %>
             <div class="row">
                 <div class="col">
@@ -48,10 +50,8 @@
                 </div>
                 <div class="col">
                     <% if(usuarioReceta != null) { %>
-                    <a href="perfil.jsp">
+                    <a href="VerUsuarioServlet?email=<%= usuarioReceta.getEmail() %>">
                         <img class="img fotoPerfil" src="images/perfil.jpg" />
-                    </a>
-                    <a href="perfil.jsp">
                         <label id="perfilPublicador"> <%= usuarioReceta.getNombreUsuario() %></label>
                     </a>
                     <% } %>
@@ -127,10 +127,13 @@
                     <label id="disponibles">Los ingredientes estan disponibles</label>
                 </div>
             </div>
-            <div class="row">
-                <label class="paso">Paso 1</label>
-                <label>Descripcion del paso</label>
-            </div>
+            <% for(int j = 0; j<pasos.size(); j++){    
+               PasosReceta paso = pasos.get(j); %>
+                <div class="row">
+                    <label class="paso">Paso <%= paso.getNumeroPaso()%></label>
+                    <label><%= paso.getDescripcion()%></label>
+                </div>
+            <% } %>
             <% } %> <!-- del if -->
         </div>
     </div>
@@ -177,6 +180,10 @@
 <!-- ***************************************************************************************************************** -->
 
      <%@ include file="/includes/footer.html" %>
-<script src="js/app.js" type="text/javascript"></script>22
+     
+     
+<!-- Importar javascript -->
+<script src="js/jquery-3.6.4.js" type="text/javascript"></script>
+<script src="js/header.js" type="text/javascript"></script>
 </body>
 </html>

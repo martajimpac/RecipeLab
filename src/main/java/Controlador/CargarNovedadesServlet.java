@@ -1,15 +1,17 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package Controlador;
 
-import Datos.SeguidorDeDB;
-import Datos.UsuarioDB;
 import Datos.RecetaDB;
-import Modelo.Usuario;
+import Datos.SeguidorDeDB;
+import Controlador.RecetaComparator;
 import Modelo.Receta;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Comparator;
 import java.util.Collections;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,26 +22,25 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author teresa
+ * @author marta
  */
+@WebServlet(name = "CargarNovedadesServlet", urlPatterns = {"/CargarNovedadesServlet"})
+public class CargarNovedadesServlet extends HttpServlet {
 
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
-    
-    protected void processRequest(
-        HttpServletRequest request, 
-        HttpServletResponse response
-    ) throws ServletException, IOException {
-        response.setContentType("text/html");
-        
-        String email = request.getParameter("email");
-        String contrasena = request.getParameter("contrasena");
-        
-        String url;
-        Usuario usuario = UsuarioDB.obtieneUsuario(email);
-        
-        //NOVEDADES
-        
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+        String email = request.getParameter("email"); 
         //Ver a quien sigo
         ArrayList<String> emailSeguidos = SeguidorDeDB.obtieneSeguidores(email);
         
@@ -54,26 +55,15 @@ public class Login extends HttpServlet {
         Collections.sort(recetas, new RecetaComparator());
         List<Receta> novedades = recetas.subList(0, Math.min(5, recetas.size()));
 
-        if (usuario != null && UsuarioDB.validaContrasena(usuario,contrasena)) {
-            
-            HttpSession nuevaSesion = request.getSession(true);
-            nuevaSesion.setAttribute("usuario", usuario);
-            url = "/sesionIniciada.jsp";
-            try {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-                request.setAttribute("novedades", recetas);
-                dispatcher.forward(request, response);
-            } catch (IOException | ServletException e) {
-                System.out.println(e);
-            }
-        } else {
-            response.setHeader("error", "Las credenciales no son correctas");
-            url = "/login.jsp";
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
+        try {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/sesionIniciada.jsp");
+            request.setAttribute("novedades", novedades);
             dispatcher.forward(request, response);
+        } catch (IOException | ServletException e) {
+            System.out.println(e);
         }
     }
-            
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -112,12 +102,5 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-}
 
-
-class RecetaComparator implements Comparator<Receta> {
-    @Override
-    public int compare(Receta receta1, Receta receta2) {
-        return receta2.getFechaPublicacion().compareTo(receta1.getFechaPublicacion());
-    }
 }

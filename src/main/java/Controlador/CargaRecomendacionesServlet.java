@@ -4,27 +4,24 @@
  */
 package Controlador;
 
-import Datos.RecetaDB;
-import Modelo.Usuario;
-import Datos.UsuarioDB;
-import Datos.SeguidorDeDB;
-import Modelo.Receta;
 import java.io.IOException;
+import Modelo.Receta;
+import Datos.RecetaDB;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author marta
  */
-@WebServlet(name = "VerUsuarioServlet", urlPatterns = {"/VerUsuarioServlet"})
-public class VerUsuarioServlet extends HttpServlet {
+@WebServlet(name = "CargaRecomendacionesServlet", urlPatterns = {"/CargaRecomendacionesServlet"})
+public class CargaRecomendacionesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,51 +35,48 @@ public class VerUsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nextStep; 
-        String email = request.getParameter("email"); 
-        String editarPerfil = request.getParameter("editarPerfil"); 
         
-        HttpSession sesion = request.getSession(true);
-        Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
-        boolean seguido = false; 
-        
-        //si no se ha iniciado sesion: 
-        if(usuarioSesion==null){      
-            nextStep = "/perfil.jsp";   
-        }else{ //si hemos iniciado sesion
-            
-            seguido = SeguidorDeDB.verSiLeSigo(usuarioSesion.getEmail(),email);
-            //si es nuestro propio perfil
-            if( usuarioSesion.getEmail().equals(email)) {
-                nextStep = "/miPerfil.jsp";
-            }else{
-                nextStep = "/perfil.jsp";
-            }
-        }
-        
-        if(editarPerfil != null){
-            nextStep = "/editarPerfil.jsp";
-        }
-        
-        Usuario usuario = UsuarioDB.obtieneUsuario(email);
-        int seguidores = SeguidorDeDB.obtieneNumeroSeguidores(email);
-        int seguidos = SeguidorDeDB.obtieneNumeroSeguidos(email);
-        ArrayList<Receta> lista = RecetaDB.buscaRecetasPorUsuario(email);
-        
-        try {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
-                request.setAttribute("usuario", usuario);
-                request.setAttribute("seguidores", seguidores);
-                request.setAttribute("seguidos", seguidos);
-                request.setAttribute("seguido", seguido);
-                request.setAttribute("lista", lista);
+        // variables que vamos a utilizar
+        String nextStep = "/buscador.jsp";
 
-                dispatcher.forward(request, response);
+        //Queremos que nos muestre dos recetas aleatorias de más de 4 estrellas
+        
+        ArrayList<Receta> lista = new ArrayList<>();
+        //recuperar los datos
+        try{
+            lista = RecetaDB.buscaRecetasPorNombre("");
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        
+        Iterator<Receta> iter;
+
+        //eliminar de la lista los elementos que no cumplan la condicion
+
+        /*
+        iter = lista.iterator();
+        while (iter.hasNext()) {
+            Receta receta = iter.next();
+
+            //eliminamos las recetas que tengan menor valoracion que la selecionada
+            if (receta.getValoracionMedia() < 4) {
+                iter.remove();
+            }
+        }*/
+        
+        //elegir solo dos recetas aleatoriamente
+       
+        System.out.println("AAAAAAAAAAAAAArecom servlet "+lista.get(0));
+        // una vez se pulse el boton, se captura su evento y se recarga la pagina
+        try {
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
+            request.setAttribute("recomendaciones", lista);
+
+            dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {
             System.out.println(e);
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

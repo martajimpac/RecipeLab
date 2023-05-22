@@ -34,26 +34,19 @@
 <%
     //Obtencion session usuario identificado
     Usuario user = (Usuario) session.getAttribute("usuario");
-    //Comprobar si se ha realizado busqueda
-    boolean busqueda = false;
-    //Resultado busqueda
-    List<ListaRecetas> resultado = null;
-    List<ListaRecetas> listas;
+    
+    boolean notFound = false;
+    List<ListaRecetas> listas = null;
+   
     try{
-        busqueda = (boolean)request.getAttribute("Busqueda");
-        resultado = (List<ListaRecetas>) request.getAttribute("Listas");
+        listas = (List<ListaRecetas>) request.getAttribute("Listas");
     }catch(Exception e){};
     
-    //Si no se ha realiza busqueda o no se ha encontrado nada se devuelven todas las listas
-    if(resultado==null || resultado.isEmpty())
-        /*
-        * Para cuando este la identificacion implementada
-        * Se pasaria como argumento a ListasDB.getAll()
-        * String email = session.getAttribute("UserEmail");
-        */
+    if(listas==null) listas = ListaDB.getAll(user.getEmail());
+    else if(listas.isEmpty()){
+        notFound=true;
         listas = ListaDB.getAll(user.getEmail());
-    else
-        listas = resultado;
+    }
 %>
 
 <!-- ***************************************************************************************************************** -->
@@ -75,29 +68,34 @@
   <!-- Mis listas                                                                                                          -->
   <!-- ***************************************************************************************************************** -->
 
-  <form class="buscador" method="POST" action=""> <!--Llamar aqui al servlet -->
-    <div class="container text-center">
+    <div class="container text-center mt-3">
 
         <%
-            if(busqueda && resultado.isEmpty()){
+            if(!listas.isEmpty() && notFound){
         %>
-        <!-- Hay que poner esto mas bonito -->
-        <h4 class="text-danger">No se han encontrado listas bajo esos criterios</h4>
+        <h3 class="mt-4 mb-4 text-danger">No se han encontrado listas bajo esos criterios</h3>
         <%  
             //Cierre if
             }
+
+            if(listas.isEmpty()){
+        %>
+        <h2 class="mt-4">No tienes ninguna lista</h2>
+        <img class="mt-3" src="images/noContent.png" alt="noContent.png"/>
+        <%
+            }else{
             int i=0;
             for (ListaRecetas l : listas){
                 if(i%3==0){
         %>
-        <div class="row">
+        <div class="row d-flex justify-content-around">
         <%
                 //Cierre if
                 }
         %>
-            <div class="col">
+            <div class="col-3">
                 <div class="card" style="width: 18rem;">
-                    <a href="verDetallesListaServlet?nombre=<%= l.getNombre()%>">
+                  <a href="detallesLista.jsp?nombreLista=<%= l.getNombre() %>">
                     <img src="./images/corazon2.png" class="card-img-top" alt="lista favoritos">
                   </a>
                   <div class="card-body">
@@ -122,10 +120,11 @@
         <%
             //Cierre if
             }
+            } //Cierre else
         %>  
-    
-    
-  </form>
+   
+    </form>
+  </div>
 </div>
 
 <!-- ***************************************************************************************************************** -->

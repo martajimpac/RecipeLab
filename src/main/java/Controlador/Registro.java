@@ -1,6 +1,7 @@
 package Controlador;
 
 import Datos.UsuarioDB;
+import Modelo.RolUsuario;
 import Modelo.Usuario;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -10,19 +11,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author teresa
  */
 @WebServlet(name = "Registro", urlPatterns = {"/Registro"})
+@MultipartConfig
 public class Registro extends HttpServlet {
     
     protected void processRequest(
             HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         response.setContentType("text/html");
         String url = "/registro.jsp";
         
@@ -30,29 +34,40 @@ public class Registro extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String contrasena1 = request.getParameter("contrasena");
         String contrasena2 = request.getParameter("repetirContrasena");
+        Part imagen = request.getPart("imagen");
         
         RequestDispatcher dispatcher;
         
-        if (!contrasena1.equals(contrasena2)) {
-            response.addHeader("error", "Las contraseñas no coinciden");
-            dispatcher = getServletContext().getRequestDispatcher(url); 
-            dispatcher.forward(request,response);  
-        } else if (UsuarioDB.obtieneUsuario(email) != null) {
-            response.addHeader("error", "Ya existe un usuario con el email " + email);
-            dispatcher = getServletContext().getRequestDispatcher(url); 
-            dispatcher.forward(request,response);  
-        } else {
-            Usuario usuario = new Usuario();
-            usuario.setEmail(email);
-            usuario.setNombreUsuario(nombre);
-            usuario.setContraseña(contrasena1);
-            HttpSession nuevaSesion = request.getSession(true);
-            nuevaSesion.setAttribute ("usuario", usuario);
+        try {
+            if (!contrasena1.equals(contrasena2)) {
+                response.addHeader("error", "Las contraseñas no coinciden");
+                dispatcher = getServletContext().getRequestDispatcher(url); 
+                dispatcher.forward(request,response);  
+            } else if (UsuarioDB.obtieneUsuario(email) != null) {
+                response.addHeader("error", "Ya existe un usuario con el email " + email);
+                dispatcher = getServletContext().getRequestDispatcher(url); 
+                dispatcher.forward(request,response);  
+            } else {
+                Usuario usuario = new Usuario();
+                usuario.setEmail(email);
+                usuario.setNombreUsuario(nombre);
+                usuario.setContraseña(contrasena1);
+                RolUsuario rol = RolUsuario.valueOf("publicador");
+                usuario.setRolUsuario(rol);
+                usuario.setValoracion(0);
+                usuario.setEsPrivado(false);
+                usuario.setAvatar(imagen.getInputStream().readAllBytes());
+                
+                HttpSession nuevaSesion = request.getSession(true);
+                nuevaSesion.setAttribute ("usuario", usuario);
 
-            UsuarioDB.insertaUsuario(usuario);
-            url = "sesionIniciada.jsp";
-            response.sendRedirect(url);
-        }      
+                UsuarioDB.insertaUsuario(usuario);
+                url = "sesionIniciada.jsp";
+                response.sendRedirect(url);
+            }    
+        } catch (IOException | ServletException e) {
+            System.out.println(e);
+        }
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

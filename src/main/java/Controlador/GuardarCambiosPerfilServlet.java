@@ -4,21 +4,30 @@
  */
 package Controlador;
 
-import java.io.IOException;
+import Datos.RecetaDB;
+import Datos.SeguidorDeDB;
 import Datos.UsuarioDB;
+import Modelo.Receta;
+import Modelo.Usuario;
+import java.io.IOException;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author marta
  */
-@WebServlet(name = "Imagen", urlPatterns = {"/Imagen"})
-public class Imagen extends HttpServlet {
+@WebServlet(name = "GuardarCambiosPerfilServlet", urlPatterns = {"/GuardarCambiosPerfilServlet"})
+@MultipartConfig
+public class GuardarCambiosPerfilServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,15 +40,37 @@ public class Imagen extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("image/jpg");
+        response.setContentType("text/html;charset=UTF-8");
+        String nextStep = "/editarPerfil.jsp";
+        Part imagen = request.getPart("imagen");
+        String nombre = request.getParameter("nombre");
+        String descripcion = request.getParameter("descripcion");
         
-        System.out.println("ESTAMOS AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"
-                + "IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII");
-        OutputStream respuesta = response.getOutputStream();
-        String email = request.getParameter("email");
-        UsuarioDB.getImagen(email, respuesta); 
-        respuesta.close(); 
-        response.flushBuffer();
+        HttpSession sesion = request.getSession(true);
+        Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
+        String email = usuarioSesion.getEmail();
+        
+        //Usuario.setNombreUsuario(nombre);
+        //Usuario.
+        //(nombre,usuarioSesion.getContraseña(),email,usuarioSesion.getRolUsuario(),imagen.getInputStream().readAllBytes(),usuarioSesion.isEsPrivado(),usuarioSesion.getValoracion());
+        //modificar tambien el usuariosesion
+        
+        Usuario usuario = UsuarioDB.obtieneUsuario(email);
+        int seguidores = SeguidorDeDB.obtieneNumeroSeguidores(email);
+        int seguidos = SeguidorDeDB.obtieneNumeroSeguidos(email);
+        ArrayList<Receta> lista = RecetaDB.buscaRecetasPorUsuario(email);
+        
+        try {
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
+                request.setAttribute("usuario", usuario);
+                request.setAttribute("seguidores", seguidores);
+                request.setAttribute("seguidos", seguidos);
+                request.setAttribute("lista", lista);
+
+                dispatcher.forward(request, response);
+        } catch (IOException | ServletException e) {
+            System.out.println(e);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
