@@ -11,16 +11,16 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Víctor
  */
-@WebServlet(name = "AnadirRecetasAListaServlet", urlPatterns = {"/AnadirRecetasAListaServlet"})
-public class AnadirRecetasAListaServlet extends HttpServlet {
+@WebServlet(name = "EditarListaServlet", urlPatterns = {"/EditarListaServlet"})
+public class EditarListaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,11 +36,21 @@ public class AnadirRecetasAListaServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // variables que vamos a utilizar
-        String nextStep = "/detallesLista.jsp";
-        
-        //recuperar los datos
+        String nextStep = "/listas.jsp";
+       
         try{
-            ListaDB.addRecetaList(request.getParameter("nombreLista"), request.getParameter("idReceta"));
+            
+            //Obtener sesion de usuario identificado
+            HttpSession session = request.getSession();
+            Usuario user = (Usuario) session.getAttribute("usuario");
+            
+            String nombreLista = request.getParameter("nombreLista");
+            String viejoNombre = request.getParameter("viejoNombre");
+            String descripcionLista = request.getParameter("descripcionLista");
+
+            if(!nombreLista.isEmpty() || !descripcionLista.isEmpty()){
+                ListaDB.editarLista(viejoNombre,nombreLista,descripcionLista,user.getEmail());
+            }
         }catch(Exception e){
             System.out.println(e);
         }
@@ -48,7 +58,7 @@ public class AnadirRecetasAListaServlet extends HttpServlet {
         // una vez se pulse el boton, se captura su evento y se recraga la misma pagina
         try {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
-               
+                
             dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {
             System.out.println(e);

@@ -27,19 +27,3 @@ while(document.getElementById('enlace'+i)){
     
     i++;
 }
-
-var i = 0;
-var recetas = document.getElementsByClassName('card');
-var eliminar;
-
-while (i < recetas.length) {
-  eliminar = document.getElementById('eliminar' + i);
-  
-  if(eliminar){
-    eliminar.addEventListener('click', function() {
-      alert("Receta eliminada");
-    });
-  }
-  
-  i++;
-}

@@ -5,6 +5,7 @@
 package Datos;
 
 import java.util.List;
+import java.time.LocalDate;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -89,6 +90,77 @@ public class ListaDB {
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    //Crea una lista
+    public static void crearLista(String nombreLista,String descripcionLista, String email){
+        
+        //Obtener conexion a la base de datos
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        
+       
+        String query = "INSERT INTO listarecetas (nombre, emailUsuario, fechaCreacion, fechaModificacion, descripcion, imagenLista) VALUES(?,?,?,?,?,?)";
+        try {
+            /*crear la consulta dinamica
+             *añadir las variables a la query
+             *ejecutar la query*/
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, nombreLista);
+            statement.setString(2, email);
+            statement.setString(3, LocalDate.now().toString());
+            statement.setString(4, LocalDate.now().toString());
+            statement.setString(5, descripcionLista);
+            statement.setString(6, null);
+            statement.executeUpdate();
+            
+            connection.close();
+        } catch (Exception e) {
+        }
+    }
+    
+    //Edita una lista
+    public static void editarLista(String viejoNombre, String nombreLista,String descripcionLista, String email){
+        
+        //Obtener conexion a la base de datos
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        
+        if(!descripcionLista.isEmpty()){
+            String query = "UPDATE listarecetas SET descripcion = ?, fechaModificacion = ? WHERE nombre = ? AND emailUsuario = ?";
+            
+            try {
+                /*crear la consulta dinamica
+                 *añadir las variables a la query
+                 *ejecutar la query*/
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, descripcionLista);
+                statement.setString(2, LocalDate.now().toString());
+                statement.setString(3, viejoNombre);
+                statement.setString(4, email);
+                statement.executeUpdate();
+                
+            } catch (Exception e) {}
+        }
+        
+        if(!nombreLista.isEmpty()){
+            String query = "UPDATE listarecetas SET nombre = ?, fechaModificacion = ? WHERE nombre = ? AND emailUsuario = ?";
+           
+            try {
+                /*crear la consulta dinamica
+                 *añadir las variables a la query
+                 *ejecutar la query*/
+                PreparedStatement statement = connection.prepareStatement(query);
+                statement.setString(1, nombreLista);
+                statement.setString(2, LocalDate.now().toString());
+                statement.setString(3, viejoNombre);
+                statement.setString(4, email);
+                statement.executeUpdate();
+                
+                connection.close();
+            } catch (Exception e) {}
+        }
+        
     }
     
     //Eliminar lista (se eliminan los detalles de la lista para poder borrarla)

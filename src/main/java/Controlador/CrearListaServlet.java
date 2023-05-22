@@ -5,8 +5,11 @@
 package Controlador;
 
 import Datos.ListaDB;
+import Modelo.ListaRecetas;
 import Modelo.Usuario;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Víctor
  */
-@WebServlet(name = "AnadirRecetasAListaServlet", urlPatterns = {"/AnadirRecetasAListaServlet"})
-public class AnadirRecetasAListaServlet extends HttpServlet {
+@WebServlet(name = "CrearListaServlet", urlPatterns = {"/CrearListaServlet"})
+public class CrearListaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,11 +39,20 @@ public class AnadirRecetasAListaServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // variables que vamos a utilizar
-        String nextStep = "/detallesLista.jsp";
-        
-        //recuperar los datos
+        String nextStep = "/listas.jsp";
+       
         try{
-            ListaDB.addRecetaList(request.getParameter("nombreLista"), request.getParameter("idReceta"));
+            
+            //Obtener sesion de usuario identificado
+            HttpSession session = request.getSession();
+            Usuario user = (Usuario) session.getAttribute("usuario");
+            
+            String nombreLista = request.getParameter("nombreLista");
+            String descripcionLista = request.getParameter("descripcionLista");
+
+            if(!nombreLista.isEmpty()){
+                ListaDB.crearLista(nombreLista,descripcionLista,user.getEmail());
+            }
         }catch(Exception e){
             System.out.println(e);
         }
@@ -48,7 +60,7 @@ public class AnadirRecetasAListaServlet extends HttpServlet {
         // una vez se pulse el boton, se captura su evento y se recraga la misma pagina
         try {
             RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
-               
+                
             dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {
             System.out.println(e);

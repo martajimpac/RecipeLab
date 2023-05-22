@@ -36,7 +36,7 @@ public class EliminarRecetaDeListaServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // variables que vamos a utilizar
-        String nextStep = "/"+request.getParameter("nextStep");
+        String nextStep = "/detallesLista.jsp";
         
         //recuperar los datos
         try{

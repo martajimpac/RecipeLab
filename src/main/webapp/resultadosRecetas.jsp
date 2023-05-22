@@ -77,13 +77,14 @@ if(lista!=null){
 
             <%  if(usuario!=null)
                 {
-                //Se obtienen las listas del usuario
+                    //Se obtienen las listas del usuario
                     List<ListaRecetas> listas = ListaDB.getAll(usuario.getEmail());
                     
             %>
             <div class="corazon-sobre-div">
                 <a href="#" id="enlace<%=i%>"> <img src="./images/corazon.png" alt="cruz"/></a>
             </div>
+            <!---- Menu en el que aparecen las listas de haber alguna ----->
             <div class="submenu top-0 start-0 w-100" id="submenu<%=i%>">
                   <%
                       if(listas.isEmpty()){
@@ -108,12 +109,10 @@ if(lista!=null){
                             }else{
                     %>
                     <li class="fw-bold">
-                        <a id="eliminar<%=i%>" href="EliminarRecetaDeListaServlet?nombreLista=<%=l.getNombre()%>&idReceta=<%=receta.getId()%>&nextStep=resultadosRecetas.jsp" class="text-decoration-none text-warning">(Añadida) <%=l.getNombre()%></a>
+                        <a id="eliminar<%=i%>" href="EliminarRecetaDeListaServlet?nombreLista=<%=l.getNombre()%>&idReceta=<%=receta.getId()%>" class="text-decoration-none text-warning">(Añadida) <%=l.getNombre()%></a>
                     </li>
                     <%
                             }
-                    %>
-                    <%
                         } //Cierre for
                     %>
                   </ul>
