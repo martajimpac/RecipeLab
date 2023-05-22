@@ -7,12 +7,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <nav>
-    
-<%Usuario usuarioSesionHeader = (Usuario) session.getAttribute("usuario"); 
-String emailHeader = usuarioSesionHeader.getEmail();%>
     <script src="js/jquery-3.6.4.js" type="text/javascript"></script>
     <script src="js/header.js" type="text/javascript"></script>
+
+    
     <div>
+        <%Usuario usuarioSesionHeader = (Usuario) session.getAttribute("usuario"); 
+String emailHeader = usuarioSesionHeader.getEmail();%>
         <a href="CargarNovedadesServlet?email=<%= emailHeader %>">
             <img src="images/logo.png" alt="logo" class="imagen-logo"/>
         </a>
@@ -22,7 +23,7 @@ String emailHeader = usuarioSesionHeader.getEmail();%>
             <a href="nuevaReceta.jsp"><img src="images/anadir.png" alt="añadir receta" class="imagen-nav"/></a>
             <a href="#"><img id="comentario-image" src="images/mensaje.png" alt="ver mensajes" class="imagen-nav"/></a>
             <a href="listas.jsp"><img src="images/corazon.png" alt="ver mis listas" class="imagen-nav"/></a>
-            <a href="#"><img id="login-image" src="images/login.png" alt="ver mi perfil" class="imagen-nav imagen-nav-click"/>
+            <a href="#"><img id="login-image" src="images/login.png" alt="ver mi perfil" class="imagen-nav imagen-nav-click"/></a>
             <li>
                 <ul class="submenu">
                     <li><a href="VerUsuarioServlet?email=<%= emailHeader %>">Ver mi perfil</a></li>

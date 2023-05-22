@@ -6,7 +6,6 @@ package Controlador;
 
 import Datos.RecetaDB;
 import Datos.SeguidorDeDB;
-import Controlador.RecetaComparator;
 import Modelo.Receta;
 import java.io.IOException;
 import java.util.ArrayList;

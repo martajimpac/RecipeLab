@@ -66,7 +66,7 @@ nav li{
     background: #ff9900;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    display: block; /*para que no se muestre de primeras*/
+    display: none; /*para que no se muestre de primeras*/
 }
 .submenu li a{
     color: #f2f2f2;
@@ -97,6 +97,7 @@ nav li{
     padding-bottom: 10px;
     padding-right: 20px;
     padding-left: 0px;
+    text-decoration: none;
 }
 
 
