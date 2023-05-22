@@ -20,7 +20,7 @@
     <!--Vincular css -->
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body>
+<body> 
 <!-- ***************************************************************************************************************** -->
 <!-- Cabecera                                                                                                          -->
 <!-- ***************************************************************************************************************** -->
@@ -58,10 +58,9 @@
   <!-- Buscador                                                                                                          -->
   <!-- ***************************************************************************************************************** -->
 
-    <form class="buscador" method="POST" action="BuscarListasServlet"> <!--Llamar aqui al servlet -->
+    <form class="buscador" method="POST" action="BuscarListasServlet">
       <input type="text" name="busqueda" placeholder="Buscar...">
       <button id="buscar" class="btn btn-secondary"  type="submit" >Buscar</button>
-      <button id="editar_lista" class="btn btn-secondary"  type="submit" >Editar lista</button>
     </form>
 
   <!-- ***************************************************************************************************************** -->
@@ -86,24 +85,36 @@
             }else{
             int i=0;
             for (ListaRecetas l : listas){
+            
                 if(i%3==0){
         %>
         <div class="row d-flex justify-content-around">
-        <%
-                //Cierre if
-                }
-        %>
-            <div class="col-3">
-                <div class="card" style="width: 18rem;">
-                  <a href="detallesLista.jsp?nombreLista=<%= l.getNombre() %>">
-                    <img src="./images/corazon2.png" class="card-img-top" alt="lista favoritos">
-                  </a>
-                  <div class="card-body">
-                    <h5 class="card-title"><%= l.getNombre()%></h5>
-                    <p class="card-text"><%=l.getDescripcion()%></p>
-                  </div>
+        <%      } //Cierre if %>
+          <div class="col-3">
+            <div class="card" style="width: 18rem;">
+              <div class="corazon-sobre-div">
+                <a href="#" id="enlace<%=i%>"> <img src="./images/cruz.png" alt="cruz"/></a>
+                <div class="submenu bg-transparent border-0 shadow-none position-absolute top-0 start-0 h-100 w-100" id="submenu<%=i%>">
+                  <ul class="list-unstyled">
+                    <li>
+                      <form class="buscador" method="POST" action="EliminarListaServlet?nombreLista=<%=l.getNombre()%>">
+                        <button class="bg-white border-0 rounded text-white h-100 w-100 d-flex justify-content-center align-items-center">
+                          <img src="images/check.png" alt="lista favoritos">
+                        </button>
+                      </form>
+                    </li>
+                  </ul>
                 </div>
+              </div>
+              <a href="detallesLista.jsp?nombreLista=<%= l.getNombre() %>">
+                <img src="<%=l.getImagenLista()%>" class="card-img-top" alt="lista favoritos">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title"><%= l.getNombre()%></h5>
+                <p class="card-text"><%=l.getDescripcion()%></p>
+              </div>
             </div>
+          </div>
         <%
                 i++;
                 if(i%3==0){
@@ -118,8 +129,8 @@
         %>
         </div>
         <%
-            //Cierre if
-            }
+                //Cierre if
+                }
             } //Cierre else
         %>  
     
@@ -136,5 +147,7 @@
 <!-- Importar bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <script src="js/app.js" type="text/javascript"></script>
+
+<script src="js/eliminarLista_Receta.js" type="text/javascript"></script>
 </body>
 </html>

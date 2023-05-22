@@ -59,7 +59,8 @@
     <a href="listas.jsp">
       <img src="images/backArrow.png" alt="atras" class="imagen-nav"/>
     </a>
-      <p class="display-6"><%=nombreLista%></p>
+    <p id="nombre" class="display-6"><%=nombreLista%></p>
+    <button id="editarLista" class="bg-transparent rounded border-0 text-uppercase"><img src="images/editarPerfil.png" alt="lista favoritos" width="20"></button>  
   </div>
   <!-- ***************************************************************************************************************** -->
   <!-- Buscador                                                                                                          -->
@@ -68,7 +69,6 @@
   <form class="buscador" method="POST" action="DetallesListaServlet?nombreLista=<%=nombreLista%>"> <!--Llamar aqui al servlet -->
     <input type="text" name="busqueda" placeholder="Buscar...">
     <button id="buscar" class="btn btn-secondary"  type="submit" >Buscar</button>
-    <button id="editar_lista" class="btn btn-secondary"  type="submit" >Editar lista</button>
   </form>
 
   <!-- ***************************************************************************************************************** -->
@@ -105,9 +105,23 @@
 %>
         <div class="col-3">
             <div class="card" style="width: 18rem;">
-                <a href="miReceta.jsp">
-                    <!--Provisional hasta que las imagenes en la bd funcionen-->
-                    <img src="./images/DB/lista1.png" class="card-img-top" alt="receta">
+                <div class="corazon-sobre-div">
+                    <a href="#" id="enlace<%=i%>"> <img src="./images/cruz.png" alt="cruz"/></a>
+                    <div class="submenu bg-transparent border-0 shadow-none position-absolute top-0 start-0 h-100 w-100" id="submenu<%=i%>">
+                        <ul class="list-unstyled">
+                            <li>
+                                <form class="buscador" method="POST" action="EliminarRecetaDeListaServlet?nombreLista=<%=nombreLista%>&idReceta=<%=r.getId()%>">
+                                    <button class="bg-white border-0 rounded text-white h-100 w-100 d-flex justify-content-center align-items-center">
+                                        <img src="images/check.png" alt="lista favoritos">
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <form id="verReceta" action="VerRecetaServlet?id=<%=r.getId()%>" method="POST"></form>
+                <a href="#" onclick="document.getElementById('verReceta').submit();">
+                    <img src="<%=r.getUrlImagen()%>" class="card-img-top" alt="receta">
                 </a>
                 <div class="card-body">
                     <h5 class="card-title"><%=r.getNombre()%></h5>
@@ -166,5 +180,8 @@
 <!-- Importar bootstrap -->
 <script src="js/app.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+<script src="js/editarLista.js" type="text/javascript"></script>
+<script src="js/eliminarLista_Receta.js" type="text/javascript"></script>
 </body>
 </html>

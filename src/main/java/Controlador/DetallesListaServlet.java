@@ -43,11 +43,7 @@ public class DetallesListaServlet extends HttpServlet {
         List<Receta> lista = new ArrayList<>();
         
         //recuperar los datos
-        try{
-            
-            //Obtener sesion de usuario identificado
-            HttpSession session = request.getSession();
- 
+        try{ 
             lista = ListaDB.getRecetasBusqueda(request.getParameter("nombreLista"), request.getParameter("busqueda"));
         }catch(Exception e){
             System.out.println(e);
