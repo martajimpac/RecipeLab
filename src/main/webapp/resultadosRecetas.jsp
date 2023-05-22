@@ -96,6 +96,7 @@ if(lista!=null){
                       }else{
                   %>
                   <ul class="list-unstyled mt-2 mb-2">
+                    <li class="fw-bold">Añade la receta a una lista:</li>  
                     <%
                         for(ListaRecetas l : listas){
                             List<Receta> r = ListaDB.getRecetasBusqueda(l.getNombre(), receta.getNombre());

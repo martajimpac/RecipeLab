@@ -71,8 +71,8 @@
     <div id="ventanaAnadir" class="modal">
         <form class="buscador" method="POST" action="CrearListaServlet">
             <div class="modal-content">
-              <label>Nombre receta: (Obligatorio) </label>
-              <input type="text" name="nombreLista" placeholder="Nombre receta...">
+              <label>Nombre lista: (Obligatorio) </label>
+              <input type="text" name="nombreLista" placeholder="Nombre lista...">
               <label>Descripcion:</label>
               <input type="text" name="descripcionLista" placeholder="Descripcion...">
               <button id="btnAceptar">Aceptar</button>

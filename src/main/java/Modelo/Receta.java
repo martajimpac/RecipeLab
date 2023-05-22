@@ -140,6 +140,13 @@ public class Receta {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-
     
+    public void setId(int id){
+        this.id = id;
+    }
+    
+    public void setImagenReceta(byte[] imagenReceta){
+        this.imagenReceta = imagenReceta;
+    }
+
 }
