@@ -61,11 +61,11 @@
                 for(Receta i: recetas){
               
               %>
-          <div class="card" >
+          <div class="card" style="width: 18rem;">
               <div class="text-center ">
                   <% 
                         String salto = "VerRecetaServlet?id="+i.getId();
-                      %>
+                  %>
                   <a href="<%=salto%>">
                     <img src="<%=i.getUrlImagen()%>" class="card-img-top" alt="receta" >
                   </a>

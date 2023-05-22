@@ -4,13 +4,12 @@
  */
 package Controlador;
 
-import Datos.RecetaDB;
+import Datos.ListaDB;
+import Modelo.ListaRecetas;
 import Modelo.Usuario;
-import Datos.UsuarioDB;
-import Datos.SeguidorDeDB;
-import Modelo.Receta;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,8 +22,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author marta
  */
-@WebServlet(name = "VerUsuarioServlet", urlPatterns = {"/VerUsuarioServlet"})
-public class VerUsuarioServlet extends HttpServlet {
+@WebServlet(name = "VerListasServlet", urlPatterns = {"/VerListasServlet"})
+public class VerListasServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,46 +37,27 @@ public class VerUsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nextStep; 
-        String email = request.getParameter("email"); 
-        String editarPerfil = request.getParameter("editarPerfil"); 
+        String nextStep = "/listas.jsp";
         
-        HttpSession sesion = request.getSession(true);
-        Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
-        boolean seguido = false; 
+        List<ListaRecetas> lista = new ArrayList<>();
         
-        //si no se ha iniciado sesion: 
-        if(usuarioSesion==null){      
-            nextStep = "/perfil.jsp";   
-        }else{ //si hemos iniciado sesion
+        //recuperar los datos
+        try{
             
-            seguido = SeguidorDeDB.verSiLeSigo(usuarioSesion.getEmail(),email);
-            //si es nuestro propio perfil
-            if( usuarioSesion.getEmail().equals(email)) {
-                nextStep = "/miPerfil.jsp";
-            }else{
-                nextStep = "/perfil.jsp";
-            }
+            //Obtener sesion de usuario identificado
+            HttpSession session = request.getSession(true);
+            Usuario user = (Usuario) session.getAttribute("usuario");
+ 
+            lista = ListaDB.getAll(user.getEmail());
+        }catch(Exception e){
+            System.out.println(e);
         }
         
-        if(editarPerfil != null){
-            nextStep = "/editarPerfil.jsp";
-        }
-        
-        Usuario usuario = UsuarioDB.obtieneUsuario(email);
-        int seguidores = SeguidorDeDB.obtieneNumeroSeguidores(email);
-        int seguidos = SeguidorDeDB.obtieneNumeroSeguidos(email);
-        ArrayList<Receta> lista = RecetaDB.buscaRecetasPorUsuario(email);
-        
+        // una vez se pulse el boton, se captura su evento y se recraga la misma pagina
         try {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
-                request.setAttribute("usuario", usuario);
-                request.setAttribute("seguidores", seguidores);
-                request.setAttribute("seguidos", seguidos);
-                request.setAttribute("seguido", seguido);
-                request.setAttribute("lista", lista);
-
-                dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
+            request.setAttribute("listas", lista);  
+            dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {
             System.out.println(e);
         }

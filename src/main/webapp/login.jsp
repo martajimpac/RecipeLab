@@ -31,9 +31,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
     <br><br><br>
     
-    <%
-    String error = request.getHeader("error");
-    %>
 
     <div class="inicioSesion">
         <form method="POST" action="Login">
@@ -43,7 +40,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
             <input type="submit" value="Iniciar Sesión">
 
             <p class="noRegistrado">¿Aún no tienes cuenta?</p>
-            <p> <%=error %> </p>
 
         </form>
         <button onclick="document.location='registro.jsp'">Regístrate</button>

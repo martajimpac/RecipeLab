@@ -36,7 +36,7 @@ if(usuario!=null){ %>
 
     <div class="d-flex">
         <div>
-            <img class="avatar" src="images/usuario.png"/>
+            <img class="avatar" src="<%=usuario.getAvatarUrl()%> alt="imagen-receta""/>
         </div>
 
         <div class="info-perfil">
@@ -53,7 +53,10 @@ if(usuario!=null){ %>
                       }  %>
                 </div>
                 <div class="col">
-                    <button onclick="document.location='editarPerfil.jsp'" id="editarPerfil" class="btn btn-secondary"  type="submit" >Editar perfil</button>
+                <form class="buscador" method="POST" action="VerUsuarioServlet">
+                    <input type="hidden" name="email" value="<%=usuario.getEmail() %>">
+                    <button name="editarPerfil" class="btn btn-secondary"  type="submit" >Editar perfil</button>
+                </form>
                 </div>
             </div>
             <div class="row">
@@ -76,10 +79,12 @@ if(usuario!=null){ %>
     <div class="recetas-perfil">
         
         <% for(int i=0; i<lista.size();i++){
-            Receta receta = lista.get(i); %>
+              Receta receta = lista.get(i); 
+              int id = receta.getId(); 
+        %>
         <div class="recetas-perfil__receta">
-            <a href="receta.jsp">
-                <img class="receta__imagen" src="images/ejemplo-receta-1.jpg" alt="imagen-receta-1"/>
+            <a href="VerRecetaServlet?id=<%= id %>">
+                <img class="receta__imagen" src="<%=receta.getUrlImagen()%>" alt="imagen-receta"/>
             </a>
             <div class="receta__informacion">
                 <h5 class="card-title"><%=receta.getNombre() %></h5>

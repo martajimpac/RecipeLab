@@ -23,8 +23,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author marta
  */
-@WebServlet(name = "VerUsuarioServlet", urlPatterns = {"/VerUsuarioServlet"})
-public class VerUsuarioServlet extends HttpServlet {
+@WebServlet(name = "SeguirServlet", urlPatterns = {"/SeguirServlet"})
+public class SeguirServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,46 +38,42 @@ public class VerUsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nextStep; 
-        String email = request.getParameter("email"); 
-        String editarPerfil = request.getParameter("editarPerfil"); 
         
-        HttpSession sesion = request.getSession(true);
+        String nextStep= "/perfil.jsp";
+
+        String seguir = request.getParameter("Seguir");
+        String dejarseguir = request.getParameter("DejarSeguir");
+        String emailUsuario = request.getParameter("email");
+        
+        HttpSession sesion = request.getSession();
         Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
+        String miEmail = usuarioSesion.getEmail();
+        
         boolean seguido = false; 
         
-        //si no se ha iniciado sesion: 
-        if(usuarioSesion==null){      
-            nextStep = "/perfil.jsp";   
-        }else{ //si hemos iniciado sesion
-            
-            seguido = SeguidorDeDB.verSiLeSigo(usuarioSesion.getEmail(),email);
-            //si es nuestro propio perfil
-            if( usuarioSesion.getEmail().equals(email)) {
-                nextStep = "/miPerfil.jsp";
-            }else{
-                nextStep = "/perfil.jsp";
-            }
+        if(seguir!=null){
+            SeguidorDeDB.seguir(miEmail, emailUsuario);
+        }        
+        if(dejarseguir!=null){
+            SeguidorDeDB.dejarDeSeguir(miEmail, emailUsuario);
         }
+       
+        seguido = SeguidorDeDB.verSiLeSigo(miEmail,emailUsuario);
         
-        if(editarPerfil != null){
-            nextStep = "/editarPerfil.jsp";
-        }
-        
-        Usuario usuario = UsuarioDB.obtieneUsuario(email);
-        int seguidores = SeguidorDeDB.obtieneNumeroSeguidores(email);
-        int seguidos = SeguidorDeDB.obtieneNumeroSeguidos(email);
-        ArrayList<Receta> lista = RecetaDB.buscaRecetasPorUsuario(email);
+        //volvemos a cargar los datos del usuario
+        Usuario usuario = UsuarioDB.obtieneUsuario(emailUsuario);
+        int seguidores = SeguidorDeDB.obtieneNumeroSeguidores(emailUsuario);
+        int seguidos = SeguidorDeDB.obtieneNumeroSeguidos(emailUsuario);
+        ArrayList<Receta> lista = RecetaDB.buscaRecetasPorUsuario(emailUsuario);
         
         try {
-                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
-                request.setAttribute("usuario", usuario);
-                request.setAttribute("seguidores", seguidores);
-                request.setAttribute("seguidos", seguidos);
-                request.setAttribute("seguido", seguido);
-                request.setAttribute("lista", lista);
-
-                dispatcher.forward(request, response);
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(nextStep);
+            request.setAttribute("usuario", usuario);
+            request.setAttribute("seguidores", seguidores);
+            request.setAttribute("seguidos", seguidos);
+            request.setAttribute("seguido", seguido);
+            request.setAttribute("lista", lista);
+            dispatcher.forward(request, response);
         } catch (IOException | ServletException e) {
             System.out.println(e);
         }
