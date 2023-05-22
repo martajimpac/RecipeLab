@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
         //NOVEDADES
         
         //Ver a quien sigo
-        ArrayList<String> emailSeguidos = SeguidorDeDB.obtieneSeguidores(email);
+        ArrayList<String> emailSeguidos = SeguidorDeDB.obtieneSeguidos(email);
         
         ArrayList<Receta> recetas = new ArrayList<>();
         //Ver las publicaciones de los usuarios que sigo
@@ -52,7 +52,7 @@ public class Login extends HttpServlet {
 
         //Ver cuales son las 5 más recientes
         Collections.sort(recetas, new RecetaComparator());
-        List<Receta> novedades = recetas.subList(0, Math.min(5, recetas.size()));
+        List<Receta> novedades = recetas.subList(0, Math.min(5, recetas.size())); 
 
         if (usuario != null && UsuarioDB.validaContrasena(usuario,contrasena)) {
             
@@ -61,7 +61,7 @@ public class Login extends HttpServlet {
             url = "/sesionIniciada.jsp";
             try {
                 RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
-                request.setAttribute("novedades", recetas);
+                request.setAttribute("novedades", novedades);
                 dispatcher.forward(request, response);
             } catch (IOException | ServletException e) {
                 System.out.println(e);

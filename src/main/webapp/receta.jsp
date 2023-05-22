@@ -51,7 +51,7 @@
                 <div class="col">
                     <% if(usuarioReceta != null) { %>
                     <a href="VerUsuarioServlet?email=<%= usuarioReceta.getEmail() %>">
-                        <img class="img fotoPerfil" src="images/perfil.jpg" />
+                        <img class="img fotoPerfil" src="<%= usuarioReceta.getAvatarUrl() %>" />
                         <label id="perfilPublicador"> <%= usuarioReceta.getNombreUsuario() %></label>
                     </a>
                     <% } %>

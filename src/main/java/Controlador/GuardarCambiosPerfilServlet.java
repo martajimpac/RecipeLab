@@ -41,19 +41,17 @@ public class GuardarCambiosPerfilServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String nextStep = "/editarPerfil.jsp";
+        String nextStep = "/miPerfil.jsp";
         Part imagen = request.getPart("imagen");
         String nombre = request.getParameter("nombre");
-        String descripcion = request.getParameter("descripcion");
         
         HttpSession sesion = request.getSession(true);
         Usuario usuarioSesion = (Usuario) sesion.getAttribute("usuario");
         String email = usuarioSesion.getEmail();
         
-        //Usuario.setNombreUsuario(nombre);
-        //Usuario.
-        //(nombre,usuarioSesion.getContraseña(),email,usuarioSesion.getRolUsuario(),imagen.getInputStream().readAllBytes(),usuarioSesion.isEsPrivado(),usuarioSesion.getValoracion());
-        //modificar tambien el usuariosesion
+        usuarioSesion.setNombreUsuario(nombre);
+        usuarioSesion.setAvatar(imagen.getInputStream().readAllBytes());
+        UsuarioDB.modificaUsuario(usuarioSesion);
         
         Usuario usuario = UsuarioDB.obtieneUsuario(email);
         int seguidores = SeguidorDeDB.obtieneNumeroSeguidores(email);

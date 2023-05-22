@@ -73,23 +73,23 @@ public class SeguidorDeDB {
         return num;
     }
     
-    public static ArrayList<String> obtieneSeguidores(String emailUsuario) {
+    public static ArrayList<String> obtieneSeguidos(String emailUsuario) {
         Conexion pool = Conexion.getInstance();
         Connection connection = pool.getConnection();
         PreparedStatement preparedStatement;
         ResultSet resultSet;
-        ArrayList<String> emailSeguidores = new ArrayList<>();
+        ArrayList<String> emailSeguidos = new ArrayList<>();
 
-        String query = "SELECT * FROM seguidorde WHERE email = ?";
+        String query = "SELECT email FROM seguidorde WHERE emailusuario = ?";
         
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, emailUsuario);
             resultSet = preparedStatement.executeQuery();
             
-            if(resultSet.next()) { 
-                String emailSeguidor = resultSet.getString("emailusuario");
-                emailSeguidores.add(emailSeguidor);
+            while(resultSet.next()) { 
+                String emailSeguido = resultSet.getString("email");
+                emailSeguidos.add(emailSeguido);
             }
             
             resultSet.close();
@@ -99,7 +99,7 @@ public class SeguidorDeDB {
         } catch (SQLException ex) {
             System.err.println(ex.toString());
         }
-        return emailSeguidores;
+        return emailSeguidos;
     }
     
     public static boolean verSiLeSigo(String miEmail, String emailUsuario) {

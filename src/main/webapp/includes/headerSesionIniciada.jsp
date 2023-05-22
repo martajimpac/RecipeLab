@@ -27,7 +27,7 @@ String emailHeader = usuarioSesionHeader.getEmail();%>
                 <ul class="submenu">
                     <li><a href="VerUsuarioServlet?email=<%= emailHeader %>">Ver mi perfil</a></li>
                     <li><a href="cambiarContraseña.jsp">Cambiar contraseña</a></li>
-                    <li><a href="index.jsp" id="cerrar-sesion">Cerrar sesión</a></li>
+                    <li><a href="Logout" id="cerrar-sesion">Cerrar sesión</a></li>
                 </ul>
             </li> 
             <li>

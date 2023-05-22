@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="Modelo.Receta"%>
+<%@page import="Datos.UsuarioDB"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,16 +46,15 @@
         for(int i=0; i<novedades.size();i++){
             Receta r = novedades.get(i); 
             int id = r.getId();
-            System.out.println(r);
-            System.out.println(r.getNombre());
+            Usuario usuarioReceta = UsuarioDB.obtieneUsuario(r.getEmailUsuario());
     %>
 
     <div class="div-usuario">
-        <a href="perfil.jsp">
-            <img src="images/perfil.jpg" alt="Descripción de la imagen">
+        <a href="VerUsuarioServlet?email=<%= usuarioReceta.getEmail() %>">
+            <img src="<%=usuarioReceta.getAvatarUrl()%>" alt="Descripción de la imagen">
         </a>
-        <a href="perfil.jsp">
-            <h4>Nombre del usuario</h4>
+        <a href="VerUsuarioServlet?email=<%= usuarioReceta.getEmail() %>">
+            <h4><%=usuarioReceta.getNombreUsuario()%></h4>
         </a>
     </div>
 
@@ -75,7 +75,12 @@
                     </div>
                     <div class="item">
                         <img src="./images/reloj.png" alt="duracion">
-                        <p> <%=r.getDuracionEnSec() %> </p>
+                        <%  int segundos = r.getDuracionEnSec();
+                            int hor=segundos/3600;
+                            int min=(segundos-(3600*hor))/60;
+                            String tiempo = hor+"h "+min+"m ";
+                        %>
+                        <p> <%=tiempo %> </p>
                     </div>
                     <div class="item">
                         <strong> <%=r.getPrecio() %>€ </strong>

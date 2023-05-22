@@ -58,9 +58,7 @@ public class BuscadorServlet extends HttpServlet {
             nextStep = "/resultadosPersonas.jsp";
             //recuperar los datos
             try{
-                                System.out.println("SERVLET: listaperdonas");
                 lista = UsuarioDB.buscaUsuarios(texto);
-                                System.out.println("SERVLET: listaperdonas"+lista);
             }catch(Exception e){
                 System.out.println(e);
             }
