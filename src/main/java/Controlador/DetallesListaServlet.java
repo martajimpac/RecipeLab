@@ -48,7 +48,7 @@ public class DetallesListaServlet extends HttpServlet {
             //Obtener sesion de usuario identificado
             HttpSession session = request.getSession();
  
-            lista = ListaDB.getRecetasBusqueda(request.getParameter("nombreLista"), request.getParameter("busqueda"));
+            //lista = ListaDB.getRecetasBusqueda(request.getParameter("nombreLista"), request.getParameter("busqueda"));
         }catch(Exception e){
             System.out.println(e);
         }
