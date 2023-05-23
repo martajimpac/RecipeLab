@@ -131,7 +131,7 @@
   
   <div class="row">
     <div class="col">
-      <%if(comentarios != null){%>
+      <%if (comentarios != null){%>
       <label id="comentarios">Comentarios</label>
       <% for(int i = 0; i < comentarios.size(); i++){ %>
       <div class="card">
@@ -143,10 +143,27 @@
               <img class="img fotoPerfil" src="<%=usuariosComentarios.get(i).getAvatarUrl()%>" />
             </div>
             <div class="col comentario">
-              <label><%=comentarios.get(i).getTexto()%></label>
+              <label id="label-comentario"><%=comentarios.get(i).getTexto()%></label>
             </div>
           </div>
+              <% if (comentarios.get(i).getRespuesta() != null &&  comentarios.get(i).getRespuesta().length() > 0){%>
+            <div class="col-respuesta">
+                <div class="card">
+                    <div class="card-body cuerpo-comentario">
+                        <div class="row">
+                            <div class="col-1">
+                                <img class="img fotoPerfil" src="<%=usuarioReceta.getAvatarUrl()%>"/>
+                            </div>
+                            <div class="col respuesta">
+                            <label><%=comentarios.get(i).getRespuesta()%></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%} else {%>
           <button type="button" class="btn btn-light boton-responder" >Responder</button>
+          <%}%>
         </div>
       </div>
       <%}%>
@@ -163,6 +180,6 @@
 <%@ include file="/includes/footer.html" %>
 
 
-<script src="js/comentariosReceta.js" type="text/javascript"></script>
+<script src="js/respuestasReceta.js" type="text/javascript"></script>
 </body>
 </html>

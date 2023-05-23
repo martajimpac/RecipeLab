@@ -655,7 +655,9 @@ footer {
     width:20px;
 }
 
-
+.col-respuesta {
+    margin-left: 9%;
+}
 
 #comentarios {
     font-size: 15pt;

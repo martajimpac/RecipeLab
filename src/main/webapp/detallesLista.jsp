@@ -142,7 +142,7 @@
                     </div>
                 </div>
                 <form id="verReceta" action="VerRecetaServlet?id=<%=r.getId()%>" method="POST"></form>
-                <a href="#" onclick="document.getElementById('verReceta').submit();">
+                <a href="#" onclick="$(this).parent().find('#verReceta').submit();">
                     <img src="<%=imagen%>" class="card-img-top" alt="imagen_receta">
                 </a>
                 <div class="card-body">

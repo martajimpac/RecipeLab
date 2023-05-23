@@ -50,26 +50,39 @@ public class InsertaComentarioServlet extends HttpServlet {
 
         Gson gson = new Gson( );
         List<String> data = new ArrayList<>( );
-        String idReceta = request.getParameter("id");
-        String texto = request.getParameter("com");
-        String comentario = request.getParameter("resp");
-        String fecha = request.getParameter("fecha");
-        String email = request.getParameter("email");
+        
         HttpSession sesion = request.getSession(true);
         Usuario user = (Usuario) sesion.getAttribute("usuario");
+        
+        String idReceta = request.getParameter("id");
+        String texto = request.getParameter("com");
+        String email = request.getParameter("email");
+        String respuesta;
+        Date date = new Date();
+        if(!email.equals("")){
+            respuesta = request.getParameter("resp");
+            String fecha = request.getParameter("fecha");
+            DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                date = formatter.parse(fecha);
+            }catch(ParseException e){
+                System.out.println("hola");
+            }
+            data.add(respuesta);
+        } else {
+            respuesta = "";
+            email = user.getEmail();
+            data.add(texto);
+        }
+        
+        
         data.add(user.getNombreUsuario());
         data.add(user.getAvatarUrl());
-        data.add(comentario);
+        
         
         //insertar comentario en id, falta id receta y id hilo?
-        DateFormat formatter = new SimpleDateFormat("d-MMM-yyyy,HH:mm:ss aaa");
-        Date date = null;
-        try {
-            date = formatter.parse(fecha);
-        }catch(ParseException e){
-            
-        }
-        Comentario coment = new Comentario(email,Integer.valueOf(idReceta),0,texto,true,date,comentario);
+        
+        Comentario coment = new Comentario(email,Integer.valueOf(idReceta),0,texto,true,date,respuesta);
         ComentarioDB.insertaComentario(coment);
 
         response.setContentType( "application/json");

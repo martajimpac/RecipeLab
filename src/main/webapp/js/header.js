@@ -4,7 +4,7 @@
  */
 
 $(document).ready(function(){
-    console.log("hola");
+
     $.getJSON("ObtenerComentarios",function(data){
         data.forEach(function(e){
             if(e.respuesta === "")$('.submenu-comentarios').append('<li><a href="VerRecetaServlet?id=' + e.idReceta + '"> Comentario nuevo: <br>'+ e.texto +'</a></li>');

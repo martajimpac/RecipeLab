@@ -4,6 +4,8 @@
     Author     : marta
 --%>
 
+<%@page import="Modelo.Comentario"%>
+<%@page import="java.util.List"%>
 <%@page import="Modelo.Receta"%>
 <%@page import="Modelo.PasosReceta"%>
 <%@page import="Modelo.DetallesReceta"%>
@@ -43,9 +45,12 @@
                Usuario usuarioReceta = (Usuario)request.getAttribute("usuarioReceta");
                ArrayList<DetallesReceta> ingredientes = (ArrayList<DetallesReceta>)request.getAttribute("ingredientes");
                ArrayList<PasosReceta> pasos = (ArrayList<PasosReceta>)request.getAttribute("pasos");
+               List<Comentario> comentarios = (List<Comentario>)request.getAttribute("comentarios");
+               List<Usuario> usuariosComentarios = (List<Usuario>)request.getAttribute("usuariosComentarios");
             if (receta != null){ %>
             <div class="row">
                 <div class="col">
+                    <label class="receta-id" hidden><%=receta.getId()%></label>
                     <label id="titulo"><%= receta.getNombre() %></label>
                 </div>
                 <div class="col">
@@ -142,21 +147,38 @@
     <div class="row">
         <div class="col">
             <label id="comentarios">Comentarios</label>
-            <div class="card">
+            <div class="card card-comentar">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-1">
                             <a href="perfil.jsp">
-                                <img class="img fotoPerfil" src="images/perfil.jpg" />
+                                <img class="img fotoPerfil" src="<%=usuario.getAvatarUrl()%>" />
                             </a>
                         </div>
                         <div class="col">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Comentario..." rows="3"></textarea>
+                            <textarea class="form-control" id="texto-comentario" placeholder="Comentario..." rows="3"></textarea>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-light">Comentar</button>
+                    <button type="button" class="btn btn-light boton-comentar">Comentar</button>
                 </div>
             </div>
+        
+      <%if(comentarios != null){%>
+      <% for(int i = 0; i < comentarios.size(); i++){ %>
+      <div class="card">
+        <div class="card-body cuerpo-comentario">
+          <div class="row">
+            <div class="col-1">
+              <img class="img fotoPerfil" src="<%=usuariosComentarios.get(i).getAvatarUrl()%>" />
+            </div>
+            <div class="col comentario">
+              <label><%=comentarios.get(i).getTexto()%></label>
+            </div>
+          </div>
+        </div>
+        </div>
+        <%}%>
+        <%}%>
         </div>
         <div class="col">
             <label id="valorar">Valorar</label>
@@ -181,6 +203,6 @@
 
      <%@ include file="/includes/footer.html" %>
      
-
+<script src="js/comentariosRecetas.js" type="text/javascript"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@
  */
 
 $(document).ready(function() {
+    
     $(".cuerpo-comentario").hover(function(){
         var boton = $(this).find("button");
         boton.css('display','inline-block');
@@ -28,9 +29,9 @@ $(document).ready(function() {
             $(this).text("Enviar");
         } else {
             var idReceta = $('.receta-id').text();
-            var texto = $(this).parent().find("label").text();
-            var emailCom = $('.comentario-email').text();
-            var fechaCom = $('.comentario-fecha').text();
+            var texto = $(this).parent().find("#label-comentario").text();
+            var emailCom = $(this).parent().find('.comentario-email').text();
+            var fechaCom = $(this).parent().find('.comentario-fecha').text();
             var textArea = $(this).parent().find("textarea");
             var respuesta = textArea.val();
             var div = textArea.parent();
@@ -46,10 +47,10 @@ $(document).ready(function() {
                             <div class="card-body cuerpo-comentario">\n\
                             <div class="row">\n\
                             <div class="col-1">\n\
-                            <img class="img fotoPerfil" src="' + data[1] + '"/>\n\
+                            <img class="img fotoPerfil" src="' + data[2] + '"/>\n\
                             </div>\n\
                             <div class="col respuesta">\n\
-                            <label>' + data[2] + '</label>\n\
+                            <label>' + data[0] + '</label>\n\
                             </div>\n\
                             </div>\n\
                             </div>\n\
