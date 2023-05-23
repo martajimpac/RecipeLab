@@ -127,7 +127,7 @@ public class ListaDB {
         Connection connection = pool.getConnection();
         
         if(!descripcionLista.isEmpty()){
-            String query = "UPDATE listarecetas SET descripcion = ?, fechaModificacion = ? WHERE nombre = ? AND emailUsuario = ?";
+            String query = "UPDATE listarecetas SET descripcion = ?, fechaModificacion = ?, nombre = ? WHERE nombre = ? AND emailUsuario = ?";
             
             try {
                 /*crear la consulta dinamica
@@ -136,8 +136,10 @@ public class ListaDB {
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setString(1, descripcionLista);
                 statement.setString(2, LocalDate.now().toString());
-                statement.setString(3, viejoNombre);
-                statement.setString(4, email);
+                statement.setString(3, nombreLista);
+                statement.setString(4, viejoNombre);
+
+                statement.setString(5, email);
                 statement.executeUpdate();
                 
             } catch (Exception e) {}
