@@ -76,6 +76,15 @@
                 <label for="personasForm" class="form-label">Número de personas</label>
                 <input type="number" class="form-control" id="personasForm" name="numPersonas">
           </div>
+            <br>
+            <select class="form-select" aria-label="Default select example" id="selectCategoria" name="categoria">
+               <option selected hidden>Selecciona la categoria</option>
+               <option value="desayuno">Desayuno</option>
+               <option value="comida">Comida</option>
+               <option value="cena">Cena</option>
+               <option value="snack">Snack</option>
+               <option value="postre">Postre</option>
+             </select>
 
         </div>
         <div class="col-3">
@@ -84,8 +93,7 @@
             <option value="facil">Facil</option>
             <option value="media">Media</option>
             <option value="dificil">Dificil</option>
-          </select>
-            
+          </select>            
         </div>
       </div>
       <div class="form-inline" id="pasos">

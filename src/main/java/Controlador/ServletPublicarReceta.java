@@ -120,6 +120,7 @@ public class ServletPublicarReceta extends HttpServlet {
         
         String numPersonas = request.getParameter("numPersonas");
         String dificultad = request.getParameter("dificultad");
+        String categoria = request.getParameter("categoria");
         
         ArrayList<String> pasos = new ArrayList<>();
         for(int i = 1; ; i++){
@@ -134,7 +135,7 @@ public class ServletPublicarReceta extends HttpServlet {
         String email = user.getEmail();
         
         //TODO  jsp obtener si comentarios,precio,categoria
-        Receta receta = new Receta(RecetaDB.creaId(),email, nombre,Integer.valueOf(numPersonas),dificultad,duracionEnSec,0, true, 0, imagen.getInputStream().readAllBytes(), Categoria.postre.toString());
+        Receta receta = new Receta(RecetaDB.creaId(),email, nombre,Integer.valueOf(numPersonas),dificultad,duracionEnSec,0, true, 0, imagen.getInputStream().readAllBytes(), categoria);
         receta.setPasos(pasos);
         //receta.setIngredientes(nombresIngr,cantidadesIngr);
         RecetaDB.insertaReceta(receta);
