@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controlador;
 
 import Datos.UsuarioDB;
@@ -12,21 +8,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Properties;
-//import javax.mail.*;
-//import javax.mail.internet.*;
+/*import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.*;*/
 import javax.servlet.RequestDispatcher;
 
 /**
- *
  * @author teresa
  */
 @WebServlet(name = "OlvidoContrasena", urlPatterns = {"/OlvidoContrasena"})
 public class OlvidoContrasena extends HttpServlet {
     
-    // Se debe poner uno que exista pero google ahora bloquea el envío
-    // de correos desde aplicaciones no seguras
-    private final String emailFrom = "example@example.com";
+    /*
+     * Toda la parte relativa al envio de correos esta comentada debido a que
+     * google ya no permite habilitar receptores no seguros.
+     * Ver la consola de "Apache Tomcat or TomEE" o revisar el campo 
+     * "codigoRecuperacion" de la tabla "usuario" en la base de datos
+     * para obtener el codigo generado
+    */
+    
+    // Se debe poner uno que exista 
+    //private final String emailFrom = "example@example.com";
     
     protected void processRequest(
         HttpServletRequest request, 
@@ -40,14 +42,9 @@ public class OlvidoContrasena extends HttpServlet {
         Usuario usuario = UsuarioDB.obtieneUsuario(email);
         if (usuario != null) {
             String codigoRecuperacion = UsuarioDB.generaCodigoRecuperacionConstrasena(email);
-            
-            // Para tener mas visibilidad del codigo generado
             System.out.println("Código de recuperación: " + codigoRecuperacion);
             
-            /*
-            try {
-                
-                
+            /*try {
                 // 1 - get a mail session
                 Properties props = new Properties();
                 props.put("mail.smtp.host", "localhost");
@@ -70,8 +67,7 @@ public class OlvidoContrasena extends HttpServlet {
                 
             } catch (MessagingException e) {
                 System.err.println(e.toString());
-            }
-            */
+            }*/
         }
         
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);
