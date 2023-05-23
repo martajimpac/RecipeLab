@@ -108,13 +108,14 @@ public class UsuarioDB {
         Connection connection = pool.getConnection();
         PreparedStatement preparedStatement;
         
-        String query = "INSERT INTO usuario(nombreUsuario, contraseña, email) VALUES (?, ?, ?)";
+        String query = "INSERT INTO usuario(nombreUsuario, contraseña, email, rolUsuario) VALUES (?, ?, ?, ?)";
         
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, usuario.getNombreUsuario());
             preparedStatement.setString(2, usuario.getContraseña());
             preparedStatement.setString(3, usuario.getEmail());
+            preparedStatement.setString(4, usuario.getRolUsuario().name());
             //preparedStatement.setBlob(10,new SerialBlob(usuario.getAvatar()));
             preparedStatement.executeUpdate();
             
