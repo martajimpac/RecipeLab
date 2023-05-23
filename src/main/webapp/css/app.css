@@ -310,7 +310,7 @@ footer {
 
 .banner img{
     border-radius: 5px;
-    overflow: hidden;
+    max-height: 400px;
 }
 
 /*Valaración con estrellas*/

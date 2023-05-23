@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : buscador
     Created on : 17 abr 2023, 22:25:26
     Author     : marta
@@ -18,7 +18,7 @@
 
     <form class="buscador" method="POST" action="BuscadorServlet"> <!--Llamar aqui al servlet -->
         <input type="text" name="form-texto" placeholder="Buscar...">
-        <select class="botonDesplegable" name="tipo-busqueda">
+        <select class="botonDesplegable" name="tipo-busqueda" id="tipo-busqueda">
             <option value="recetas"> Recetas </option>
             <option value="personas"> Personas </option>
         </select>
@@ -103,11 +103,11 @@
     <!-- Slider                                                                                                            -->
     <!-- ***************************************************************************************************************** -->
     <p class="display-6">Recomendaciones</p>
-   
+
 
     <div id="carousel" class="carousel slide">
         <div class="carousel-inner">
-          
+
 <%   ArrayList<Receta> recomendaciones = new ArrayList<>();
         //recuperar los datos
         try{
@@ -115,10 +115,10 @@
         }catch(Exception e){
             System.out.println(e);
         }
-        
+
         Iterator<Receta> iter;
 
-        //eliminar de la lista los elementos que no cumplan la condicion  
+        //eliminar de la lista los elementos que no cumplan la condicion
         iter = recomendaciones.iterator();
         while (iter.hasNext()) {
             Receta receta = iter.next();
@@ -128,7 +128,7 @@
                 iter.remove();
             }
         }
-        
+
         //Elejimos tres recetas aleatoriamente
         ArrayList<Receta> recetasAleatorias = new ArrayList<>();
         Random random = new Random();
@@ -140,19 +140,19 @@
             Receta recetaSeleccionada = recomendaciones.get(indiceAleatorio);
             recetasAleatorias.add(recetaSeleccionada);
             recomendaciones.remove(indiceAleatorio);
-        } 
-        
+        }
+
     String carouselclass = null;
     if(recomendaciones!=null){
         for(int i=0; i<recetasAleatorias.size();i++){
-            Receta r = recetasAleatorias.get(i); 
+            Receta r = recetasAleatorias.get(i);
             int id = r.getId();
-            if(i == 0){ 
+            if(i == 0){
                 carouselclass = "carousel-item active";
-              
+
             }else{
                 carouselclass = "carousel-item";
-            }   
+            }
      %>
             <div class= "<%=carouselclass %>" >
                 <a href="VerRecetaServlet?id=<%= id %>">
@@ -162,7 +162,7 @@
                         <div class="info-receta">
                             <div class="item">
                                 <% for(int estrellas=0; estrellas<r.getValoracionMedia(); estrellas++){ %>
-                                     <img src="./images/estrella.png" alt="valoracion"> 
+                                     <img src="./images/estrella.png" alt="valoracion">
                                 <%} %>
                             </div>
                             <div class="item">
@@ -193,7 +193,7 @@
             </div>
 <%      } //del for
     }else{//del if %>
-    
+
         <div class="carousel-item active">
             <a href="receta.jsp">
                 <img src="./images/slider1.jpg" class="d-block w-100" alt="slider1">
@@ -211,4 +211,4 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    
+
