@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Properties;
-import javax.mail.*;
-import javax.mail.internet.*;
+//import javax.mail.*;
+//import javax.mail.internet.*;
 import javax.servlet.RequestDispatcher;
 
 /**
@@ -44,7 +44,10 @@ public class OlvidoContrasena extends HttpServlet {
             // Para tener mas visibilidad del codigo generado
             System.out.println("Código de recuperación: " + codigoRecuperacion);
             
+            /*
             try {
+                
+                
                 // 1 - get a mail session
                 Properties props = new Properties();
                 props.put("mail.smtp.host", "localhost");
@@ -63,9 +66,12 @@ public class OlvidoContrasena extends HttpServlet {
                 
                 // 4 - send the message
                 Transport.send(message);
+                
+                
             } catch (MessagingException e) {
                 System.err.println(e.toString());
             }
+            */
         }
         
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(url);

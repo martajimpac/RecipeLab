@@ -69,7 +69,7 @@
     <div id="ventanaAnadir" class="modal">
         <form class="buscador" method="POST" action="EditarListaServlet?viejoNombre=<%=nombreLista%>">
             <div class="modal-content">
-              <label>Nombre receta:</label>
+              <label>Nombre lista:</label>
               <input type="text" name="nombreLista" placeholder="<%=nombreLista%>">
               <label>Descripcion:</label>
               <input type="text" name="descripcionLista" placeholder="<%=descripcionLista%>">
