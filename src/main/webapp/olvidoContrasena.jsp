@@ -1,9 +1,3 @@
-<%-- 
-    Document   : olvidoContraseña
-    Created on : 17 abr 2023, 2:03:02
-    Author     : marta
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -12,7 +6,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 -->
 <html>
     <head>
-        <title>Recordar contraseña</title>
+        <title>He olvidado mi contraseña</title>
         <link rel="icon" type="image/png" href="images/logoPestanna.png" />
         
         <meta charset="UTF-8">
@@ -22,21 +16,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <LINK rel="stylesheet" type="text/css" href="css/app.css" />
     </head>
     <body>
-
     <%@ include file="/includes/header.html" %>
-
-        
+    
+        <% String error = (String)request.getAttribute("error"); %>
         <div class="container-sm contenido">
-            
-            
-            
             <div class="inicioSesion">
-                <form method="POST" action="login.jsp">
+                <p>Introduzca su email para recuperar la contraseña</p>
+                <form method="POST" action="OlvidoContrasena">
                     <input type="text" id="email" name="email" placeholder="Correo electrónico" required>
                     <input type="submit" value="Enviar">
                 </form>
                 
                 <a href="login.jsp">Volver a login </a>
+                
+                 <p>
+                    <%if (error != null) {%>
+                        <i><%=error%></i>
+                    <%}%>
+                </p> 
             </div>
         </div>
     

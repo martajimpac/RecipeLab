@@ -86,6 +86,7 @@ public class UsuarioDB {
                 usuario.setEsPrivado(resultSet.getBoolean("esPrivado"));
                 usuario.setValoracion(resultSet.getDouble("valoracion"));
                 usuario.setAvatar(resultSet.getBytes("AVATAR"));
+                usuario.setCodigoRecuperacion(resultSet.getString("codigoRecuperacion"));
             }
             
             resultSet.close();
@@ -154,8 +155,65 @@ public class UsuarioDB {
             preparedStatement.setString(2,usuario.getEmail());
             
             preparedStatement.executeUpdate(); 
+            
+            preparedStatement.close();
         } catch (SQLException ex) {
             Logger.getLogger(RecetaDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        pool.freeConnection(connection);
     } 
+    
+    public static String generaCodigoRecuperacionConstrasena(String email) {
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        String update = "UPDATE usuario SET codigoRecuperacion = ? WHERE email = ?";
+        String codigoRecuperacion = String.valueOf((int) (Math.random() * 1000000));
+        
+        try {
+            preparedStatement = connection.prepareStatement(update);
+            preparedStatement.setString(1, codigoRecuperacion);
+            preparedStatement.setString(2,email);
+            
+            preparedStatement.executeUpdate();     
+            
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        
+        pool.freeConnection(connection);
+        
+        return codigoRecuperacion;
+    }
+    
+    public static boolean validaCodigo(String email, String codigo) {
+        Conexion pool = Conexion.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement preparedStatement;
+        String update = "UPDATE usuario SET codigoRecuperacion = null WHERE email = ?";
+        
+        Usuario usuario = UsuarioDB.obtieneUsuario(email);
+        String codigoRecuperacion = "";
+        
+        if (usuario != null) {
+            codigoRecuperacion = usuario.getCodigoRecuperacion();
+            try {
+                preparedStatement = connection.prepareStatement(update);
+                preparedStatement.setString(1, email);
+                preparedStatement.executeUpdate();
+                
+                preparedStatement.close();
+            } catch (SQLException ex) {
+                System.err.println(ex.toString());
+            }
+        }
+        
+        pool.freeConnection(connection);
+        
+        return  codigoRecuperacion != null && codigo != null
+                && !codigoRecuperacion.isEmpty() && !codigoRecuperacion.isBlank()
+                && codigoRecuperacion.equals(codigo); 
+    }
 }

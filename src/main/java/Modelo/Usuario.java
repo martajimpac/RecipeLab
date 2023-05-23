@@ -16,6 +16,7 @@ public class Usuario {
     private byte[] avatar;
     private boolean esPrivado;
     private double valoracion;
+    private String codigoRecuperacion;
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -75,5 +76,13 @@ public class Usuario {
     
     public String getAvatarUrl(){
         return Encoder.fromByteArrayToUrl(avatar);
+    }
+    
+    public String getCodigoRecuperacion() {
+        return codigoRecuperacion;
+    }
+
+    public void setCodigoRecuperacion(String codigoRecuperacion) {
+        this.codigoRecuperacion = codigoRecuperacion;
     }
 }
