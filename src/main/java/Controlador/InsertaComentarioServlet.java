@@ -82,7 +82,7 @@ public class InsertaComentarioServlet extends HttpServlet {
         
         //insertar comentario en id, falta id receta y id hilo?
         
-        Comentario coment = new Comentario(email,Integer.valueOf(idReceta),0,texto,true,date,respuesta);
+        Comentario coment = new Comentario(email,Integer.valueOf(idReceta),0,texto,false,date,respuesta);
         ComentarioDB.insertaComentario(coment);
 
         response.setContentType( "application/json");

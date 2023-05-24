@@ -25,7 +25,7 @@ $(document).ready(function(){
                             <img class="img fotoPerfil" src="' + data[2] + '" />\n\
                             </div>\n\
                             <div class="col comentario">\n\
-                            <label><' + data[0] + '></label>\n\
+                            <label>' + data[0] + '</label>\n\
                             </div>\n\
                             </div>\n\
                             </div>\n\
